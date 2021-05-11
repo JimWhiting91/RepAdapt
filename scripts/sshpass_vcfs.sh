@@ -11,9 +11,16 @@ echo "Starting $species VCF"
 sshpass -p "$clem_ps" rsync -azpP clementrougeux@10.13.72.139:/Volumes/RepAdapt_3_CR/04_genotypes/$species/03*/*concat* $species/
 done
 
+# sshpass from volume 2
+for species in $(ls -d *)
+do
+echo "Starting $species VCF"
+sshpass -p "$clem_ps" rsync -azpP clementrougeux@10.13.72.139:/Volumes/RepAdapt_4_CR/04_genotypes_II/$species/03*/*concat* $species/
+done
+
 # sshpass for reference genomes
 
-for species in $(ls -d * | grep -v "A.")
+for species in $(ls -d *)
 do
 echo "Starting $species Genome"
 sshpass -p "$clem_ps" rsync --exclude intervals/ -azpP clementrougeux@10.13.72.139:/Volumes/RepAdapt_4_CR/05_references/00_references/${species}/* ./${species}/

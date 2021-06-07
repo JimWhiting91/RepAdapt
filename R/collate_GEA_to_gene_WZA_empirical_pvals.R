@@ -9,21 +9,21 @@ dummy <- suppressPackageStartupMessages(lapply(lib,function(x){
   }
 }))
 
-# Read the VCF in from the command line
-args <- commandArgs(TRUE)
-vcf_path <- as.character(args[1])
-metadata_path <- as.character(args[2])
-n_cores <- as.integer(args[3])
-gff_path <- as.character(args[4])
-TC_threshold <- as.numeric(args[5])
+# # Read the VCF in from the command line
+# args <- commandArgs(TRUE)
+# vcf_path <- as.character(args[1])
+# metadata_path <- as.character(args[2])
+# n_cores <- as.integer(args[3])
+# gff_path <- as.character(args[4])
+# TC_threshold <- as.numeric(args[5])
 
-# # For setting up purposes
-# vcf_path <- "/lu213/james.whiting/RepAdapt/data/VCFs/01_Alyrata_Willi_wgs/Alyrl_full_concatened.vcf.gz"
-# gff_path <- "data/reference_genomes/A.lyrata_reference/Alyr_v.1.0_genomic.gff"
-# metadata_path <- "metadata/sample_species_vcf_author_map_v2_210519.csv"
-# TC_threshold <- 0.99
-# 
-# n_cores <- 19
+# For setting up purposes
+vcf_path <- "/lu213/james.whiting/RepAdapt/data/VCFs/09_Atuberculatus_Wright/Atuberculatus_full_concatened.vcf.gz"
+gff_path <- "data/reference_genomes/A.tuberculatus_reference/Amaranthus_tuberculatus_annos1-cds1-id_typename-nu1-upa1-add_chr0.gid54057_CHR_MATCHED.gff"
+metadata_path <- "metadata/sample_species_vcf_author_map_v2_210519.csv"
+TC_threshold <- 0.99
+
+n_cores <- 19
 
 ################################################
 # Function library
@@ -254,7 +254,7 @@ mclapply(GEA_res,function(res){
   colnames(GEA)[colnames(GEA) == "snp"] <- "snp_id"
   
   # Announce
-  message(paste0("Calculating WZA for ",GEA$climate_var[1]," for ",results_dir))
+  message(paste0("Calculating WZA with empirical Pvals for ",GEA$climate_var[1]," for ",results_dir))
   
   # # Clean SNP col if we have to
   # if(){
@@ -272,104 +272,120 @@ mclapply(GEA_res,function(res){
   
   # Filter away SNPs with NA pvals, or pvals=1
   GEA_merge <- GEA_merge[!(is.na(GEA_merge$p)),]
-  GEA_merge[GEA_merge$p == 1, "p"] <- ifelse(max(GEA_merge[GEA_merge$p != 1,"p"]) < 0.99 ,0.99,max(GEA_merge[GEA_merge$p != 1,"p"]))
   
-  # Convert one-sided p-values to Z-scores
-  GEA_merge$z <- qnorm(GEA_merge$p , lower.tail = F)
+  # Loop over full and downsampled sets:
+  downsamples <- c(nrow(GEA_merge),round(nrow(GEA_merge)*0.5),round(nrow(GEA_merge)*0.1))
+  downsamples_labs <- c("full","half","tenth")
   
-  ## Calculate the numerator of the Weighted-Z score
-  weiZ_num <- tapply(GEA_merge$pbar_qbar * GEA_merge$z, GEA_merge$gene_id, sum )
-  
-  ## Calculate the denominator of the Weighted-Z score
-  weiZ_den <- sqrt(tapply( GEA_merge$pbar_qbar^2, GEA_merge$gene_id, sum ))
-  
-  ## Bring data together into a new DF
-  Z_df <- data.frame(gene_id = names(weiZ_num), weiZ = weiZ_num/weiZ_den)
-  
-  ## Label the DF with climate variable
-  Z_df$climate_var <- unique(GEA_merge$climate_var)
-  
-  # Save the results
-  write.table(Z_df,
-              paste0(results_dir,"/",unique(GEA_merge$climate_var),"_WZA_pergene.tsv"),
-              row.names = F,quote = F,sep = "\t")
-  
-  #########################################################################################################################
-  #### TC approach #####
-  
-  # Announce
-  message(paste0("Calculating TC for ",GEA$climate_var[1]," for ",results_dir))
-  
-  # Now we calculate Top Candidate outliers
-  # For all genes, we want the number of outliers above the 
-  TC_genes <- data.frame(table(GEA_merge$gene_id))
-  colnames(TC_genes)[1] <- "gene_id"
-  
-  # Count outlier
-  outlier_counts <- data.frame(table(GEA_merge[abs(GEA_merge$tau.corr) >= quantile(abs(GEA_merge$tau.corr),TC_threshold),"gene_id"]))
-  colnames(outlier_counts)[1] <- "gene_id"
-  
-  # Merge
-  TC_merge <- merge(TC_genes,outlier_counts,by="gene_id")
-  colnames(TC_merge)[2:3] <- c("snp_count","outlier_count")
-  colnames(TC_genes)[2] <- c("snp_count")
-  TC_genes$outlier_count <- 0
-  
-  # Final merge
-  TC_merge <- rbind(TC_merge,TC_genes[!(TC_genes$gene_id %in% TC_merge$gene_id),])
-  
-  # Match up the order of both outputs
-  TC_merge <- TC_merge[match(Z_df$gene_id, TC_merge$gene_id),]
-  
-  # Calculate bionmial expectation expectation
-  p <- sum(TC_merge$outlier_count)/sum(TC_merge$snp_count)
-  
-  # Calculate the expectation
-  TC_merge$snp_exp <- qbinom(0.999,TC_merge$snp_count,p)
-  
-  # Derive outliers
-  TC_merge$TC_score <- TC_merge$outlier_count - TC_merge$snp_exp
-  
-  ## Label the DF with climate variable
-  TC_merge$climate_var <- unique(GEA_merge$climate_var)
-  
-  # Get the mean correlation per gene
-  pergene_corr <- suppressMessages(
-    data.frame(GEA_merge %>% group_by(gene_id) %>% summarise(mean_corr=mean(abs(tau.corr))))
-  )
-  TC_merge_final <- merge(TC_merge,pergene_corr,by="gene_id")
-  
-  # Save the results
-  write.table(TC_merge_final,
-              paste0(results_dir,"/",unique(TC_merge$climate_var),"_TC_pergene.tsv"),
-              row.names = F,quote = F,sep = "\t")
-  
-  #########################################################################################################################
-  ##### Summary of genes ######
-  # Here we summarise some info on the genes generally
-  # Only do it once
-  if(res == GEA_res[1]){
+  for(i in 1:length(downsamples)){
     
-    # Get gene count
-    gene_summary <- data.frame(gene_id=TC_merge$gene_id,
-                               snp_count=TC_merge$snp_count)
+    if(i != 1){
+      GEA_merge_tmp <- GEA_merge[sort(sample(1:nrow(GEA_merge),downsamples[i])),]
+    } else {
+      GEA_merge_tmp <- GEA_merge
+    }
     
-    # Get average pbar_qbar for all genes...
-    mean_pbar_qbar <- suppressMessages(
-      data.frame(GEA_merge %>% group_by(gene_id) %>% summarise(mean_pbar_qbar=mean(pbar_qbar)))
-    )
+    # Convert to empirical Pvals
+    # Adding the +1 here just to catch any dodgy cases where there is 1/1
+    GEA_merge_tmp$empirical_p <- rank(GEA_merge_tmp$p)/(nrow(GEA_merge_tmp)+1)
+    #GEA_merge_tmp[GEA_merge_tmp$p == 1, "p"] <- ifelse(max(GEA_merge_tmp[GEA_merge_tmp$p != 1,"p"]) < 0.99 ,0.99,max(GEA_merge_tmp[GEA_merge_tmp$p != 1,"p"]))
     
-    # Merge
-    gene_summary <- merge(gene_summary,mean_pbar_qbar,by="gene_id")
+    # Convert one-sided p-values to Z-scores
+    GEA_merge_tmp$z <- qnorm(GEA_merge_tmp$empirical_p , lower.tail = F)
     
-    # Save this as well
-    write.table(gene_summary,
-                paste0(results_dir,"/GEA_snpstats_pergene.tsv"),
+    ## Calculate the numerator of the Weighted-Z score
+    weiZ_num <- tapply(GEA_merge_tmp$pbar_qbar * GEA_merge_tmp$z, GEA_merge_tmp$gene_id, sum )
+    
+    ## Calculate the denominator of the Weighted-Z score
+    weiZ_den <- sqrt(tapply( GEA_merge_tmp$pbar_qbar^2, GEA_merge_tmp$gene_id, sum ))
+    
+    ## Bring data together into a new DF
+    Z_df <- data.frame(gene_id = names(weiZ_num), weiZ = weiZ_num/weiZ_den)
+    
+    ## Label the DF with climate variable
+    Z_df$climate_var <- unique(GEA_merge_tmp$climate_var)
+    
+    # Save the results
+    write.table(Z_df,
+                paste0(results_dir,"/",unique(GEA_merge_tmp$climate_var),"_WZA_empiricalp_",downsamples_labs[i],"_pergene.tsv"),
                 row.names = F,quote = F,sep = "\t")
-    
   }
-  
-},mc.cores=n_cores)
+    #########################################################################################################################
+    #### TC approach #####
+    
+    # # Announce
+    # message(paste0("Calculating TC for ",GEA$climate_var[1]," for ",results_dir))
+    # 
+    # # Now we calculate Top Candidate outliers
+    # # For all genes, we want the number of outliers above the 
+    # TC_genes <- data.frame(table(GEA_merge$gene_id))
+    # colnames(TC_genes)[1] <- "gene_id"
+    # 
+    # # Count outlier
+    # outlier_counts <- data.frame(table(GEA_merge[abs(GEA_merge$tau.corr) >= quantile(abs(GEA_merge$tau.corr),TC_threshold),"gene_id"]))
+    # colnames(outlier_counts)[1] <- "gene_id"
+    # 
+    # # Merge
+    # TC_merge <- merge(TC_genes,outlier_counts,by="gene_id")
+    # colnames(TC_merge)[2:3] <- c("snp_count","outlier_count")
+    # colnames(TC_genes)[2] <- c("snp_count")
+    # TC_genes$outlier_count <- 0
+    # 
+    # # Final merge
+    # TC_merge <- rbind(TC_merge,TC_genes[!(TC_genes$gene_id %in% TC_merge$gene_id),])
+    # 
+    # # Match up the order of both outputs
+    # TC_merge <- TC_merge[match(Z_df$gene_id, TC_merge$gene_id),]
+    # 
+    # # Calculate bionmial expectation expectation
+    # p <- sum(TC_merge$outlier_count)/sum(TC_merge$snp_count)
+    # 
+    # # Calculate the expectation
+    # TC_merge$snp_exp <- qbinom(0.999,TC_merge$snp_count,p)
+    # 
+    # # Derive outliers
+    # TC_merge$TC_score <- TC_merge$outlier_count - TC_merge$snp_exp
+    # 
+    # ## Label the DF with climate variable
+    # TC_merge$climate_var <- unique(GEA_merge$climate_var)
+    # 
+    # # Get the mean correlation per gene
+    # pergene_corr <- suppressMessages(
+    #   data.frame(GEA_merge %>% group_by(gene_id) %>% summarise(mean_corr=mean(abs(tau.corr))))
+    # )
+    # TC_merge_final <- merge(TC_merge,pergene_corr,by="gene_id")
+    # 
+    # # Save the results
+    # write.table(TC_merge_final,
+    #             paste0(results_dir,"/",unique(TC_merge$climate_var),"_TC_pergene.tsv"),
+    #             row.names = F,quote = F,sep = "\t")
+    # 
+    #########################################################################################################################
+    ##### Summary of genes ######
+    # Here we summarise some info on the genes generally
+    # Only do it once
+    # if(res == GEA_res[1]){
+    #   
+    #   # Get gene count
+    #   gene_summary <- data.frame(gene_id=TC_merge$gene_id,
+    #                              snp_count=TC_merge$snp_count)
+    #   
+    #   # Get average pbar_qbar for all genes...
+    #   mean_pbar_qbar <- suppressMessages(
+    #     data.frame(GEA_merge %>% group_by(gene_id) %>% summarise(mean_pbar_qbar=mean(pbar_qbar)))
+    #   )
+    #   
+    #   # Merge
+    #   gene_summary <- merge(gene_summary,mean_pbar_qbar,by="gene_id")
+    #   
+    #   # Save this as well
+    #   write.table(gene_summary,
+    #               paste0(results_dir,"/GEA_snpstats_pergene.tsv"),
+    #               row.names = F,quote = F,sep = "\t")
+    #   
+    # }
+    
+  },mc.cores=n_cores)
 
 # End species code loop
 #}

@@ -39,11 +39,12 @@ snp_downsample <- as.integer(args[4])
 
 ################################################################################################
 
-# # For setting up purposes
-# vcf_path <- "/lu213/james.whiting/RepAdapt/data/VCFs/01_Alyrata_Willi_wgs/Alyrl_full_concatened.vcf.gz"
-# metadata_path <- "metadata/sample_species_vcf_author_map_v2_210519.csv"
-# n_cores <- 16
-# snp_downsample <- 10000
+# For setting up purposes
+vcf_path <- "/lu213/james.whiting/RepAdapt/data/VCFs/02_Alyrata_Willi_pool/Alyr_full_concatened.vcf.gz"
+metadata_path <- "metadata/sample_species_vcf_author_map_v2_210519.csv"
+n_cores <- 16
+snp_downsample <- 10000
+is.pool <- TRUE
 
 ################################################################################################
 # Function library
@@ -62,6 +63,7 @@ sub_meta$species_codes <- paste0("outputs/",sub_meta$Taxon_name,"_",sub_meta$Aut
 # Fetch VCF individuals and further subset...
 vcf_inds <- system(paste0("bin/bcftools query -l ",vcf_path),intern = T)
 sub_meta <- sub_meta[sub_meta$Sample_name %in% vcf_inds,]
+vcf_inds_final <- vcf_inds[vcf_inds %in% sub_meta$Sample_name]
 
 # Remove species that appear <10 times...
 species_counts <- table(sub_meta$species_codes)
@@ -72,27 +74,29 @@ species_codes <- names(species_counts[species_counts >= 10])
 # Report on this
 message(paste0("VCF contains the following species:",paste(species_codes,collapse = ",")))
 
-message("Parsing full VCF into SNPRelate")
-# Make a temp file for snpgds conversion...
-snpgds_tempfile <- tempfile(pattern = "snpgds_tmp", fileext = '.gds')
-on.exit({ unlink(snpgds_tempfile) })
+# Set up dir
+species_code <- species_codes[1]
 
-# Convert
-snpgdsVCF2GDS(vcf_path,snpgds_tempfile,method = "biallelic.only")
+# Make directory and set
+suppressWarnings(dir.create(species_code))
+workdir <- species_code
 
-# Read in
-gds_input <- snpgdsOpen(snpgds_tempfile)
+# Further subset sub_meta again
+sub_meta_species_code <- sub_meta[sub_meta$species_codes == species_code,]
+species_inds <- sub_meta_species_code$Sample_name
 
-for(species_code in species_codes){
-  #species_code <- species_codes[1]
+if(!is.pool){
+  message("VCF is WGS/Capture")
+  message("Parsing full VCF into SNPRelate")
+  # Make a temp file for snpgds conversion...
+  snpgds_tempfile <- tempfile(pattern = "snpgds_tmp", fileext = '.gds')
+  on.exit({ unlink(snpgds_tempfile) })
   
-  # Make directory and set
-  suppressWarnings(dir.create(species_code))
-  workdir <- species_code
+  # Convert
+  snpgdsVCF2GDS(vcf_path,snpgds_tempfile,method = "biallelic.only")
   
-  # Further subset sub_meta again
-  sub_meta_species_code <- sub_meta[sub_meta$species_codes == species_code,]
-  species_inds <- sub_meta_species_code$Sample_name
+  # Read in
+  gds_input <- snpgdsOpen(snpgds_tempfile)
   
   # # Filter for individuals and invariants here
   # message("Subsetting VCF for individuals and removing invariants")
@@ -142,7 +146,8 @@ for(species_code in species_codes){
     geom_point()+
     theme_minimal()+
     theme(axis.text = element_text(size=14),
-          axis.title = element_text(size=16))+
+          axis.title = element_text(size=16),
+          legend.position = "none")+
     labs(x=paste0("PC1 (",round(pca$varprop[1]*100,2),"%)"),
          y=paste0("PC2 (",round(pca$varprop[2]*100,2),"%)"))+
     ggtitle(gsub("outputs/","",species_code))
@@ -162,6 +167,34 @@ for(species_code in species_codes){
   # genotypes <- snpgdsGetGeno(gds_input, snp.id = random_unlinked)
   # genind_obj <- new.gen
   # grp <- find.clusters(x, max.n.clust=40)
+} else {
+  message("VCF is PoolSeq, using AFs")
+  
+  # Read in full AFs
+  pool_AFs <- data.frame(fread(paste0(species_code,"/pool_AFs.tsv")))
+  colnames(pool_AFs) <- c("chr","pos",vcf_inds)
+  pool_AFs <- pool_AFs[,c("chr","pos",vcf_inds_final)]
+  pool_AFs_clean <- na.omit(pool_AFs)
+  
+  # Downsample and check for no correlated AFs
+  still_correlated=TRUE
+  counter=0
+  while(still_correlated & counter < 1000){
+    
+    # Sample
+    pool_AFs_sub <- pool_AFs_clean[sort(sample(1:nrow(pool_AFs_clean),snp_downsample)),]
+
+    # Tidy
+    pool_AFs_sub[,vcf_inds_final] <- as.numeric(apply(pool_AFs_sub[,vcf_inds_final],2,gsub,pattern="%",replacement=""))
+    
+    # Build corr mat and check for no correlations
+    LD_cor <- cor(t(pool_AFs_sub[,vcf_inds_final]))^2
+    diag(LD_cor) <- NA
+    
+    # Update counter
+    counter <- counter + 1
+  }
+  
 }
 
 ##########################################################################################################################################################################################

@@ -11,7 +11,7 @@ If you use or are inspired by code in this repository please cite the following 
 Whiting et al. (20XX) *in prep* [doi_link]()
 
 ---
-
+![Global Mean Temp](./figs/repadapt_repo_fig.png?raw=true "Global Mean Temp")
 # RepAdapt
 
 The population genomics of convergent adaptation to climate across plant species. The aims of this project are to explore the repeatability of genes associated with various facets of climate adaptation, and assess the contingencies and sources of variation driving differences in repeatabilty among diverse species.

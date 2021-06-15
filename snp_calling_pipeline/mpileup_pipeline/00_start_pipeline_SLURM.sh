@@ -13,6 +13,9 @@ PIPE_DIR=$MAIN/general_scripts/snpcalling_pipeline_jw
 # Set Email for slurm reports
 EMAIL=james.whiting@ucalgary.ca
 
+# Set ComputeCanada account
+CC_ACCOUNT=def-yeaman
+
 # How many samples are there?
 FASTQ_N=$( ls $SPECIES_DIR/04_raw_data | wc -l )
 FILE_ARRAY=$(( $FASTQ_N / 2 ))
@@ -24,21 +27,24 @@ FILE_ARRAY=$(( $FASTQ_N / 2 ))
 '''
 
 # Trim
-sbatch --account=def-yeaman \
+job01=$(sbatch --account=$CC_ACCOUNT \
     --array=1-${FILE_ARRAY} \
     -D $SPECIES_DIR \
     --mail-type=ALL \
     --mail-user=$EMAIL \
-    $PIPE_DIR/01_fastp.sh
+    --parsable \
+    $PIPE_DIR/01_fastp.sh)
 
 # Index reference & Align reads to reference
 # Note - If fastq files include .1 and .2 suffixes, bwa will fail. Lines in script 02 can be commented out to handle this
-sbatch --account=def-yeaman  \
+job02=$(sbatch --account=$CC_ACCOUNT  \
     --array=1-${FILE_ARRAY} \
+    --dependency=afterok:$job01 \
     -D $SPECIES_DIR \
     --mail-type=ALL \
     --mail-user=$EMAIL \
-    $PIPE_DIR/02_bwa_alignments.sh
+    --parsable \
+    $PIPE_DIR/02_bwa_alignments.sh)
 
 '''
 ##########################
@@ -47,20 +53,23 @@ sbatch --account=def-yeaman  \
 '''
 
 # Collect sample data metrics
-sbatch --account=def-yeaman  \
+job03=$(sbatch --account=$CC_ACCOUNT  \
     --array=1-${FILE_ARRAY} \
+    --dependency=afterok:$job02 \
     -D $SPECIES_DIR \
     --mail-type=ALL \
     --mail-user=$EMAIL \
-    $PIPE_DIR/03_collect_metrics.sh
+    --parsable \
+    $PIPE_DIR/03_collect_metrics.sh)
 
 # Remove duplicates
-sbatch --account=def-yeaman  \
+job04=$(sbatch --account=$CC_ACCOUNT  \
     --array=1-${FILE_ARRAY} \
     -D $SPECIES_DIR \
     --mail-type=ALL \
     --mail-user=$EMAIL \
-    $PIPE_DIR/04_remove_duplicates.sh
+    --parsable \
+    $PIPE_DIR/04_remove_duplicates.sh)
 
 '''
 ##########################
@@ -69,20 +78,24 @@ sbatch --account=def-yeaman  \
 '''
 
 # Change bam files RG
-sbatch --account=def-yeaman  \
+job05=$(sbatch --account=$CC_ACCOUNT  \
     --array=1-${FILE_ARRAY} \
+    --dependency=afterok:$job04 \
     -D $SPECIES_DIR \
     --mail-type=ALL \
     --mail-user=$EMAIL \
-    $PIPE_DIR/05_change_RG.sh
+    --parsable \
+    $PIPE_DIR/05_change_RG.sh)
 
 # Realign around indels...
-sbatch --account=def-yeaman  \
+job06=$(sbatch --account=$CC_ACCOUNT  \
     --array=1-${FILE_ARRAY} \
+    --dependency=afterok:$job05 \
     -D $SPECIES_DIR \
     --mail-type=ALL \
     --mail-user=$EMAIL \
-    $PIPE_DIR/06_gatk_realignments.sh
+    --parsable \
+    $PIPE_DIR/06_gatk_realignments.sh)
 
 '''
 ##########################
@@ -95,7 +108,7 @@ sbatch --account=def-yeaman  \
 SCAFF_N=$(cat $SPECIES_DIR/03_genome/*fai | wc -l)
 SPLIT_N=200
 
-# Split these over 500 jobs...
+# Split these over $SPLIT_N jobs...
 cut -f1 $SPECIES_DIR/03_genome/*fai > 02_info_files/all_scafs.txt
 if [[ $SCAFF_N -gt $SPLIT_N ]]
 then
@@ -124,7 +137,7 @@ done
 ##########################
 # Call SNPs - Mpileup runs first and filtering starts based on the dependency
 export DATASET=$DATASET
-job07=$(sbatch --account=def-yeaman \
+job07=$(sbatch --account=$CC_ACCOUNT \
     --array=1-${SCAFF_ARRAY} \
     --mail-type=ALL \
     --mail-user=$EMAIL \
@@ -134,17 +147,19 @@ job07=$(sbatch --account=def-yeaman \
 
 # Filter the SNPs
 export DATASET=$DATASET
-sbatch --account=def-yeaman \
+job08=$(sbatch --account=$CC_ACCOUNT \
     --dependency=afterok:$job07 \
     --array=1-${SCAFF_ARRAY} \
     --mail-type=ALL \
     --mail-user=$EMAIL \
     --export DATASET \
-    $PIPE_DIR/08_scaffoldVCF_filtering.sh
+    --parsable \
+    $PIPE_DIR/08_scaffoldVCF_filtering.sh)
 
 # Concatenate the per-scaffold VCFs to a single VCF
 export DATASET=$DATASET
-sbatch --account=def-yeaman \
+sbatch --account=$CC_ACCOUNT \
+    --dependency=afterok:$job08 \
     --mail-type=ALL \
     --mail-user=$EMAIL \
     --export DATASET \

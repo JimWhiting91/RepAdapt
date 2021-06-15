@@ -14,7 +14,7 @@ mkdir 00_archive  02_info_files  04_raw_data	06_bam_files  08_filtered_VCFs  99_
 ```
 
 ### Raw Data
-Throughout here I've assumed starting from raw SRA/ENA read files, for e.g. `SRR10335077_1.fastq.gz`. To identify readpairs then, usually these are listed as `ls *1.fastq.gz`. If for whatever reason this doesn't match the format of your raw read data, then those parts of the scripts that use `ls *1.fastq.gz` will need editing.
+Throughout here I've assumed starting from raw SRA/ENA read files, for e.g. `SRR10335077_1.fastq.gz`. Will rename individuals to meaningful sample names in the final VCF, so keep a metadata linking accessions to samples. To identify readpairs then, usually these are listed as `ls *1.fastq.gz`. If for whatever reason this doesn't match the format of your raw read data, then those parts of the scripts that use `ls *1.fastq.gz` will need editing.
 
 All raw data should be placed in `04_raw_data/`
 

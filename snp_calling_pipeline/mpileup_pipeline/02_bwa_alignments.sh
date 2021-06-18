@@ -69,9 +69,6 @@ name=$(ls -1 $RAWDATAFOLDER/*1.trimmed.fastq.gz | xargs -n 1 basename | sed 's/.
     bwa mem -t $NCPU -R $ID $GENOMEFOLDER/$GENOME $RAWDATAFOLDER/$file1 $RAWDATAFOLDER/$file2 |
     samtools view -Sb -q 10 - > $ALIGNEDFOLDER/${name%}.bam
 
-    bwa mem -t $NCPU -R $ID $GENOMEFOLDER/$GENOME $RAWDATAFOLDER/test1.fastq.gz $RAWDATAFOLDER/test1.fastq.gz |
-    samtools view -Sb -q 10 - > $ALIGNEDFOLDER/test.bam
-
     # Sort
     samtools sort --threads $NCPU $ALIGNEDFOLDER/${name%.R1.trimmed.fastq.gz}.bam \
         > $ALIGNEDFOLDER/${name%.R1.trimmed.fastq.gz}.sorted.bam

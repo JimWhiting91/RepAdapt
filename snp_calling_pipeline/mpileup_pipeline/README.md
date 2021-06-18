@@ -35,7 +35,7 @@ samtools faidx $GENOME
 # gatk dictionary with picard
 java -jar $EBROOTPICARD/picard.jar CreateSequenceDictionary R=$GENOME O=${GENOME%.*}.dict
 ```
-All genome files can either be moved into the `03_genome` subdirectory, or if using the same genome for several species, symlinking them may be simpler, ie. `ln -s /path/to/genome* $SPEIES_DIR/03_genome/`
+All genome files can either be moved into the `03_genome` subdirectory, or if using the same genome for several species, symlinking them may be simpler, ie. `ln -S /path/to/genome* $SPECIES_DIR/03_genome/`
 
 ### Ploidy
 If ploidy is known, then a ploidy file can be made and placed in `02_info_files/ploidymap.txt`. By default (because I don't have any ploidy info on the eucalypt samples), a basic diploid map is made assuming all samples are diploid:

@@ -55,7 +55,7 @@ REGION_FILE=$(ls 02_info_files/all_scafs*pos | sed "${SLURM_ARRAY_TASK_ID}q;d")
     done
 
     # Action!
-    parallel -j8 "bcftools mpileup -Ou -f $GENOME --bam-list $BAM -q 5 -r {} -I -a FMT/AD | bcftools call -S $PLD -G - -f GQ -mv -Ov > $VCF/${DATASET}_{}.vcf" :::: $REGION_FILE
+    parallel -j8 "bcftools mpileup -Ou -f $GENOMEFOLDER/$GENOME --bam-list $BAM -q 5 -r {} -I -a FMT/AD | bcftools call -S $PLD -G - -f GQ -mv -Ov > $VCF/${DATASET}_{}.vcf" :::: $REGION_FILE
 #done 2> "$LOG_FOLDER"/07_mpileup_$(cat $REGION_FILE | perl -pe 's/:.*//g')_"$TIMESTAMP".log
 
 end=`date +%s`

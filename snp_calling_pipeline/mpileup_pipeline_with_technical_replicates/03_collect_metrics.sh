@@ -43,7 +43,7 @@ cp $SCRIPT $LOG_FOLDER/${TIMESTAMP}_${SCRIPTNAME}
     # file=$(basename "$i")
 
     # Fetch filename from the array
-    file=$(ls $ALIGNEDFOLDER/*.sorted.bam | sed "${SLURM_ARRAY_TASK_ID}q;d" | xargs -n 1 basename)
+    file=$(cut -f1 02_info_files/datatable.txt | sed "${SLURM_ARRAY_TASK_ID}q;d")
 
     echo \n">>> Computing alignment metrics for $file <<<"\n
     java -jar $PICARD $ALIGN \

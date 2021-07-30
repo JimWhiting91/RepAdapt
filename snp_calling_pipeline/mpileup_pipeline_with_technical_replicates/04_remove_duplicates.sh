@@ -32,8 +32,8 @@ LOG_FOLDER="98_log_files"
 # do
 
 # Fetch filename from the array
-file=$(ls $ALIGNEDFOLDER/*.sorted.bam | sed "${SLURM_ARRAY_TASK_ID}q;d" | xargs -n 1 basename)
-sample_name=${file%.*.*}
+sample_name=$(cut -f1 02_info_files/datatable.txt | sed "${SLURM_ARRAY_TASK_ID}q;d")
+file=${sample_name}.sorted.bam
 
     echo "DEduplicatING sample $file"
 

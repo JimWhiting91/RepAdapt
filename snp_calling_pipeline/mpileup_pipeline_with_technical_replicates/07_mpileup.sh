@@ -8,7 +8,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=12G
-#SBATCH --time=00-12:00:00
+#SBATCH --time=00-18:00:00
 
 cd $SLURM_SUBMIT_DIR
 

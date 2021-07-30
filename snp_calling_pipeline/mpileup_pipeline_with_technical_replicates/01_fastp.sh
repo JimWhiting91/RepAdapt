@@ -32,7 +32,7 @@ mkdir $OUTDIR/01_reports
 cp $SCRIPT $LOG/"$TIMESTAMP"_"$NAME"_%J
 
 # Pull file from the FASTP_ARRAY
-input_file=$(ls -1 $INDIR/*1.fastq.gz | xargs -n 1 basename | sed 's/_1.fastq.gz//g' | sed "${SLURM_ARRAY_TASK_ID}q;d")
+input_file=$(cut -f1 02_info_files/datatable.txt | sed "${SLURM_ARRAY_TASK_ID}q;d")
 
 # Run over file
     #input_file=$(echo "$file" | perl -pe 's/_R1.*\.fastq.gz//')

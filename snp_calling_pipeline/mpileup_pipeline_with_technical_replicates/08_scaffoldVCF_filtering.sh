@@ -60,7 +60,8 @@ REGION_FILE=$(ls 02_info_files/all_scafs*pos | sed "${SLURM_ARRAY_TASK_ID}q;d")
     echo "
     >>> Preparation for concatenation of VCF files
     "
-    parallel -j8 "bgzip $FILTVCF/${DATASET}_{}_filtered.vcf && tabix -p vcf $FILTVCF/${DATASET}_{}_filtered.vcf.gz" :::: $REGION_FILE
+    parallel -j8 "bgzip $FILTVCF/${DATASET}_{}_filtered.vcf" :::: $REGION_FILE
+    parallel -j8 "tabix -p vcf $FILTVCF/${DATASET}_{}_filtered.vcf.gz" :::: $REGION_FILE
 
 #done 2> "$LOG_FOLDER"/08_filt_ScaffVCF_$(cat $VCF_FILE | perl -pe 's/Alyrl_Alyr_//g;s/.vcf//g')_"$TIMESTAMP".log
 

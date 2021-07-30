@@ -19,7 +19,7 @@ cp "$SCRIPT" "$LOG_FOLDER"/"$TIMESTAMP"_"$NAME"
 
 # Load needed modules - ComputeCanada clusters
 #module load nixpkgs/16.09
-module load picard java
+module load picard java samtools
 #module load picard/2.20.6
 
 
@@ -39,8 +39,8 @@ echo "Editing RG...
 # do
 
 # Fetch filename from the array
-file=$(ls $INBAM/*.dedup.bam | sed "${SLURM_ARRAY_TASK_ID}q;d" | xargs -n 1 basename)
-sample_name=${file%.*.*}
+sample_name=$(cut -f1 02_info_files/datatable.txt | sed "${SLURM_ARRAY_TASK_ID}q;d")
+file=${sample_name}.dedup.bam
 
 # Fetch all our RG info...
 #new_RGID=$(grep $sample_name $DATATABLE | cut -f10)
@@ -59,7 +59,7 @@ new_RGSM=$(grep $sample_name $DATATABLE | cut -f14)
 	    RGSM=${new_RGSM}
         # Index
         echo "
-            >>> Indexing $file <<<
+            >>> Indexing ${sample_name}_RG.bam <<<
             "
         samtools index $INBAM/${sample_name}_RG.bam
 # done 2> "$LOG_FOLDER"/05_RG_"$TIMESTAMP".log

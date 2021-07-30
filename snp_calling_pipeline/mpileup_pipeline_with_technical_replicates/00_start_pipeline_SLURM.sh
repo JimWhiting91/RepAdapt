@@ -3,7 +3,7 @@
 
 # Variables
 MAIN=/home/jimw91/RepAdapt/snp_calling
-DATASET=murray_Esid
+DATASET=murray_Emag
 SPECIES_DIR=$MAIN/$DATASET
 cd $SPECIES_DIR
 
@@ -49,12 +49,6 @@ job02=$(sbatch --account=$CC_ACCOUNT  \
     --parsable \
     $PIPE_DIR/02_bwa_alignments.sh)
 
-'''
-##########################
-# Part 2 of the pipeline #
-##########################
-'''
-
 # Collect sample data metrics
 job03=$(sbatch --account=$CC_ACCOUNT  \
     --array=1-${FILE_ARRAY} \
@@ -64,6 +58,12 @@ job03=$(sbatch --account=$CC_ACCOUNT  \
     --mail-user=$EMAIL \
     --parsable \
     $PIPE_DIR/03_collect_metrics.sh)
+
+'''
+##########################
+# Part 2 of the pipeline #
+##########################
+'''
 
 # Remove duplicates
 job04=$(sbatch --account=$CC_ACCOUNT  \
@@ -124,7 +124,7 @@ SCAFF_N=$(cat $SPECIES_DIR/03_genome/*fai | wc -l)
 SPLIT_N=200
 
 # Split these over $SPLIT_N jobs...
-cut -f1 $SPECIES_DIR/03_genome/*fai > 02_info_files/all_scafs.txt
+cut -f1 $SPECIES_DIR/03_genome/*fai | shuf > 02_info_files/all_scafs.txt
 if [[ $SCAFF_N -gt $SPLIT_N ]]
 then
   split -l$((`wc -l < 02_info_files/all_scafs.txt`/${SPLIT_N})) 02_info_files/all_scafs.txt 02_info_files/all_scafs.split. -da 4 --additional-suffix=".pos"
@@ -176,8 +176,8 @@ job08=$(sbatch --account=$CC_ACCOUNT \
 # Concatenate the per-scaffold VCFs to a single VCF
 export DATASET=$DATASET
 sbatch --account=$CC_ACCOUNT \
-    --dependency=afterok:$job08 \
     --mail-type=ALL \
+    --dependency=afterok:$job08 \
     --mail-user=$EMAIL \
     --export DATASET \
     $PIPE_DIR/09_concat_VCFs.sh

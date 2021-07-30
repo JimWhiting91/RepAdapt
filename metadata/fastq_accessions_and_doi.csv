@@ -13,7 +13,7 @@ Capsella_bursa-pastoris_Lascoux_Individual,https://doi.org/10.1101/234096,PRJNA4
 Pinus_sylvestris_Pyhajarvi_Capture,https://doi.org/10.1534/g3.120.401285,PRJNA592869,SRA,No,120,120,No,
 Populus_trichocarpa_Holliday_PoolSeq,https://doi.org/10.1111/nph.13643,PRJNA276178,SRA,No,411,411,No,
 Boechera_stricta_Mitchell-Olds_Individual,https://doi.org/10.1186/s13059-019-1729-9,PRJNA251226/PRJNA364251/PRJNA370829/PRJNA367894/PRJNA364323,SRA,No,NA,NA,Maybe,"First accession has most sequences, but still around a half unaccounted for. Looks like these came direct from Tom."
-Medicago_truncatula_Tiffin_WGS,https://doi.org/10.1186/s12864-017-3654-1,PRJNA256006,SRA,Yes,657,336,Yes,"202 fastq pairs in raw data and then 202 individuals in VCF. Have confirmed based on SRA metadata that multiple read pairs from the raw data folder correspond to the same individual, so this can't be right."
+Medicago_truncatula_Tiffin_WGS,https://doi.org/10.1186/s12864-017-3654-1 and https://doi.org/10.1534/genetics.113.159319,PRJNA256006,SRA,Yes,657,336,Yes,"202 fastq pairs in raw data and then 202 individuals in VCF. Have confirmed based on SRA metadata that multiple read pairs from the raw data folder correspond to the same individual, so this can't be right."
 Capsella_rubella_Weigel_Individual,https://doi.org/10.7554/eLife.43606,PRJEB6689,ENA,No,68,68,No,There are additional samples not used so this number is slightly higher.
 Capsella_orientalis_Weigel_Individual,https://doi.org/10.7554/eLife.43606,PRJEB6689,ENA,No,68,68,No,
 Arabidopsis_thaliana_Gunther_PoolSeq,https://doi.org/10.1111/mec.13705,PRJEB12316,ENA,No,5,5,No,

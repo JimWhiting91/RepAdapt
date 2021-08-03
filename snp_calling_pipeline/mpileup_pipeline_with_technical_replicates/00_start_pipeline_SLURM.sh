@@ -3,7 +3,7 @@
 
 # Variables
 MAIN=/home/jimw91/RepAdapt/snp_calling
-DATASET=murray_Emag
+DATASET=murray_Esid
 SPECIES_DIR=$MAIN/$DATASET
 cd $SPECIES_DIR
 
@@ -115,12 +115,11 @@ job06=$(sbatch --account=$CC_ACCOUNT  \
 # Stats of final bam files...
 job06b=$(sbatch --account=$CC_ACCOUNT  \
     --array=1-${SAMPLE_ARRAY} \
-    --dependency=afterok:$job06 \
     -D $SPECIES_DIR \
     --mail-type=ALL \
     --mail-user=$EMAIL \
     --parsable \
-    $PIPE_DIR/06_gatk_realignments.sh)
+    $PIPE_DIR/06b_collect_final_metrics.sh)
 
 '''
 ##########################

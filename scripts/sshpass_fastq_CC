@@ -1,0 +1,4 @@
+!/bin/bash
+
+PW=$(cat ~/.ssh/jw_pw)
+parallel "sshpass -p $PW rsync -rltvpP {} jimw91@gra-dtn1.computecanada.ca:/home/jimw91/RepAdapt/snp_calling/rellstab/04_raw_data" ::: $(cat list_ind.txt)

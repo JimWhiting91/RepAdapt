@@ -36,13 +36,14 @@ then
     NCPU=4
 fi
 
-# # Iterate over sequence file pairs and map with bwa
-# cat "$SAMPLE_FILE" |
-# while read file
-# do
+# If this is our first run, make a list of all the trimmed reads for cleaning
+if [ $SLURM_ARRAY_TASK_ID -eq 1 ]
+then
+  ls -1 $RAWDATAFOLDER/*R1.trimmed.fastq.gz | xargs -n 1 basename | sed 's/.R1.trimmed.fastq.gz//g' > $RAWDATAFOLDER/all_trimmed_ids.txt
+fi
 
 # Pull individual ID from the batch array
-name=$(ls -1 $RAWDATAFOLDER/*1.trimmed.fastq.gz | xargs -n 1 basename | sed 's/.R1.trimmed.fastq.gz//g' | sed "${SLURM_ARRAY_TASK_ID}q;d")
+name=$(cat $RAWDATAFOLDER/all_trimmed_ids.txt | sed "${SLURM_ARRAY_TASK_ID}q;d")
 
     # Name of uncompressed file
     file1=${name}.R1.trimmed.fastq.gz
@@ -50,14 +51,28 @@ name=$(ls -1 $RAWDATAFOLDER/*1.trimmed.fastq.gz | xargs -n 1 basename | sed 's/.
     echo ">>> Aligning file $file1 $file2 <<<
         "
 
-    # #######################################
-    # # Uncomment these lines in rare cases where SRA download has suffixed R1 and R2 fastq headers with .1 and .2, which errors out bwa. This removes them
-    # ###
-    # mv $RAWDATAFOLDER/$file1 $RAWDATAFOLDER/${name}.R1.trimmed_dirty.fastq.gz
-    # mv $RAWDATAFOLDER/$file2 $RAWDATAFOLDER/${name}.R2.trimmed_dirty.fastq.gz
-    # zcat $RAWDATAFOLDER/${name}.R1.trimmed_dirty.fastq.gz | sed -E "s/^((@|\+)SRR[^.]+\.[^.]+)\.(1|2)/\1/" | gzip > $RAWDATAFOLDER/$file1
-    # zcat $RAWDATAFOLDER/${name}.R2.trimmed_dirty.fastq.gz | sed -E "s/^((@|\+)SRR[^.]+\.[^.]+)\.(1|2)/\1/" | gzip > $RAWDATAFOLDER/$file2
-    # #######################################
+    # Now clean if we have to
+    # First check whether we need to edit the header
+  if [ $(zcat $RAWDATAFOLDER/$file1 | head -n100 | grep "@" | cut -d" " -f1 | sed 's/\./\t/g' |  awk '{print $NF}' | sort | uniq | wc -l) -eq 1 ];
+  then
+
+    echo ">>> R1 and R2 files for $name have malformed headers. Cleaning and removing suffixes.
+    "
+
+    mv $RAWDATAFOLDER/$file1 $RAWDATAFOLDER/${name}.R1.trimmed_dirty.fastq.gz
+    mv $RAWDATAFOLDER/$file2 $RAWDATAFOLDER/${name}.R2.trimmed_dirty.fastq.gz
+    zcat $RAWDATAFOLDER/${name}.R1.trimmed_dirty.fastq.gz | sed -E "s/^((@|\+)SRR[^.]+\.[^.]+)\.(1|2)/\1/" | gzip > $RAWDATAFOLDER/$file1
+    zcat $RAWDATAFOLDER/${name}.R2.trimmed_dirty.fastq.gz | sed -E "s/^((@|\+)SRR[^.]+\.[^.]+)\.(1|2)/\1/" | gzip > $RAWDATAFOLDER/$file2
+
+    # Keep clean
+    rm -f $RAWDATAFOLDER/${name}.R1.trimmed_dirty.fastq.gz $RAWDATAFOLDER/${name}.R2.trimmed_dirty.fastq.gz
+
+  else
+    echo ">>> R1 and R2 files for $name passed QC
+    "
+  fi
+
+    #statements
 
     # Set ID
     ID="@RG\tID:ind\tSM:ind\tPL:Illumina"

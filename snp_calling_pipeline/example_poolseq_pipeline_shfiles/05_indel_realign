@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH --time=7-00:00:00
+#SBATCH --mem=8000M
+#SBATCH --ntasks=1
+#SBATCH --job-name=rellstab_Ahal_v2-Aha09-indelRealign
+#SBATCH --output=rellstab_Ahal_v2-Aha09-indelRealign_%j.out
+#SBATCH --mail-user=james.whiting@ucalgary.ca
+#SBATCH --mail-type=ALL
+
+module load java
+module load nixpkgs/16.09 gatk/3.8
+export _JAVA_OPTIONS="-Xms256m -Xmx7g"
+java -Djava.io.tmpdir=$SLURM_TMPDIR -jar $EBROOTGATK/GenomeAnalysisTK.jar -T IndelRealigner -R /home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03_genome/GCA_900078215.1_Ahal2.2_genomic.fasta -I /home/jimw91/scratch/pool_snpcalling/rellstab_Ahal/parentdir/rellstab_Ahal_v2/03_dedup_rg_filtered_indexed_sorted_bamfiles/Aha09_rd.bam -targetIntervals /home/jimw91/scratch/pool_snpcalling/rellstab_Ahal/parentdir/rellstab_Ahal_v2/04_realign/Aha09_realingment_targets.list -o /home/jimw91/scratch/pool_snpcalling/rellstab_Ahal/parentdir/rellstab_Ahal_v2/04_realign/Aha09_realigned_reads.bam
+module unload gatk
+
+# sbatch varscan jobs if all pooled bamfiles have been created
+source /home/jimw91/scratch/pool_snpcalling/rellstab_Ahal/parentdir/bash_variables
+python $HOME/pipeline/start_varscan.py /home/jimw91/scratch/pool_snpcalling/rellstab_Ahal/parentdir rellstab_Ahal_v2
+python $HOME/pipeline/balance_queue.py bedfile /home/jimw91/scratch/pool_snpcalling/rellstab_Ahal/parentdir

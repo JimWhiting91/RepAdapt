@@ -1,0 +1,7 @@
+sample_name,library_name,pool_name,ploidy,file_name_r1,file_name_r2,adaptor_1,adaptor_2,ref,rgid,rglb,rgpl,rgpu,rgsm
+Cre20,ERX4096087,rellstab_Cres_pooled,40,ERR4124302_R1.fastq.gz,ERR4124302_R2.fastq.gz,,,/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03_genome/GCA_900078215.1_Ahal2.2_genomic.fasta,,ERX4096087,ILLUMINA,,Cre20
+Cre18,ERX4096086,rellstab_Cres_pooled,40,ERR4124301_R1.fastq.gz,ERR4124301_R2.fastq.gz,,,/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03_genome/GCA_900078215.1_Ahal2.2_genomic.fasta,,ERX4096086,ILLUMINA,,Cre18
+Cre14,ERX4096085,rellstab_Cres_pooled,40,ERR4124300_R1.fastq.gz,ERR4124300_R2.fastq.gz,,,/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03_genome/GCA_900078215.1_Ahal2.2_genomic.fasta,,ERX4096085,ILLUMINA,,Cre14
+Cre13,ERX4096084,rellstab_Cres_pooled,40,ERR4124299_R1.fastq.gz,ERR4124299_R2.fastq.gz,,,/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03_genome/GCA_900078215.1_Ahal2.2_genomic.fasta,,ERX4096084,ILLUMINA,,Cre13
+Cre12,ERX4096083,rellstab_Cres_pooled,40,ERR4124298_R1.fastq.gz,ERR4124298_R2.fastq.gz,,,/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03_genome/GCA_900078215.1_Ahal2.2_genomic.fasta,,ERX4096083,ILLUMINA,,Cre12
+Cre03,ERX4096082,rellstab_Cres_pooled,40,ERR4124297_R1.fastq.gz,ERR4124297_R2.fastq.gz,,,/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03_genome/GCA_900078215.1_Ahal2.2_genomic.fasta,,ERX4096082,ILLUMINA,,Cre03

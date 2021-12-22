@@ -12,7 +12,7 @@
 #SBATCH --time=0-06:00:00
 
 # Load up fastp
-module load fastp
+module load StdEnv/2020 fastp/0.20.1
 
 #cd $SLURM_SUBMIT_DIR
 
@@ -37,11 +37,11 @@ input_file=$(cut -f1 02_info_files/datatable.txt | sed "${SLURM_ARRAY_TASK_ID}q;
 # Run over file
     #input_file=$(echo "$file" | perl -pe 's/_R1.*\.fastq.gz//')
     output_file=$(basename "$input_file")
-    echo "Still working for you... Cleaning: $file"
+    echo "Still working for you... Cleaning: $input_file"
 
     fastp -w ${SLURM_CPUS_PER_TASK} \
-        -i $INDIR/${input_file}_1.fastq.gz \
-        -I $INDIR/${input_file}_2.fastq.gz \
+        -i $INDIR/${input_file}_R1.fastq.gz \
+        -I $INDIR/${input_file}_R2.fastq.gz \
         -o $OUTDIR/"$output_file".R1.trimmed.fastq.gz \
         -O $OUTDIR/"$output_file".R2.trimmed.fastq.gz \
         -j $OUTDIR/01_reports/"$output_file".json \

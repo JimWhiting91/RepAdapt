@@ -2,13 +2,13 @@
 # Submit scripts from the $SPECIES_DIR directory
 
 # Variables
-MAIN=/home/jimw91/RepAdapt/snp_calling
-DATASET=murray_Esid
+MAIN=/home/jimw91/wgs_snpcalling/
+DATASET=weigel_Athaliana_IBE
 SPECIES_DIR=$MAIN/$DATASET
 cd $SPECIES_DIR
 
 # Point to scripts
-PIPE_DIR=$MAIN/general_scripts/snpcalling_pipeline_jw_multisamples/
+PIPE_DIR=~/RepAdapt/snp_calling/general_scripts/snpcalling_pipeline_jw_multisamples/
 
 # Set metadata
 DATATABLE=$SPECIES_DIR/02_info_files/datatable.txt
@@ -20,7 +20,7 @@ EMAIL=james.whiting@ucalgary.ca
 CC_ACCOUNT=def-yeaman
 
 # How many samples are there?
-FASTQ_N=$( ls $SPECIES_DIR/04_raw_data | wc -l )
+FASTQ_N=$( ls $SPECIES_DIR/04_raw_data/*fastq.gz | wc -l )
 FILE_ARRAY=$(( $FASTQ_N / 2 ))
 
 '''
@@ -78,6 +78,7 @@ job04=$(sbatch --account=$CC_ACCOUNT  \
 # Change bam files RG
 job05=$(sbatch --account=$CC_ACCOUNT  \
     --array=1-${FILE_ARRAY} \
+    --dependency=afterok:$job04 \
     -D $SPECIES_DIR \
     --mail-type=ALL \
     --mail-user=$EMAIL \
@@ -115,6 +116,7 @@ job06=$(sbatch --account=$CC_ACCOUNT  \
 # Stats of final bam files...
 job06b=$(sbatch --account=$CC_ACCOUNT  \
     --array=1-${SAMPLE_ARRAY} \
+    --dependency=afterok:$job06 \
     -D $SPECIES_DIR \
     --mail-type=ALL \
     --mail-user=$EMAIL \
@@ -160,6 +162,7 @@ do
   BAM_PLOIDY=$(grep -w $BAM_CLEAN 02_info_files/datatable.txt | cut -f4 | head -n1)
   echo -e "$BAM_CLEAN\t$BAM_PLOIDY" >> 02_info_files/ploidymap.txt
 done
+
 ##########################
 # Call SNPs - Mpileup runs first and filtering starts based on the dependency
 export DATASET=$DATASET
@@ -171,16 +174,26 @@ job07=$(sbatch --account=$CC_ACCOUNT \
     --parsable \
     $PIPE_DIR/07_mpileup.sh)
 
+# # Filter the SNPs
+# export DATASET=$DATASET
+# job08=$(sbatch --account=$CC_ACCOUNT \
+#     --dependency=afterok:$job07 \
+#     --array=1-${SCAFF_ARRAY} \
+#     --mail-type=ALL \
+#     --mail-user=$EMAIL \
+#     --export DATASET \
+#     --parsable \
+#     $PIPE_DIR/08_scaffoldVCF_filtering.sh)
+
 # Filter the SNPs
 export DATASET=$DATASET
 job08=$(sbatch --account=$CC_ACCOUNT \
-    --dependency=afterok:$job07 \
     --array=1-${SCAFF_ARRAY} \
     --mail-type=ALL \
     --mail-user=$EMAIL \
     --export DATASET \
     --parsable \
-    $PIPE_DIR/08_scaffoldVCF_filtering.sh)
+    $PIPE_DIR/08b_relaxed_scaffoldVCF_filtering.sh)
 
 # Concatenate the per-scaffold VCFs to a single VCF
 export DATASET=$DATASET

@@ -11,7 +11,7 @@
 #SBATCH --time=0-12:00:00
 
 # Load modules
-module load picard java
+module load picard java 
 
 # Global variables
 GENOMEFOLDER="03_genome"
@@ -44,28 +44,29 @@ cp $SCRIPT $LOG_FOLDER/${TIMESTAMP}_${SCRIPTNAME}
 
     # Fetch filename from the array
     file=$(cut -f1 02_info_files/datatable.txt | sed "${SLURM_ARRAY_TASK_ID}q;d")
+    bamfile=${file}.realigned.bam
 
     echo \n">>> Computing alignment metrics for $file <<<"\n
     java -jar $PICARD $ALIGN \
         R=$GENOMEFOLDER/$GENOME \
-        I=$ALIGNEDFOLDER/$file \
+        I=$ALIGNEDFOLDER/$bamfile \
         O=$METRICSFOLDER/${file}_alignment_metrics.txt
 
     echo \n">>> Computing insert size metrics for $file <<<"\n
     java -jar $PICARD $INSERT \
-        I=$ALIGNEDFOLDER/$file \
+        I=$ALIGNEDFOLDER/$bamfile \
         OUTPUT=$METRICSFOLDER/${file}_insert_size_metrics.txt \
         HISTOGRAM_FILE=$METRICSFOLDER/${file}_insert_size_histogram.pdf
 
     echo \n">>> Computing coverage metrics for $file <<<"\n
     java -jar $PICARD $COVERAGE \
         R=$GENOMEFOLDER/$GENOME \
-        I=$ALIGNEDFOLDER/$file \
+        I=$ALIGNEDFOLDER/$bamfile \
         OUTPUT=$METRICSFOLDER/${file}_collect_wgs_metrics.txt\
         CHART=$METRICSFOLDER/${file}_collect_wgs_metrics.pdf
 
     #echo "Computing coverage for $file"
-    samtools depth -a $ALIGNEDFOLDER/$file | gzip - > $METRICSFOLDER/${file}_coverage.gz
+    # samtools depth -a $ALIGNEDFOLDER/$bamfile | gzip - > $METRICSFOLDER/${file}_coverage.gz
 
     echo \n">>> DONE! <<<"\n
 #done 2> "$LOG_FOLDER"/03_metrics_"$TIMESTAMP".log

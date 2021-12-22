@@ -1,6 +1,6 @@
 ﻿Dataset,DOI,Accession,Archive,Technical Replicates?,fastq,samples,problem,Notes
 Amaranthus_tuberculatus_Wright_Individual,https://doi.org/10.1073/pnas.1900870116,PRJEB31711,ENA,Yes,292,167,No,Has been accounted for…
-Arabidopsis_halleri_Rellstab_Pool,https://doi.org/10.1111/mec.15648,PRJEB18647/PRJNA217703,"ENA, SRA",No,9,9,No,Clem has only taken 6 of 9? Only 1 from ENA accession
+Arabidopsis_halleri_Rellstab_Pool,https://doi.org/10.1111/mec.15648 and https://doi.org/10.1186/s12864-016-3459-7,PRJEB18647/PRJNA217703,"ENA, SRA",No,9,9,No,Clem has only taken 6 of 9? Only 1 from ENA accession
 Arabis_alpina_Rellstab_Pool,https://doi.org/10.1111/mec.15648,PRJEB38197,ENA,No,6,6,No,
 Cardamine_resedifolia_Rellstab_Pool,https://doi.org/10.1111/mec.15648,PRJEB38200,ENA,No,6,6,No,
 Arabidopsis_lyrata_Savolainen_Individual,https://doi.org/10.1093/molbev/msx193,PRJNA459481/PRJNA357372,SRA,No,65,65,No,
@@ -22,7 +22,9 @@ Populus_alba_Lexer_PoolSeq, https://doi.org/10.1111/mec.13765,PRJNA326042,SRA,No
 Populus_deltoides_Kirst_Capture,https://doi.org/10.1002/ece3.3466,PRJNA300411,SRA,No,579,579,No,
 Quercus_petraea_Kremer_PoolSeq,https://doi.org/10.1111/nph.16095,PRJEB32209,SRA,Yes,72,18,Yes,This needs remapping anyway as the actual VCF is mislabelled and incorrect.
 Eucalyptus_*_Murray_Individual,https://doi.org/10.1111/mec.15287,PRJNA578806,SRA,Yes,1895,583,Yes,Currently remapping all of this.
-Panicum_hallii_Lowry_PoolSeq,https://doi.org/10.1038/s41467-018-07669-x,NA,SRA,No,78,78,,"Seems like a number are missing, and just weren't downloaded. (only 77 raw data files). All SRA accessions are in a separate table elsewhere as 1 per individual."
-Panicum_fillipes_Lowry_PoolSeq,https://doi.org/10.1038/s41467-018-07669-x,NA,SRA,No,15,15,,
-Pinus_abies_Milesi_Capture,https://doi.org/10.1111/eva.12801,PRJNA511374,SRA,No,1558,1558,No,Can see that some merging has already happened on data sent over directly. SRA includes substantially more data and another species that could potentially be used. Only 80 samples.
+Panicum_hallii_Lowry_PoolSeq,https://doi.org/10.1186/s12864-018-5179-7,NA,SRA,No,78,78,,"Seems like a number are missing, and just weren't downloaded. (only 77 raw data files). All SRA accessions are in a separate table elsewhere as 1 per individual."
+Panicum_fillipes_Lowry_PoolSeq,https://doi.org/10.1186/s12864-018-5179-7,NA,SRA,No,15,15,,
+Pinus_abies_Milesi_Capture,https://doi.org/10.1111/eva.12801,PRJNA511374,SRA,No,1558,1558,Yes,Can see that some merging has already happened on data sent over directly. SRA includes substantially more data and another species that could potentially be used. Only 80 samples.
 Pinus_obovata_Milesi_Capture,https://doi.org/10.1111/eva.12802,PRJNA511375,SRA,No,93,93,No,We have more samples here then available in SRA?
+Helianthus_argophyllus_Todesco_WGS,https://doi.org/10.1038/s41586-020-2467-6, PRJNA532579/PRJNA398560/PRJNA564337,SRA,,,,No,
+Helianthus_petiolarus_Todesco_WGS,https://doi.org/10.1038/s41586-020-2467-6, PRJNA532579/PRJNA398560/PRJNA564337,SRA,,,,No,

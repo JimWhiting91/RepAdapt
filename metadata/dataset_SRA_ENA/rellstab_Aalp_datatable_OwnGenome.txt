@@ -1,0 +1,7 @@
+sample_name	library_name	pool_name	ploidy	file_name_r1	file_name_r2	adaptor_1	adaptor_2	ref	rgid	rglb	rgpl	rgpu	rgsm
+Aal36	ERX4096075	rellstab_Aalp_pooled_Aalp_genome	40	ERR4124290_R1.fastq.gz	ERR4124290_R2.fastq.gz			/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03b_new_genome/Arabis_alpina.MPIPZ.V5.chr.all.fasta		ERX4096075	ILLUMINA		Aal36
+Aal34	ERX4096074	rellstab_Aalp_pooled_Aalp_genome	40	ERR4124289_R1.fastq.gz	ERR4124289_R2.fastq.gz			/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03b_new_genome/Arabis_alpina.MPIPZ.V5.chr.all.fasta		ERX4096074	ILLUMINA		Aal34
+Aal31	ERX4096073	rellstab_Aalp_pooled_Aalp_genome	40	ERR4124288_R1.fastq.gz	ERR4124288_R2.fastq.gz			/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03b_new_genome/Arabis_alpina.MPIPZ.V5.chr.all.fasta		ERX4096073	ILLUMINA		Aal31
+Aal27	ERX4096072	rellstab_Aalp_pooled_Aalp_genome	40	ERR4124287_R1.fastq.gz	ERR4124287_R2.fastq.gz			/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03b_new_genome/Arabis_alpina.MPIPZ.V5.chr.all.fasta		ERX4096072	ILLUMINA		Aal27
+Aal18	ERX4096071	rellstab_Aalp_pooled_Aalp_genome	40	ERR4124286_R1.fastq.gz	ERR4124286_R2.fastq.gz			/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03b_new_genome/Arabis_alpina.MPIPZ.V5.chr.all.fasta		ERX4096071	ILLUMINA		Aal18
+Aal05	ERX4096070	rellstab_Aalp_pooled_Aalp_genome	40	ERR4124285_R1.fastq.gz	ERR4124285_R2.fastq.gz			/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03b_new_genome/Arabis_alpina.MPIPZ.V5.chr.all.fasta		ERX4096070	ILLUMINA		Aal05

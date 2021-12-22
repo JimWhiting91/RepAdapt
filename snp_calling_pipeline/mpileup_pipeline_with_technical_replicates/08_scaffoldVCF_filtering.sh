@@ -5,8 +5,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=8G
-#SBATCH --time=00-02:00:00
+#SBATCH --mem=16G
+#SBATCH --time=00-12:00:00
 
 module load vcftools bcftools
 module load StdEnv/2020 intel/2020.1.217 tabix/0.2.6

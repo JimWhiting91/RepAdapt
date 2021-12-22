@@ -1,0 +1,10 @@
+sample_name	library_name	pool_name	ploidy	file_name_r1	file_name_r2	adaptor_1	adaptor_2	ref	rgid	rglb	rgpl	rgpu	rgsm
+AhaN4	ERX1826467	rellstab_Ahal_v2	40	ERR1760147_R1.fastq.gz	ERR1760147_R2.fastq.gz			/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03_genome/GCA_900078215.1_Ahal2.2_genomic.fasta		ERX1826467	ILLUMINA		AhaN4
+AhaN3	ERX1826466	rellstab_Ahal_v2	40	ERR1760146_R1.fastq.gz	ERR1760146_R2.fastq.gz			/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03_genome/GCA_900078215.1_Ahal2.2_genomic.fasta		ERX1826466	ILLUMINA		AhaN3
+AhaN1	ERX1826465	rellstab_Ahal_v2	40	ERR1760145_R1.fastq.gz	ERR1760145_R2.fastq.gz			/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03_genome/GCA_900078215.1_Ahal2.2_genomic.fasta		ERX1826465	ILLUMINA		AhaN1
+Aha18	ERX1826464	rellstab_Ahal_v2	40	ERR1760144_R1.fastq.gz	ERR1760144_R2.fastq.gz			/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03_genome/GCA_900078215.1_Ahal2.2_genomic.fasta		ERX1826464	ILLUMINA		Aha18
+Aha31	SRX342618	rellstab_Ahal_v2	40	SRR964274_R1.fastq.gz	SRR964274_R2.fastq.gz			/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03_genome/GCA_900078215.1_Ahal2.2_genomic.fasta		SRX342618	ILLUMINA		Aha31
+Aha21	SRX342617	rellstab_Ahal_v2	40	SRR960965_R1.fastq.gz	SRR960965_R2.fastq.gz			/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03_genome/GCA_900078215.1_Ahal2.2_genomic.fasta		SRX342617	ILLUMINA		Aha21
+Aha09	SRX342616	rellstab_Ahal_v2	40	SRR964271_R1.fastq.gz	SRR964271_R2.fastq.gz			/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03_genome/GCA_900078215.1_Ahal2.2_genomic.fasta		SRX342616	ILLUMINA		Aha09
+Aha19	SRX342614	rellstab_Ahal_v2	40	SRR964273_R1.fastq.gz	SRR964273_R2.fastq.gz			/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03_genome/GCA_900078215.1_Ahal2.2_genomic.fasta		SRX342614	ILLUMINA		Aha19
+Aha11	SRX342611	rellstab_Ahal_v2	40	SRR964272_R1.fastq.gz	SRR964272_R2.fastq.gz			/home/jimw91/scratch/pool_snpcalling/rellstab_Aalp/03_genome/GCA_900078215.1_Ahal2.2_genomic.fasta		SRX342611	ILLUMINA		Aha11

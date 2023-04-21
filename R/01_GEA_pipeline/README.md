@@ -6,13 +6,13 @@ This repository includes 4 R scripts that developed as command-line software.
 ## Metadata and Setup
 In the same directory as the genotype data, there must be a csv file including sampling information called `sampling_data.csv`
 This looks like:
-```
+
 | Taxon_name    | Pop_ID    | Sample_name   | Country   | Pool_Size | Lat   | Long  | Alt   | Author    | Data_type |
 | :---:         | :---:     | :---:         | :---:     | :---:     | :---: | :---: | :---: | :---:     | :---:     |
 | Arabidopsis lyrata | Grovudalen | Alyr_Norway_Grovudalen_T3-6 | Norway | 62.44 | 8.9 | 900 | Savolainen | WGS |
 | Arabidopsis lyrata | Grovudalen | Alyr_Norway_Grovudalen_T3-5 | Norway | 62.44 | 8.9 | 900 | Savolainen | WGS |
 | Arabidopsis lyrata | Grovudalen | Alyr_Norway_Grovudalen_T3-3	| Norway | 62.44 | 8.9 | 900 | Savolainen | WGS |
-```
+
 
 In order to perform GEA over climate change variables, these should also be calculated prior to running and deposited in the same directory as the genotype data and named `climate_change_env.txt`. These can be calculated using the script `R/00_setup/calculating_climatechange_clines.R`.
 

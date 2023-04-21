@@ -41,32 +41,32 @@ Each script is then submitted as an individual job with dependencies on the prio
 ## Step 1 - Read Trimming
 Read trimming is performed using fastp.
 
-Script: `01_fastp.sh`
-Inputs: Raw fastq files
-Outputs: Trimmed fastq files
+* Script: `01_fastp.sh`
+* Inputs: Raw fastq files
+* Outputs: Trimmed fastq files
 
 ## Step 2 - Alignment to Genome
 Alignment is performed using bwa-mem.
 Also includes a QC on trimmed fastq to make sure read headers are not malformed, and attempts to resolve if they are.
 
-Script: `02_bwa_alignments.sh`
-Inputs: Trimmed fastq files
-Outputs: Sorted and indexed BAM files.
+* Script: `02_bwa_alignments.sh`
+* Inputs: Trimmed fastq files
+* Outputs: Sorted and indexed BAM files.
 
 ## Step 3 - First run of BAM quality metrics
 BAM quality metrics calculcated using Picard:
 (`CollectAlignmentSummaryMetrics`, `CollectInsertSizeMetrics`,`CollectWgsMetricsWithNonZeroCoverage`)
 
-Script: `03_collect_metrics.sh`
-Inputs: Sorted/Indexed BAMs
-Outputs: Alignment, insert size and WGS metrics, outputted to `99_metrics/`
+* Script: `03_collect_metrics.sh`
+* Inputs: Sorted/Indexed BAMs
+* Outputs: Alignment, insert size and WGS metrics, outputted to `99_metrics/`
 
 ## Step 4 - Remove duplicates
 Duplicates are marked and removed using Picard's `MarkDuplicates`
 
-Script: `04_remove_duplicates.sh`
-Inputs: Sorted/Indexed BAMs
-Outputs: Deduplicated BAMs (`*dedup.bam`)
+* Script: `04_remove_duplicates.sh`
+* Inputs: Sorted/Indexed BAMs
+* Outputs: Deduplicated BAMs (`*dedup.bam`)
 
 ## Step 5 - Change Read Groups and Merge Replicates
 Modifies read groups and then merges over technical replicates of the same individual
@@ -74,9 +74,9 @@ Read groups are added using Picard's `AddOrReplaceReadGroups` and merging is don
 
 Note: Even if there aren't any technical replicates, the merging step should still be run to maintain filenames.
 
-Scripts: `05_change_RG.sh` and `05b_merge_bams.sh`
-Inputs: Deduplicated BAMs (`*.dedup.bam`)
-Outputs: Merged BAMs (`*.merged.bam`)
+* Scripts: `05_change_RG.sh` and `05b_merge_bams.sh`
+* Inputs: Deduplicated BAMs (`*.dedup.bam`)
+* Outputs: Merged BAMs (`*.merged.bam`)
 
 ## Step 6 - Realignment around indels and final BAM quality checks
 Performs indel realignment by first generating interval files using GATK's `RealignerTargetCreator`.
@@ -85,9 +85,9 @@ Final quality metrics are then calculated over the final BAM files as in step 3.
 
 Note: These software are only available in versions of GATK prior to v4.
 
-Scripts: `06_gatk_realignments.sh` and `06b_collect_final_metrics.sh`
-Inputs: Merged BAMs (`*.merged.bam`)
-Outputs: Realigned BAMs (`*.realigned.bam`)
+* Scripts: `06_gatk_realignments.sh` and `06b_collect_final_metrics.sh`
+* Inputs: Merged BAMs (`*.merged.bam`)
+* Outputs: Realigned BAMs (`*.realigned.bam`)
 
 Note: These are deposited in `99_metrics_merged/`. 
 Can then run `concat_bam_stats.sh 99_metrics_merged/ DATASET_NAME` to summarise to a single text file.
@@ -96,9 +96,9 @@ Can then run `concat_bam_stats.sh 99_metrics_merged/ DATASET_NAME` to summarise 
 Performs SNP-calling using genotype-likelihoods.
 The genome is split into groups of scaffolds, and these groups are run in parallel through BCFtools' `mpileup` and `call`.
 
-Script: `07_mpileup.sh`
-Inputs: All realigned BAMs
-Outputs: Per-scaffold unfiltered VCFs
+* Script: `07_mpileup.sh`
+* Inputs: All realigned BAMs
+* Outputs: Per-scaffold unfiltered VCFs
 
 ## Step 8 - Scaffold VCF filtering
 Each scaffold is filtered according to a standardised set of quality filters
@@ -111,16 +111,16 @@ Filtering is performed using VCFtools, specifically the following:
 --max-missing 0.7 \
 ```
 
-Script: `08_scaffoldVCF_filtering.sh`
-Inputs: Per-scaffold unfiltered VCFs
-Outputs: Per-scaffold quality-filtered VCFs
+* Script: `08_scaffoldVCF_filtering.sh`
+* Inputs: Per-scaffold unfiltered VCFs
+* Outputs: Per-scaffold quality-filtered VCFs
 
 ## Step 9 - Final VCF filtering and concatenation
 Script concatenates all per-scaffold filtered VCFs and performs some final maf-filtering using BCFtools
 
-Script: `09_concat_VCFs.sh`
-Inputs: Per-scaffold quality-filtered VCFs
-Outputs: Three final VCFs with varying maf-filtering of: None, 1% and 5%:
+* Script: `09_concat_VCFs.sh`
+* Inputs: Per-scaffold quality-filtered VCFs
+* Outputs: Three final VCFs with varying maf-filtering of: None, 1% and 5%:
 ```
 *_full_concatened.vcf
 *_full_concatened_maf01.vcf.gz

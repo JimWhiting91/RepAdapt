@@ -13,8 +13,13 @@ library(stars)
 library(cowplot)
 library(cubelyr)
 
+# Run name?
+run_name = "230301"
+
 # Read in all of the climate clines
-gea_dir <- list.files("outputs/GEA_res/")
+gea_dir <- list.files("outputs/GEA_res/",pattern = run_name)
+gea_dir = grep("processed",gea_dir,invert = T,value = T)
+gea_dir = grep(".rds",gea_dir,invert = T,value = T)
 all_clines <- lapply(gea_dir,function(dir){
     read.table(paste0("outputs/GEA_res/",dir,"/climate_cline.tsv"),header=T)
 })
@@ -135,7 +140,7 @@ plot_dataset_map <- function(cline_input,climate_input){
         geom_point(data=cline_input,aes(x=Long,y=Lat),colour="black",size=2,alpha=1)
     
     # Add all points
-    plot_grid(
+    cowplot::plot_grid(
     climate_plot + geom_point(data=cline_input,aes(x=Long,y=Lat),colour="black",size=2,alpha=1),
     climate_plot2,
     ncol=2)

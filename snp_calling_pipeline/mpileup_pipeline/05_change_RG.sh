@@ -4,8 +4,8 @@
 #SBATCH -o 98_log_files/%x_%A_array%a.out
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=7G
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=50G
 #SBATCH --time=00-01:30:00
 
 #cd $SLURM_SUBMIT_DIR
@@ -18,28 +18,30 @@ LOG_FOLDER="98_log_files"
 cp "$SCRIPT" "$LOG_FOLDER"/"$TIMESTAMP"_"$NAME"
 
 # Load needed modules - ComputeCanada clusters
-#module load nixpkgs/16.09
-module load picard java
-#module load picard/2.20.6
+module load picard
+module load java
+module load StdEnv/2020 gcc/9.3.0 samtools/1.13
 
+export JAVA_TOOL_OPTIONS="-Xms2g -Xmx50g "
+export _JAVA_OPTIONS="-Xms2g -Xmx50g "
 
 # Global variables
 INBAM="06_bam_files"
 OUTBAM="06_bam_files"
 ADDRG="AddOrReplaceReadGroups"
 PICARD=$EBROOTPICARD/picard.jar
-#DEDUP_FILE="02_info_files/dedup_split/dedup0000"
+DATATABLE=02_info_files/datatable.txt
 
 # Remove duplicates from bam alignments
 echo "Editing RG...
 "
-# cat "$DEDUP_FILE" |
-# while read file
-# do
 
 # Fetch filename from the array
-file=$(ls $INBAM/*.dedup.bam | sed "${SLURM_ARRAY_TASK_ID}q;d" | xargs -n 1 basename)
-sample_name=${file%.*.*}
+sample_name=$(cut -f1 02_info_files/datatable.txt | sed "${SLURM_ARRAY_TASK_ID}q;d")
+file=${sample_name}.dedup.bam
+
+# Fetch all our RG info...
+new_RGSM=$(grep $sample_name $DATATABLE | cut -f14)
 
         echo "
              >>> Computing RG for $file<<<
@@ -51,20 +53,14 @@ sample_name=${file%.*.*}
 	    RGLB=${sample_name}_LB \
 	    RGPL=ILLUMINA \
 	    RGPU=unit1 \
-	    RGSM=${sample_name}
+	    RGSM=${new_RGSM}
         # Index
         echo "
-            >>> Indexing $file <<<
+            >>> Indexing ${sample_name}_RG.bam <<<
             "
         samtools index $INBAM/${sample_name}_RG.bam
-# done 2> "$LOG_FOLDER"/05_RG_"$TIMESTAMP".log
 
 echo " >>> Cleaning a bit...
 "
-#rm "$INBAM"/"$file"
 echo "
 DONE! Check your files"
-
-#echo "
-#I also cleaned out intermediate files. Cheers!"
-#rm $INBAM/*.sorted.bam && rm $INBAM/*.sorted.bam.bai

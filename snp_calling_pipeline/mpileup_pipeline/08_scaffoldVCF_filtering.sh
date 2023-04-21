@@ -5,8 +5,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=8G
-#SBATCH --time=00-02:00:00
+#SBATCH --mem=16G
+#SBATCH --time=00-12:00:00
 
 module load vcftools bcftools
 module load StdEnv/2020 intel/2020.1.217 tabix/0.2.6
@@ -25,18 +25,9 @@ begin=`date +%s`
 # Variables
 VCF="07_raw_VCFs"
 FILTVCF="08_filtered_VCFs"
-#VCF_FILE="02_info_files/VCF_split/VCF0000"
 
 # Pull from the array...
 REGION_FILE=$(ls 02_info_files/all_scafs*pos | sed "${SLURM_ARRAY_TASK_ID}q;d")
-#VCF_FILE=$(ls $VCF/*vcf | sed "${SLURM_ARRAY_TASK_ID}q;d" | xargs -n 1 basename)
-
-# Process a given Scaffold-VCF file
-# cat "$VCF_FILE" |
-# while read file
-# do
-    # Name of the scaffold
-    # scaffold=$(echo $VCF_FILE | sed "s/${DATASET}_//g" | sed "s/.vcf//g")
 
     echo "
     >>> Filtering through BCFtools first!
@@ -50,19 +41,16 @@ REGION_FILE=$(ls 02_info_files/all_scafs*pos | sed "${SLURM_ARRAY_TASK_ID}q;d")
         --minQ 30 \
         --minGQ 20 \
         --minDP 5 \
-        --mac 5 \
         --max-alleles 2 \
         --max-missing 0.7 \
-        --maf 0.05 \
         --recode \
         --stdout > $FILTVCF/${DATASET}_{}_filtered.vcf" :::: $REGION_FILE
 
     echo "
     >>> Preparation for concatenation of VCF files
     "
-    parallel -j8 "bgzip $FILTVCF/${DATASET}_{}_filtered.vcf && tabix -p vcf $FILTVCF/${DATASET}_{}_filtered.vcf.gz" :::: $REGION_FILE
-
-#done 2> "$LOG_FOLDER"/08_filt_ScaffVCF_$(cat $VCF_FILE | perl -pe 's/Alyrl_Alyr_//g;s/.vcf//g')_"$TIMESTAMP".log
+    parallel -j8 "bgzip $FILTVCF/${DATASET}_{}_filtered.vcf" :::: $REGION_FILE
+    parallel -j8 "tabix -p vcf $FILTVCF/${DATASET}_{}_filtered.vcf.gz" :::: $REGION_FILE
 
 echo "
 >>> Cleaning a bit...

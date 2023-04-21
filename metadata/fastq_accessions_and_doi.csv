@@ -6,25 +6,20 @@ Cardamine_resedifolia_Rellstab_Pool,https://doi.org/10.1111/mec.15648,PRJEB38200
 Arabidopsis_lyrata_Savolainen_Individual,https://doi.org/10.1093/molbev/msx193,PRJNA459481/PRJNA357372,SRA,No,65,65,No,
 Arabidopsis_thaliana_Weigel_Individual,https://doi.org/10.1016/j.cell.2016.05.063,PRJNA273563,SRA,No,1135,1135,No,Only uses 760 although >1000 available
 Arabidopsis_thaliana_Roux_PoolSeq,https://doi.org/10.3389/fpls.2018.00967,SRP103198,SRA,No,169,169,No,We are missing around 30 that are last alphabetically
-Arabidopsis_lyrata_Willi_Individual,https://doi.org/10.1371/journal.pgen.1009477,PRJEB30473,ENA,No,234,117,Yes,
 Arabidopsis_lyrata_Willi_Poolseq,https://doi.org/10.1093/molbev/msy003,PRJEB19338,ENA,No,52,52,No,
 Arabidopsis_halleri_Kubota_WGS,https://doi.org/10.1371/journal.pgen.1005361,PRJDB3777,SRA,Yes,95,56,Yes,Hasn't been accounted for…
-Capsella_bursa-pastoris_Lascoux_Individual,https://doi.org/10.1101/234096,PRJNA422659,SRA,No,21,21,No,
 Pinus_sylvestris_Pyhajarvi_Capture,https://doi.org/10.1534/g3.120.401285,PRJNA592869,SRA,No,120,120,No,
 Populus_trichocarpa_Holliday_PoolSeq,https://doi.org/10.1111/nph.13643,PRJNA276178,SRA,No,411,411,No,
 Boechera_stricta_Mitchell-Olds_Individual,https://doi.org/10.1186/s13059-019-1729-9,PRJNA251226/PRJNA364251/PRJNA370829/PRJNA367894/PRJNA364323,SRA,No,NA,NA,Maybe,"First accession has most sequences, but still around a half unaccounted for. Looks like these came direct from Tom."
 Medicago_truncatula_Tiffin_WGS,https://doi.org/10.1186/s12864-017-3654-1 and https://doi.org/10.1534/genetics.113.159319,PRJNA256006,SRA,Yes,657,336,Yes,"202 fastq pairs in raw data and then 202 individuals in VCF. Have confirmed based on SRA metadata that multiple read pairs from the raw data folder correspond to the same individual, so this can't be right."
 Capsella_rubella_Weigel_Individual,https://doi.org/10.7554/eLife.43606,PRJEB6689,ENA,No,68,68,No,There are additional samples not used so this number is slightly higher.
-Capsella_orientalis_Weigel_Individual,https://doi.org/10.7554/eLife.43606,PRJEB6689,ENA,No,68,68,No,
-Arabidopsis_thaliana_Gunther_PoolSeq,https://doi.org/10.1111/mec.13705,PRJEB12316,ENA,No,5,5,No,
 Populus_tremula_Ingvarsson_Individual,https://doi.org/10.1186/s13059-018-1444-y,PRJNA297202,SRA,No,94,94,No,
-Populus_alba_Lexer_PoolSeq, https://doi.org/10.1111/mec.13765,PRJNA326042,SRA,No,12,12,Yes,"This dataset wasn't even in the location metadata so added it. Also 12 Read1 fastq but only 6 Read2 fastq. None of the samples are from Spain, so unclear where those have come from (eg Palba_Spain_Douro). None of the unpaired sets are tremula, but there are some unpaired that are alba suggesting missing data."
 Populus_deltoides_Kirst_Capture,https://doi.org/10.1002/ece3.3466,PRJNA300411,SRA,No,579,579,No,
 Quercus_petraea_Kremer_PoolSeq,https://doi.org/10.1111/nph.16095,PRJEB32209,SRA,Yes,72,18,Yes,This needs remapping anyway as the actual VCF is mislabelled and incorrect.
 Eucalyptus_*_Murray_Individual,https://doi.org/10.1111/mec.15287,PRJNA578806,SRA,Yes,1895,583,Yes,Currently remapping all of this.
 Panicum_hallii_Lowry_PoolSeq,https://doi.org/10.1186/s12864-018-5179-7,NA,SRA,No,78,78,,"Seems like a number are missing, and just weren't downloaded. (only 77 raw data files). All SRA accessions are in a separate table elsewhere as 1 per individual."
-Panicum_fillipes_Lowry_PoolSeq,https://doi.org/10.1186/s12864-018-5179-7,NA,SRA,No,15,15,,
-Pinus_abies_Milesi_Capture,https://doi.org/10.1111/eva.12801,PRJNA511374,SRA,No,1558,1558,Yes,Can see that some merging has already happened on data sent over directly. SRA includes substantially more data and another species that could potentially be used. Only 80 samples.
-Pinus_obovata_Milesi_Capture,https://doi.org/10.1111/eva.12802,PRJNA511375,SRA,No,93,93,No,We have more samples here then available in SRA?
+Picea_abies_Milesi_Capture,https://doi.org/10.1111/eva.12801,PRJNA511374,SRA,No,1558,1558,Yes,Can see that some merging has already happened on data sent over directly. SRA includes substantially more data and another species that could potentially be used. Only 80 samples.
+Picea_obovata_Milesi_Capture,https://doi.org/10.1111/eva.12801,PRJNA511374,SRA,No,93,93,No,We have more samples here then available in SRA?
 Helianthus_argophyllus_Todesco_WGS,https://doi.org/10.1038/s41586-020-2467-6, PRJNA532579/PRJNA398560/PRJNA564337,SRA,,,,No,
 Helianthus_petiolarus_Todesco_WGS,https://doi.org/10.1038/s41586-020-2467-6, PRJNA532579/PRJNA398560/PRJNA564337,SRA,,,,No,
+Helianthus_annuus_Todesco_WGS,https://doi.org/10.1038/s41586-020-2467-6, PRJNA532579/PRJNA398560/PRJNA564337,SRA,,,,No,

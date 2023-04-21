@@ -1,109 +1,130 @@
-# RepAdapt mpileup SNP Calling Pipeline for WGS/Capture
+# RepAdapt WGS/Capture SNP-Calling pipeline
+This directory includes the scripts required to call SNPs from raw fastq files.
 
-## Setup
-### Directory Structure
-The pipeline assumes that all individuals are from the same species and assumes the following directory and subdirectory structure that can be set up with:
+The scripts are numbered 01-09, with a wrapper for running jobs on a SLURM-based HPC.
+
+Each script is described more below. 
+
+Steps 1-6 are run over individual files as batch arrays.
+Steps 7-8 are run over groups of scaffolds of size N as batch arrays.
+Step 9 is run as a single job.
+
+## Metadata and Genome preparation
+Each dataset requires a metadata file that must be in the following format. It must be stored as `02_info_files/datatable.txt`
+
 ```
-# Make a parent directory for species
-SPECIES_DIR=name_of_your_species
-mkdir $SPECIES_DIR
-
-# Make subdirectories
-cd $SPECIES_DIR
-mkdir 00_archive  02_info_files  04_raw_data	06_bam_files  08_filtered_VCFs  99_metrics	01_scripts  03_genome	 05_trimmed_data  07_raw_VCFs 98_log_files
-```
-
-### Raw Data
-Throughout here I've assumed starting from raw SRA/ENA read files, for e.g. `SRR10335077_1.fastq.gz`. Will rename individuals to meaningful sample names in the final VCF, so keep a metadata linking accessions to samples. To identify readpairs then, usually these are listed as `ls *1.fastq.gz`. If for whatever reason this doesn't match the format of your raw read data, then those parts of the scripts that use `ls *1.fastq.gz` will need editing.
-
-All raw data should be placed in `04_raw_data/`
-
-If starting from BAM files, these can be stored in `06_bam_files/`
-
-### Genome
-Also need to prepare the genome files and move into `03_genome`
-```
-# Make sure genome is suffixed with one of "".fasta .fa .fasta.gz or .fa.gz" as this is used later to identify the genome file within the subdir
-GENOME=your_genome_file.fasta
-
-# bwa index
-bwa index $GENOME
-
-# samtools index
-samtools faidx $GENOME
-
-# gatk dictionary with picard
-java -jar $EBROOTPICARD/picard.jar CreateSequenceDictionary R=$GENOME O=${GENOME%.*}.dict
-```
-All genome files can either be moved into the `03_genome` subdirectory, or if using the same genome for several species, symlinking them may be simpler, ie. `ln -S /path/to/genome* $SPECIES_DIR/03_genome/`
-
-### Ploidy
-If ploidy is known, then a ploidy file can be made and placed in `02_info_files/ploidymap.txt`. By default (because I don't have any ploidy info on the eucalypt samples), a basic diploid map is made assuming all samples are diploid:
-```
-ls 04_raw_data/*1.fastq.gz | xargs -n 1 basename | sed 's/_1.fastq.gz//g' > 02_info_files/ploidymap.txt
-for ind in $(cut -f1 02_info_files/ploidymap.txt)
-do
-  sed -i "s/$ind/${ind}\t2/g" 02_info_files/ploidymap.txt
-done
+| #SRA       |   |   | ploidy | R1_file                | R2_file                |   |   |   | RG                           |   | instrument |   | individual        | r1_ftp                                                                   | r2_ftp                                                                   | r1_md5                           | r2_md5                           |
+|------------|---|---|--------|------------------------|------------------------|---|---|---|------------------------------|---|------------|---|-------------------|--------------------------------------------------------------------------|--------------------------------------------------------------------------|----------------------------------|----------------------------------|
+| SRR2744682 |   |   | 2      | SRR2744682_R1.fastq.gz | SRR2744682_R2.fastq.gz |   |   |   | Ptremula_SwAsp001_SRR2744682 |   | ILLUMINA   |   | Ptremula_SwAsp001 | ftp.sra.ebi.ac.uk/vol1/fastq/SRR274/002/SRR2744682/SRR2744682_1.fastq.gz | ftp.sra.ebi.ac.uk/vol1/fastq/SRR274/002/SRR2744682/SRR2744682_2.fastq.gz | a329816ed2d49ca6d05bf3efc5801024 | f074544db22d60f0ca8ea573f6ac7bdf |
+| SRR4301375 |   |   | 2      | SRR4301375_R1.fastq.gz | SRR4301375_R2.fastq.gz |   |   |   | Ptremula_SwAsp003_SRR4301375 |   | ILLUMINA   |   | Ptremula_SwAsp003 | ftp.sra.ebi.ac.uk/vol1/fastq/SRR430/005/SRR4301375/SRR4301375_1.fastq.gz | ftp.sra.ebi.ac.uk/vol1/fastq/SRR430/005/SRR4301375/SRR4301375_2.fastq.gz | eb2a9b1b1e2a88542342dd3b6f3445a3 | 2d18328dea665ab74d2a77e77799372d |
+| SRR4301376 |   |   | 2      | SRR4301376_R1.fastq.gz | SRR4301376_R2.fastq.gz |   |   |   | Ptremula_SwAsp004_SRR4301376 |   | ILLUMINA   |   | Ptremula_SwAsp004 | ftp.sra.ebi.ac.uk/vol1/fastq/SRR430/006/SRR4301376/SRR4301376_1.fastq.gz | ftp.sra.ebi.ac.uk/vol1/fastq/SRR430/006/SRR4301376/SRR4301376_2.fastq.gz | 567a4448a76217102fdecc1b78020aec | 20f3166ac143267c9ea987f71b6c811c |
 ```
 
-Here, column 1 is sample ID (e.g. SRR10335077) and column 2 is ploidy count.
+The reference genome must also be pre-processed by indexing with bwa and samtools and preparing the dictionary files for gatk.
+This can be done using the command: `sh prepare_genome.sh $ref_genome`
 
-If you're using known ploidy information, comment these out or just don't run them.
-
----
-
-## Running
-The script called `00_start_pipeline_SLURM.sh` includes `sbatch` commands for running each of the steps of the pipeline. This script should be used interactively, so to run each step, first set the general variables, for example:
+The pipeline also expects a directory structure that can be made using the following command
 ```
-# Variables
-MAIN=/home/jimw91/RepAdapt/snp_calling
-DATASET=murray_Emol
-SPECIES_DIR=$MAIN/$DATASET
-cd $SPECIES_DIR
-
-# Point to scripts
-PIPE_DIR=$MAIN/general_scripts/snpcalling_pipeline_jw
-
-# Set Email for slurm reports
-EMAIL=james.whiting@ucalgary.ca
-
-# Set ComputeCanada account
-CC_ACCOUNT=def-yeaman
-
-# How many samples are there?
-FASTQ_N=$( ls $SPECIES_DIR/04_raw_data | wc -l )
-FILE_ARRAY=$(( $FASTQ_N / 2 ))
+mkdir 00_archive  01_scripts  02_info_files  03_genome  04_raw_data  05_trimmed_data  06_bam_files  07_raw_VCFs  08_filtered_VCFs  09_final_vcf  98_log_files  99_metrics  99_metrics_merged
 ```
 
-Each step of the pipeline can then just be run as batch array jobs using the above variables to receive status emails and ensure that each step of the pipeline is starting from the correct working directory.
+## General Scripts
+A few general scripts are included which perform the following tasks:
+* `ena_wget_downloader.sh` - Uses the metadata file to download raw data from ena and produce and check md5
+* `fastq_dump_parallel.sh` - An alternative approach to downloading raw fastq data using the sra-toolkit (tended to be a bit buggy)
+* `concat_bam_stats.sh` - Point at a directory which includes per-bam summary stats to concatenate to a single file
+* `prepare_genome.sh` - Point at a reference genome to perform necessary indexing and additional genome files
 
-### Dependencies
-I have also added job dependencies so that scripts are run in groups. These are currently grouped as:
-Submit scripts 1 + 2 + 3
-Submit scripts 4 + 5 + 6
-Submit scripts 7 + 8 + 9
+## Step 0 - Wrapper for running Steps 1-9 on an HPC
+This script allows the user to set metadata regarding where pipeline scripts and the working directory is.
+Also set email for notifications and general HPC info
+Each script is then submitted as an individual job with dependencies on the prior job completing successfully before running.
 
-These groupings just reflect points where it's useful to check outputs, and also if running lots of individuals/lots of scaffolds compute canada limits to 1000 jobs which prevents running them all as a single group. There's also some metadata to make in between scripts 6 and 7, so splitting into scripts 1-6 and then 7-9 may also be sensible.
+## Step 1 - Read Trimming
+Read trimming is performed using fastp.
 
-To remove dependencies, just remove lines that include `--dependency=`.
+Script: `01_fastp.sh`
+Inputs: Raw fastq files
+Outputs: Trimmed fastq files
 
----
+## Step 2 - Alignment to Genome
+Alignment is performed using bwa-mem.
+Also includes a QC on trimmed fastq to make sure read headers are not malformed, and attempts to resolve if they are.
 
-## Debugging
-Log files are written to `98_log_files/`, and are named according to the format of ${JOB_NAME}_${ARRAY_NUMBER}_array${SLURM_ARRAY_TASK_ID}. So to trace back problems, identify the problematic file in the array order (will match `ls` order), and check relevant log file.
+Script: `02_bwa_alignments.sh`
+Inputs: Trimmed fastq files
+Outputs: Sorted and indexed BAM files.
 
----
+## Step 3 - First run of BAM quality metrics
+BAM quality metrics calculcated using Picard:
+(`CollectAlignmentSummaryMetrics`, `CollectInsertSizeMetrics`,`CollectWgsMetricsWithNonZeroCoverage`)
 
-## Notes
-For script 2 (bwa), depending on how fastq files are downloaded from SRA the fastq files may have added a .1 or .2 suffix to the read pair names. This causes bwa to fail as it can't match read pairs from R1 and R2 fastqs. The following lines in script 2 can be uncommented and used to fix this by just removing these suffixes. By default these are commented out:
+Script: `03_collect_metrics.sh`
+Inputs: Sorted/Indexed BAMs
+Outputs: Alignment, insert size and WGS metrics, outputted to `99_metrics/`
+
+## Step 4 - Remove duplicates
+Duplicates are marked and removed using Picard's `MarkDuplicates`
+
+Script: `04_remove_duplicates.sh`
+Inputs: Sorted/Indexed BAMs
+Outputs: Deduplicated BAMs (`*dedup.bam`)
+
+## Step 5 - Change Read Groups and Merge Replicates
+Modifies read groups and then merges over technical replicates of the same individual
+Read groups are added using Picard's `AddOrReplaceReadGroups` and merging is done with `MergeSamFiles`
+
+Note: Even if there aren't any technical replicates, the merging step should still be run to maintain filenames.
+
+Scripts: `05_change_RG.sh` and `05b_merge_bams.sh`
+Inputs: Deduplicated BAMs (`*.dedup.bam`)
+Outputs: Merged BAMs (`*.merged.bam`)
+
+## Step 6 - Realignment around indels and final BAM quality checks
+Performs indel realignment by first generating interval files using GATK's `RealignerTargetCreator`.
+Indel realignment is then performed with `IndelRealigner`.
+Final quality metrics are then calculated over the final BAM files as in step 3.
+
+Note: These software are only available in versions of GATK prior to v4.
+
+Scripts: `06_gatk_realignments.sh` and `06b_collect_final_metrics.sh`
+Inputs: Merged BAMs (`*.merged.bam`)
+Outputs: Realigned BAMs (`*.realigned.bam`)
+
+Note: These are deposited in `99_metrics_merged/`. 
+Can then run `concat_bam_stats.sh 99_metrics_merged/ DATASET_NAME` to summarise to a single text file.
+
+## Step 7 - SNP calling through mpileup
+Performs SNP-calling using genotype-likelihoods.
+The genome is split into groups of scaffolds, and these groups are run in parallel through BCFtools' `mpileup` and `call`.
+
+Script: `07_mpileup.sh`
+Inputs: All realigned BAMs
+Outputs: Per-scaffold unfiltered VCFs
+
+## Step 8 - Scaffold VCF filtering
+Each scaffold is filtered according to a standardised set of quality filters
+Filtering is performed using VCFtools, specifically the following:
 ```
-#######################################
-# Uncomment these lines in rare cases where SRA download has suffixed R1 and R2 fastq headers with .1 and .2, which errors out bwa. This removes them
-###
-mv $RAWDATAFOLDER/$file1 $RAWDATAFOLDER/${name}.R1.trimmed_dirty.fastq.gz
-mv $RAWDATAFOLDER/$file2 $RAWDATAFOLDER/${name}.R2.trimmed_dirty.fastq.gz
-zcat $RAWDATAFOLDER/${name}.R1.trimmed_dirty.fastq.gz | sed -E "s/^((@|\+)SRR[^.]+\.[^.]+)\.(1|2)/\1/" | gzip > $RAWDATAFOLDER/$file1
-zcat $RAWDATAFOLDER/${name}.R2.trimmed_dirty.fastq.gz | sed -E "s/^((@|\+)SRR[^.]+\.[^.]+)\.(1|2)/\1/" | gzip > $RAWDATAFOLDER/$file2
-#######################################
+--minQ 30 \
+--minGQ 20 \
+--minDP 5 \
+--max-alleles 2 \
+--max-missing 0.7 \
+```
+
+Script: `08_scaffoldVCF_filtering.sh`
+Inputs: Per-scaffold unfiltered VCFs
+Outputs: Per-scaffold quality-filtered VCFs
+
+## Step 9 - Final VCF filtering and concatenation
+Script concatenates all per-scaffold filtered VCFs and performs some final maf-filtering using BCFtools
+
+Script: `09_concat_VCFs.sh`
+Inputs: Per-scaffold quality-filtered VCFs
+Outputs: Three final VCFs with varying maf-filtering of: None, 1% and 5%:
+```
+*_full_concatened.vcf
+*_full_concatened_maf01.vcf.gz
+*_full_concatened_maf05.vcf.gz
 ```

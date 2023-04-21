@@ -8,7 +8,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=12G
-#SBATCH --time=00-12:00:00
+#SBATCH --time=00-72:00:00
 
 cd $SLURM_SUBMIT_DIR
 
@@ -35,20 +35,6 @@ BAM="02_info_files/bammap.txt"
 PLD="02_info_files/ploidymap.txt"
 REGION_FILE=$(ls 02_info_files/all_scafs*pos | sed "${SLURM_ARRAY_TASK_ID}q;d")
 
-# PLD=2
-
-# Get info from the datatable
-# SPEC=$(awk 'NR==4{print$1}' $INFO/datatable.txt | cut -d"_" -f1)
-
-# Calling SNPs with BCFTOOLS
-# cat "$REGION_FILE" |
-# while read file
-# do
-
-    # Name of the genomic region
-    # region=$(echo $file | perl -pe 's/:.*//g')
-    # region=$(cat $INDGENOME | cut -f1 | sed "${SLURM_ARRAY_TASK_ID}q;d")
-
     for scaf in $(cut -f1 $REGION_FILE)
     do
     echo ">>> Genotyping scaffold $scaf"
@@ -56,7 +42,6 @@ REGION_FILE=$(ls 02_info_files/all_scafs*pos | sed "${SLURM_ARRAY_TASK_ID}q;d")
 
     # Action!
     parallel -j8 "bcftools mpileup -Ou -f $GENOMEFOLDER/$GENOME --bam-list $BAM -q 5 -r {} -I -a FMT/AD | bcftools call -S $PLD -G - -f GQ -mv -Ov > $VCF/${DATASET}_{}.vcf" :::: $REGION_FILE
-#done 2> "$LOG_FOLDER"/07_mpileup_$(cat $REGION_FILE | perl -pe 's/:.*//g')_"$TIMESTAMP".log
 
 end=`date +%s`
 elapsed=`expr $end - $begin`

@@ -4,14 +4,12 @@
 #SBATCH -o 98_log_files/%x_%A_array%a.out
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=8G
-#SBATCH --time=0-12:00:00
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=64G
+#SBATCH --time=0-24:00:00
 
 # Load needed modules
 module load bwa samtools
-
-#cd $SLURM_SUBMIT_DIR
 
 ##Keep some info. about the run/script
 TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
@@ -26,8 +24,6 @@ GENOME=$(ls -1 $GENOMEFOLDER/*{fasta,fa,fasta.gz,fa.gz} | xargs -n 1 basename)
 INDGENOME=${GENOME}.fai
 RAWDATAFOLDER="05_trimmed_data"
 ALIGNEDFOLDER="06_bam_files"
-#SAMPLE_FILE="02_info_files/samples_split/bwa0000"
-
 TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
 
 # Test if user specified a number of CPUs
@@ -43,7 +39,7 @@ then
 fi
 
 # Pull individual ID from the batch array
-name=$(cat $RAWDATAFOLDER/all_trimmed_ids.txt | sed "${SLURM_ARRAY_TASK_ID}q;d")
+name=$(cut -f1 02_info_files/datatable.txt | sed "${SLURM_ARRAY_TASK_ID}q;d")
 
     # Name of uncompressed file
     file1=${name}.R1.trimmed.fastq.gz
@@ -72,13 +68,8 @@ name=$(cat $RAWDATAFOLDER/all_trimmed_ids.txt | sed "${SLURM_ARRAY_TASK_ID}q;d")
     "
   fi
 
-    #statements
-
     # Set ID
     ID="@RG\tID:ind\tSM:ind\tPL:Illumina"
-
-    # echo "$name"
-    # echo "$name2"
 
     # Align reads
     bwa mem -t $NCPU -R $ID $GENOMEFOLDER/$GENOME $RAWDATAFOLDER/$file1 $RAWDATAFOLDER/$file2 |

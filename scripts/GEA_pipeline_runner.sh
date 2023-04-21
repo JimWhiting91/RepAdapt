@@ -3,97 +3,110 @@
 # Set up directory and move to top of tree
 MAIN=/lu213/james.whiting/RepAdapt
 cd $MAIN
+PIPELINE_DIR=R/01_GEA_pipeline
 
-# Currently input is taken as the VCF
-# Each VCF however may include multiple species, which are separated during analysis
-#VCF=$1
+# Set a run_name...
+RUN_NAME=230321
 
 # For now specify manually based on the full path
-# VCF=/lu213/james.whiting/RepAdapt/data/VCFs/10_Capsella_Weigel/Co_full_concatened.vcf.gz
-METADATA=metadata/sample_species_vcf_author_map_v2_210519.csv
+VCF_GENOME_GFF=metadata/vcf_genome_gff_220830_map.txt
+
+# Make a file of VCFs to run if need be
+# This should just be a simple text file listing relative paths from $MAIN to VCFs. VCFs can be commented out if already run.
+VCF_TO_RUN=metadata/vcfs_to_run.txt
 
 # Set general variables
-POP_STRUCTURE_SNPN=10000
-NCORE=16
-TC_THRESH=0.99
+POP_STRUCTURE_SNPN=10000  # How many SNPs to use for popstructure analyses
+WZA_DOWNSAMPLE=0.75 # How many SNPs per gene to keep for WZA downsampling. If <1 we take it as a quantile of the distribution of per gene snp density...
+GENE_FLANK_SIZE=500 # What size flanking regions to add onto genes when collating SNPs to gene scores...
+NCORE=12
+TC_THRESH=0.99 # What upper % for dbinom with top-candidate approach
+RDA_DOWNSAMPLE=10000  # How many SNPs to downsample for RDA analyses
 
-# Loop over these
-pool_test=(/lu213/james.whiting/RepAdapt/data/VCFs/02_Alyrata_Willi_pool/Alyr_full_concatened.vcf.gz /lu213/james.whiting/RepAdapt/data/VCFs/11_Athaliana_Gunther_pool/Athal_full_concatened.vcf.gz /lu213/james.whiting/RepAdapt/data/VCFs/12_Athaliana_Roux_pool/Athal_full_concatened.vcf.gz)
-pool_test_ref=(Alyr_v.1.0_genomic.fasta GCF_000001735.4_TAIR10.1_genomic.fasta GCF_000001735.4_TAIR10.1_genomic.fasta)
-
-for i in {0..2}
+# Loop over VCF that we are ready to run and that haven't been run
+for VCF in $(grep -v "#" $VCF_TO_RUN)
 do
-# one off
-VCF="${pool_test[$i]}"
-REFERENCE="${pool_test_ref[$i]}"
-IS_POOL=true
 
-# Try and loop over these VCF
-#for VCF in $(grep -v "ool" $METADATA | sed 's/,/\t/g' | cut -f10 | uniq | grep "vcf" | grep -v "Murray" | grep -v "Capsella")
-# for VCF in $(grep -v "ool" $METADATA | sed 's/,/\t/g' | cut -f10 | uniq | grep "vcf" | grep -v "Murray" | grep -v "Capsella" | grep -v "sylvestris" | grep -v "bursa" | grep -v "tremula")
-# do
+  # Set Dataset Variables...
+  REFERENCE=$(grep $VCF $VCF_GENOME_GFF | awk '{print $2}')
+  GFF=$(grep $VCF $VCF_GENOME_GFF | awk '{print $3}')
+  IS_POOL=$(grep $VCF $VCF_GENOME_GFF | awk '{print $4}')
+  SPECIES_CODE=${RUN_NAME}_$(grep $VCF $VCF_GENOME_GFF | awk '{print $8}')
 
-  echo "STARTING TEST GEA FOR $VCF"
-
-  # Fetch the reference genome from the VCF header, and also the GFF
-  # REFERENCE=$(gunzip -c $VCF | grep -m1 "##reference")
-  # REFERENCE=$(echo ${REFERENCE##*/})
-  REFERENCE_PATH=$(find data/reference_genomes/* -name $REFERENCE)
-  REFERENCE_DIR=$(echo "${REFERENCE_PATH%/*}")
-
-  # This currently struggles with gzipped gffs...
-  GFF=$(ls -d $REFERENCE_DIR/*.gff* | grep -v "gz")
-
-  # Write these to log file
-  echo "LOGFILE FOR GEA OF $VCF" > $VCF.gea.log
-  echo "REFERENCE = $REFERENCE" >> $VCF.gea.log
-  echo "GFF = $GFF" >> $VCF.gea.log
+  # Write these to a log file
+  echo "Run name = $RUN_NAME" > $VCF.gea.log
+  echo "ref_genome = ${REFERENCE}" >> $VCF.gea.log
+  echo "gff = ${GFF}" >> $VCF.gea.log
+  echo "is_pool = ${IS_POOL}" >> $VCF.gea.log
 
   ################################################################################################################
-  # STEP 1: Summarise Population Structure and Dataset Features
+  # STEP 1: GEA over worldclim
+  echo ">>> STARTING ALL GEA FOR $VCF
+  "
 
-#   # First, quantify population structure
-# if [ "IS_POOL"=true ]
-# then
-#   bin/Rscript R/quantify_population_structure.R \
-#   --vcf=$VCF \
-#   --metadata=$METADATA \
-#   --n_cores=$NCORE \
-#   --sub_SNP=$POP_STRUCTURE_SNPN \
-#   --pool >> $VCF.gea.log
-# else
-#   bin/Rscript R/quantify_population_structure.R \
-#   --vcf=$VCF \
-#   --metadata=$METADATA \
-#   --n_cores=$NCORE \
-#   --sub_SNP=$POP_STRUCTURE_SNPN >> $VCF.gea.log
-# fi
+  # Run the GEAs over climate data - Make sure to set IS_POOL to organise how AFs are handle
+  if [ "$IS_POOL" = "TRUE" ]
+  then
+    bin/Rscript $PIPELINE_DIR/perform_GEA.R \
+      --dataset_dir=$SPECIES_CODE \
+      --vcf=$VCF \
+      --n_cores=$NCORE \
+      --pool >> $VCF.gea.log
+  else
+    bin/Rscript $PIPELINE_DIR/perform_GEA.R \
+      --dataset_dir=$SPECIES_CODE \
+      --vcf=$VCF \
+      --n_cores=$NCORE >> $VCF.gea.log
+  fi
 
   ################################################################################################################
-  # STEP 2: GEA over worldclim
-
-  # Run the GEAs over climate data - Make sure to set IS_POOL to organise how AFs are handled
-  # Something in here to define which climate data to use?
-if [ "IS_POOL"=true ]
-then
-  bin/Rscript R/perform_GEA.R \
+  # STEP 2: Summarise Population Structure and Dataset Features
+  echo ">>> STARTING POP STRUCTURE SUMMARIES FOR $VCF
+  "
+  #  Secondly, quantify population structure
+  if [ "$IS_POOL" = "TRUE" ]
+  then
+    bin/Rscript $PIPELINE_DIR/quantify_population_structure.R \
+    --dataset_dir=$SPECIES_CODE \
     --vcf=$VCF \
-    --metadata=$METADATA \
     --n_cores=$NCORE \
+    --sub_SNP=$POP_STRUCTURE_SNPN \
     --pool >> $VCF.gea.log
-else
-  bin/Rscript R/perform_GEA.R \
+  else
+    bin/Rscript $PIPELINE_DIR/quantify_population_structure.R \
+    --dataset_dir=$SPECIES_CODE \
     --vcf=$VCF \
-    --metadata=$METADATA \
-    --n_cores=$NCORE >> $VCF.gea.log
-fi
+    --n_cores=$NCORE \
+    --sub_SNP=$POP_STRUCTURE_SNPN >> $VCF.gea.log
+  fi
+
+  ###############################################################################################################
+  # STEP 3: Summarise GEA to WZA and TC
+  echo ">>> STARTING GEA > WZA SUMMARIES FOR $VCF
+  "
+  # Collate results to gene-based WZA
+    bin/Rscript $PIPELINE_DIR/collate_GEA_to_gene_WZA_empirical_pvals.R \
+    --dataset_dir=$SPECIES_CODE \
+    --vcf=$VCF \
+    --n_cores=$NCORE \
+    --gff=$GFF \
+    --snp_per_gene=$WZA_DOWNSAMPLE \
+    --gene_flank_size=$GENE_FLANK_SIZE \
+    --tc_threshold=$TC_THRESH >> $VCF.gea.log
 
   ################################################################################################################
-  # STEP 3: Summarise GEA to WZA and TC
+  # STEP 4: Partition genetic variance among climate variables
+  echo ">>> STARTING RDA VARIANCE PARTITIONING FOR $VCF
+  "
+    bin/Rscript $PIPELINE_DIR/partition_variance_with_RDA.R \
+    --vcf=$VCF \
+    --dataset_dir=$SPECIES_CODE \
+    --snp_downsample=$RDA_DOWNSAMPLE \
+    --n_cores=$NCORE >> $VCF.gea.log
 
-  # Collate results to gene-based WZA
-  bin/Rscript R/collate_GEA_to_gene_WZA.R $VCF $METADATA $NCORE $GFF $TC_THRESH >> $VCF.gea.log
-
-  # Add something here to tarball up .frq files as they are bloody big.
-
+  # Finish loop
+  echo ">>> Full GEA pipeline finished for $VCF
+  ################################################################################################################
+  ################################################################################################################
+  "
 done

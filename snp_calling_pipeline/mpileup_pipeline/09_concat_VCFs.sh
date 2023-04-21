@@ -6,9 +6,9 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=8G
-#SBATCH --time=00-00:30:00
+#SBATCH --time=00-12:00:00
 
-module load vcftools
+module load vcftools bcftools
 module load StdEnv/2020 intel/2020.1.217 tabix/0.2.6
 
 cd $SLURM_SUBMIT_DIR
@@ -28,7 +28,10 @@ begin=`date +%s`
 
 # Concatenate all the scaffold-VCF files into one global VCF file
 vcf-concat $(ls -1 $FILTVCF/*_filtered.vcf.gz | perl -pe 's/\n/ /g') > ${FILTVCF}/${DATASET}_full_concatened.vcf && bgzip ${FILTVCF}/${DATASET}_full_concatened.vcf
-# 2> "$LOG_FOLDER"/09_concatVCF_"$TIMESTAMP".log
+
+# Add final maf filtering here...
+bcftools view --min-af 0.01:minor ${FILTVCF}/${DATASET}_full_concatened.vcf.gz -Oz -o ${FILTVCF}/${DATASET}_full_concatened_maf01.vcf.gz
+bcftools view --min-af 0.05:minor ${FILTVCF}/${DATASET}_full_concatened.vcf.gz -Oz -o ${FILTVCF}/${DATASET}_full_concatened_maf05.vcf.gz
 
 echo "
 DONE! Check you files"

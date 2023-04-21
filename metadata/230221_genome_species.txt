@@ -1,0 +1,17 @@
+Amaranthus tuberculatus
+Arabidopsis halleri
+Arabidopsis lyrata
+Arabidopsis thaliana
+Arabis alpina
+Boechera stricta
+Capsella rubella
+Eucalyptus grandis
+Helianthus annuus
+Medicago truncatula
+Panicum hallii
+Picea abies
+Pinus taeda
+Populus deltoides
+Populus tremula
+Populus trichocarpa
+Quercus robur

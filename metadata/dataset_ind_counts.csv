@@ -1,0 +1,40 @@
+﻿Dataset,Species,Ind/Pool_inds,Pool_N,Data,Genome_mapped,non-maf_vcf?
+10_Capsella_Weigel,Capsella rubella,46,NA,WGS,Capsella rubella,Yes
+19c_Emagnificata_Murray,Eucaluptus magnificata,47,NA,WGS,Eucaluptus grandis,Yes
+03_Alyrata_Savolainen_wgs,Arabidopsis lyrata,49,NA,WGS,Arabidopsis lyrata,Yes
+06_Ahalleri_Kubota_wgs,Arabidopsis halleri,55,NA,WGS,Arabidopsis halleri,Yes
+21a_Phallii_Lowry,Panicum hallii,57,NA,WGS,Panicum hallii,Yes
+22_Pabies_Milesi,Picea abies,80,NA,Capture,Picea abies,No
+13_Ptremula_Ingvarsson_wgs,Populus tremula,94,NA,WGS,Populus tremula,Yes
+16_Psylvestris_Tanja,Pinus sylvestris,105,NA,Capture,Pinus taeda,No*
+20a_Aalp_Rellstab,Arabis alpina,120,6,Pool,Arabis alpina,Yes
+20c_Cres_Rellstab,Cardamine resedifolia,120,6,Pool,Arabidopsis halleri,Yes
+19b_Esideroxylon_Murray,Eucaluptus sideroxylon,149,NA,WGS,Eucaluptus grandis,Yes
+14b_Athaliana_Weigel_wgs_IBE,Arabidopsis thaliana,160,NA,WGS,Arabidopsis thaliana,Yes
+09_Atuberculatus_Wright,Amaranthus tuberculatus,166,NA,WGS,Amaranthus tuberculatus,No
+17_Pdeltoides_Kirst,Populus deltoides,168,NA,Capture,Populus deltoides,No*
+07_Mtruncatula_Tiffin_wgs,Medicago truncatula,174,NA,WGS,Medicago truncatula,Yes
+20b_Ahal_Rellstab,Arabidopsis halleri,180,9,Pool,Arabidopsis halleri,Yes
+23_Pobovata_Milesi,Picea obovata,213,NA,Capture,Picea abies,No
+19a_Ealbens_Murray,Eucaluptus albens,221,NA,WGS,Eucaluptus grandis,Yes
+14a_Athaliana_Weigel_wgs_SWE,Arabidopsis thaliana,243,NA,WGS,Arabidopsis thaliana,No
+28_Hargophyllus_Todesco_Individual,Helianthus argophyllus,299,NA,WGS,Helianthus annuus,No***
+18_Qpetraea_Kremer,Quercus petraea,395,18,Pool,Quercus petraea,Yes
+04_Ptrichocarpa_Holliday_capture,Populus trichocarpa,454,NA,Capture,Populus trichocarpa,No
+29_Hpetiolaris_Todesco_Individual,Helianthus petiolaris,475,NA,WGS,Helianthus annuus,No***
+05_Bstricta_MitchellOlds_wgs,Boechera stricta,484,NA,WGS,Boechera stricta,Yes
+31b_PglaucaXengelmannii_Adaptree_Capture,Picea glauca-engelmannii,572,NA,Capture,Picea abies,Yes
+31a_Pcontorta_Adaptree_Capture,Pinus contorta,586,NA,Capture,Pinus taeda,Yes
+30_Hannuus_Todesco_Individual,Helianthus annuus,614,NA,WGS,Helianthus annuus,No***
+12_Athaliana_Roux_pool,Arabidopsis thaliana,1287,168,Pool,Arabidopsis thaliana,Yes
+02_Alyrata_Willi_pool,Arabidopsis lyrata,1300,52,Pool,Arabidopsis lyrata,No
+,,,,,,*=Can call again from bams
+,,,,,,**=Currently unpublished
+,,,,,,***=Data with collaborators
+,,,,,,
+,,,,,,
+,,,,,,
+27_Loccidentalis_CoAdapTree,Larix occidentalis,900,45,Pool,Pseudotsuga menziesii,Yes**
+26_Pbanksiana_CoAdapTree,Pinus banksiana,780,39,Pool,Pinus taeda,Yes**
+24_Pmenziesii_Coastal_CoAdapTree,Pseudotsuga menziesii,1520,38,Pool,Pseudotsuga menziesii,Yes**
+25_Pmenziesii_Interior_CoAdapTree,Pseudotsuga menziesii,1400,35,Pool,Pseudotsuga menziesii,Yes**

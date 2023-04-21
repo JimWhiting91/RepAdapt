@@ -5,73 +5,6 @@ n_cores = 6
 source("R/repadapt_functions.R")
 
 # Functions ---------------------------------------------------------------
-OG = "OG0003045"
-# tree_file = paste0(OF_tree_dir,"/",Orthogroup_in,"_tree.txt")
-calc_neofunc_from_trees = function(OG){
-  
-  # Find our genomes that we actually tested...
-  tree_species = unique(OG_pvals[Orthogroup == OG,species])
-  tree_genomes = unique(species_genome_map[species %in% tree_species,genome])
-  if("Atuberculatus" %in% tree_genomes){
-    tree_genomes = gsub("Atuberculatus","Atubercatus",tree_genomes)
-  }
-  
-  # Fetch the tree in...
-  tree_tmp = read.tree(paste0(OF_tree_dir,"/",OG,"_tree.txt"))
-  
-  # Fetch the nodes and filter for only terminal cases...
-  nodes_tmp = OF_duplicates_HQ[Orthogroup == OG,]
-  if(nrow(nodes_tmp) > 0){
-    nodes_tmp$all_genes = apply(nodes_tmp[,.(`Genes 1`,`Genes 2`)],1,paste,collapse = ", ")
-    # Filter for tested species...
-    nodes_tmp$genome = sapply(strsplit(nodes_tmp$all_genes,'_'),'[[',1)
-    nodes_tmp = nodes_tmp[genome %in% tree_genomes,]
-  }
-  
-  # Now carry on if we have data or exit otherwise...
-  if(nrow(nodes_tmp) > 0){
-    
-    nodes_tmp = data.table(nodes_tmp[,.(`Gene Tree Node`,all_genes)] |> separate_rows(all_genes,sep = ", "))
-    colnames(nodes_tmp)[1] = "node"
-    terminal_pair_nodes = names(table(nodes_tmp$node))[table(nodes_tmp$node) == 2]
-    
-    if(length(terminal_pair_nodes) > 0){
-      
-      # Across these nodes, we want the branch lengths from each daughter to assess imbalance
-      per_node_branch_imbalance = sapply(terminal_pair_nodes,function(n){
-        tip1 = nodes_tmp[node == n,all_genes][1]
-        tip2 = nodes_tmp[node == n,all_genes][2]
-        
-        lengths_tmp = tree_tmp$edge.length[which.edge(tree_tmp,c(tip1,tip2))]
-        
-        (max(lengths_tmp) - min(lengths_tmp)) / sum(lengths_tmp)
-      })
-      
-      # Also fetch again the original genomes
-      terminal_genomes = sapply(terminal_pair_nodes,function(n){
-        strsplit(nodes_tmp[node == n,all_genes][1],"_")[[1]][1]
-      })
-      
-      # # Count putative neofunc events and mean log imbalance
-      # out = data.table(Orthogroup = OG,
-      #                  mean_imbalance = mean(log10(na.omit(per_node_branch_imbalance))),
-      #                  putative_neofunc = sum(na.omit(per_node_branch_imbalance) >= 1.5),
-      #                  total_term_dups = length(terminal_pair_nodes))
-      
-      # Assess terminal node imbalance and return all nodes along with imbalance...
-      out = data.table(Orthogroup = OG,
-                       imbalance = per_node_branch_imbalance,
-                       genome = terminal_genomes)
-      return(out)
-      
-    } else {
-      return(NULL)
-    }
-  } else {
-    return(NULL)
-  }
-}
-
 prune_duplicates = function(dups_file = OF_duplicates_HQ,
                             OG,
                             OG_pvals = OG_pvals,
@@ -95,13 +28,6 @@ prune_duplicates = function(dups_file = OF_duplicates_HQ,
 run_name = "230321"
 output_name = "25species_fixedAlyrataPabiesPobovata_OFcodes"
 
-# # Fetch the picmin results
-# picmin_res_files <- grep("picmin_res",list.files("outputs/",pattern = output_name),value=T)
-# all_picmin_res <- pbmclapply(paste0("outputs/",picmin_res_files),readRDS,mc.cores = n_cores)
-# 
-# # Extract the fdr results
-# picmin_fdr <- rbindlist(lapply(all_picmin_res,'[[',2))
-# names(all_picmin_res) <- unique(picmin_fdr$climate_var)
 # Fetch picmin results
 picmin_outputs = readRDS(paste0("outputs/",output_name,"_picmin_results_doubleDS_pvals.rds"))
 picmin_fdr = rbindlist(lapply(picmin_outputs,'[[',1))
@@ -198,9 +124,6 @@ means_to_plot = data.table(variable_labs = c("All Dups N","Species Dups N","Sing
 # Repeat the analysis above but using picmin deciles from random results --------
 random_picmin_res = readRDS(paste0("outputs/",output_name,"_randomised_pvals_picmin_res.rds"))
 random_picmin_res = data.table(separate(random_picmin_res,col = 'test_group', into = c("Orthogroup","climate_var"),sep = ':'))
-
-# Loop over iterations, group into deciles, take the mean
-
 
 # Repeat the decile approach
 random_picmin_deciles = random_picmin_res[,.(random_minP = min(picmin_p_adj)),by = .(Orthogroup,iteration)]
@@ -422,28 +345,3 @@ cowplot::plot_grid(functional_patch1,
                    ncol = 2,
                    rel_widths = c(0.9,2))
 dev.off()
-
-# # Combine together all of the functional results! -------------------------
-# functional_patch1 = cowplot::plot_grid(pleiotropy_outputs$tau_demo,
-#                                        pleiotropy_outputs$centrality_combined +
-#                                          theme_minimal(),
-#                                        dup_tree_example,ncol = 1,labels = c("A","B","C"),label_size = 32,vjust = c(1.5,-0.6,0.6),rel_heights = c(0.8,1,0.6))
-# functional_patch1
-# 
-# functional_patch2 = cowplot::plot_grid(pleiotropy_outputs$pleiotropy_results_fig,
-#                                        cowplot::plot_grid(pleiotropy_outputs$climate_specific_Z,
-#                                                           functional_corrs,
-#                                                           ncol = 2,labels = c("E","F"),label_size = 32,rel_widths = c(1.5,1)),
-#                                        cowplot::plot_grid(duplications_results_fig + theme(legend.position = 'top'),
-#                                                           contributing_species_fig + theme(panel.border = ),
-#                                                           ncol = 2,labels = c("G","H"),label_size = 32,rel_widths = c(1.5,1)),
-#                                        ncol = 1,labels = c("D","",""),label_size = 32,rel_heights = c(0.7,1,0.6),vjust = c(1.4,0,-0.5))
-# functional_patch2
-# 
-# # Merge
-# pdf('figs/Figure4_pleiotropy_and_convergence_results.pdf',width = 16,height = 11)
-# cowplot::plot_grid(functional_patch1,
-#                    functional_patch2,
-#                    ncol = 2,
-#                    rel_widths = c(0.9,2))
-# dev.off()

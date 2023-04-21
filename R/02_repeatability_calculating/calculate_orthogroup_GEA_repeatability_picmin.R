@@ -208,16 +208,3 @@ all_random_picmin_res = rbindlist(lapply(1:randomN,function(x){
 saveRDS(all_random_picmin_res,
         paste0("outputs/",output_name,"_randomised_pvals_picmin_res.rds"))
 
-
-
-# #  Test Space -------------------------------------------------------------
-# sort(table(test[picmin_fdr < 0.5,climate_var]))
-# sort(table(test[stouffer_fdr < 0.5,climate_var]))
-# 
-# sort(table(test[picmin_fdr < 0.5,Orthogroup]))
-# sort(table(test[stouffer_fdr < 0.5,Orthogroup]))
-# 
-# 
-# test[climate_var == 'min_temp_coldest_month' & picmin_fdr < 0.5,][order(picmin_p),]
-# test[climate_var == 'min_temp_coldest_month' & stouffer_fdr < 0.5,][order(stouffer_fdr),]
-

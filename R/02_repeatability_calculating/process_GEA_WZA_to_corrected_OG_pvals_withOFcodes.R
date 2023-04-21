@@ -120,17 +120,8 @@ gea_gene_OF_map = merge(all_gff_map,OG_sequences2[,c("full_OF","genome","Orthogr
 gea_gene_OF_map$gea_gene = paste0(gea_gene_OF_map$seqname,":",gea_gene_OF_map$start,"-",gea_gene_OF_map$end)
 
 # Save this map
-# write.table(gea_gene_OF_map,
-#             paste0("data/OF_OG_gea_gene_map.tsv"),
-#             row.names = F,quote = F,sep = "\t")
 saveRDS(gea_gene_OF_map,
             paste0("data/OF_OG_gea_gene_map_",output_name,".rds"))
-
-# # Filter orthogroups here on the basis of high rates of paralogy
-# OG_paralogN = data.table(OG_sequences2)[,.(paralogN = nrow(.SD)),by = .(genome,Orthogroup)]
-# OG_paralog_stats = OG_paralogN[,.(max_paralog = max(.SD$paralogN),
-#                                   speciesN = nrow(.SD)),by = Orthogroup]
-# OG_paralog_pass = OG_paralog_stats[max_paralog <= 10,Orthogroup]
 
 ############################################################################################################################################################
 # Prepare GEA data -------------------------------------------------------
@@ -162,14 +153,7 @@ all_climate_res <- lapply(climate_vars,function(focal_climate){
   # Read in all of our GEA results
   message(">>> Fetching GEA WZA scores")
 
-  # for(dataset in focal_datasets_climate){
-  #   tmp <- readRDS(paste0("outputs/GEA_res/",dataset,"/",focal_climate,"_WZA_TC_allgenes.rds"))
-  #   tmp$flank_gene <- tmp$gene_id
-  #   tmp <- tmp %>% separate(flank_gene,into = c("chr","start","end"),sep = ":|-")
-  #   print(paste0(dataset,":",min(as.integer(tmp$start))))
-  # }
-
-
+  # Loop over datasets
   all_gea_res <- lapply(focal_datasets_climate,function(dataset){
 
     print(dataset)
@@ -196,10 +180,6 @@ all_climate_res <- lapply(climate_vars,function(focal_climate){
                                                snp_count_vector = .SD$downsampled_snp_count),
                            by=snp_group]
 
-    # #### Don't do the mirroring ####
-    # snp_bin_sd <- to_model[,.(wza_sd = sd(.SD$weiZ_downsample),
-    #                           snp_count = mean(.SD$snp_count)),by = snp_group]
-
     #### Continue ####
     snp_bin_mean <- to_model[,.(snp_count = mean(downsampled_snp_count),
                                 mean_wza = mean(weiZ_downsample)),by=snp_group]
@@ -209,22 +189,6 @@ all_climate_res <- lapply(climate_vars,function(focal_climate){
                                 y = snp_bin_mean$mean_wza,spar = 1)
     sd_spline = smooth.spline(x = log10(snp_bin_sd$snp_count),
                               y = snp_bin_sd$wza_sd,spar = 1)
-
-    # # ##### TEMP #####
-    # data.frame(predict(sd_spline)) %>%
-    #   ggplot(aes(log10(x),y))+
-    #   geom_point()
-    # ggplot(snp_bin_sd,aes(x = log10(snp_count),y=wza_sd))+
-    #   geom_point()+
-    #   geom_line(data = data.frame(predict(sd_spline)),aes(x,y),colour="red2")
-    #
-    # data.frame(predict(mean_spline)) %>%
-    #   ggplot(aes(log10(x),y))+
-    #   geom_point()
-    # ggplot(snp_bin_mean,aes(x = log10(snp_count),y=mean_wza))+
-    #   geom_point()+
-    #   geom_line(data = data.frame(predict(mean_spline)),aes(x,y),colour="red2")
-    # # ####################
 
     # Use this to predict sd and pnorm some pvals
     wza_merge$sd_pvalue <- pnorm(wza_merge$weiZ_downsample,
@@ -309,38 +273,12 @@ all_climate_res <- lapply(climate_vars,function(focal_climate){
   saveRDS(na.omit(rbindlist(all_gea_res)),
           paste0("outputs/GEA_res/run",run_name,"_",output_name,"_RecRate_",focal_climate,"_pvals.rds"))
 
-  # #### Here we combine pvals for the same species for the same gene ####
-  # OG_combinedpvals = unique(rbindlist(all_gea_res)[,.(combined_sd_epvalue = poolr::fisher(.SD$sd_epvalue)$p,
-  #                                                     Orthogroup), by = .(full_OF,species)])
-  # 
-  # # Condense results to single Orthogroup and correct for paralogs...
-  # OG_minP <- OG_combinedpvals[,.(Ngenes_per_species=length(.SD$combined_sd_epvalue),
-  #                                min_sdP=min(.SD$combined_sd_epvalue)),by=.(Orthogroup,species)]
-  # # OG_snp_rec_count <- rbindlist(all_gea_res)[,.(Ngenes_per_species=length(.SD$sd_epvalue),
-  # #                                               min_snpP=min(.SD$snp_count_pval),
-  # #                                               min_recP=min(.SD$rec_rate_pval)),by=.(Orthogroup,species)]
-  # 
-  # # Dunn-Sidak correction
-  # OG_minP$min_sdP_DS <- 1 - (1 - OG_minP$min_sdP)^OG_minP$Ngenes_per_species
-  # OG_minP$climate = focal_climate
-  
+
   #### Here we combine pvals for the same species for the same gene ####
   # BUT DON'T DO THE EMPIRICAL STEP
   OG_combinedpvals = unique(rbindlist(all_gea_res)[,.(combined_sd_pvalue = poolr::fisher(.SD$sd_pvalue)$p,
                                                       Orthogroup), by = .(full_OF,species)])
   OG_combinedpvals$climate_var = focal_climate
-
-  # # Condense results to single Orthogroup and correct for paralogs...
-  # OG_minP <- OG_combinedpvals[,.(Ngenes_per_species=length(.SD$combined_sd_pvalue),
-  #                                min_sdP=min(.SD$combined_sd_pvalue)),by=.(Orthogroup,species)]
-  # # OG_snp_rec_count <- rbindlist(all_gea_res)[,.(Ngenes_per_species=length(.SD$sd_epvalue),
-  # #                                               min_snpP=min(.SD$snp_count_pval),
-  # #                                               min_recP=min(.SD$rec_rate_pval)),by=.(Orthogroup,species)]
-  # 
-  # # Dunn-Sidak correction
-  # OG_minP$min_sdP_DS <- 1 - (1 - OG_minP$min_sdP)^OG_minP$Ngenes_per_species
-  # OG_minP$climate = focal_climate
-  
 
   return(OG_combinedpvals)
 })

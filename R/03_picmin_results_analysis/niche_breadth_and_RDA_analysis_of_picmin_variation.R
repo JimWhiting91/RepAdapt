@@ -214,29 +214,3 @@ NB2_fig + theme(axis.title = element_text(size = 16),
                 axis.text.x = element_text(size = 14,angle = 45,hjust = 1),
                 title = element_text(size = 18))
 dev.off()
-
-# # Further analysis of difference in pvals by GSEC/Niche Breadth... --------
-# # Take from the above and add in dataset, GSEC, NB
-# repeatable_OG_pvals_merge = merge(repeatable_OG_pvals,gsec_picmin_NB_merge[,.(climate_var,dataset,species,GSEC,relative_breadth)],by = c("species","climate_var"),allow.cartesian=TRUE)
-# 
-# # For all species/climate, what's the average contributing pval...
-# avg_pval_species_climate = repeatable_OG_pvals_merge[,.(avg_pval = mean(-log10(.SD$min_sdP_DS))),by = .(species,climate_var)]
-# 
-# # Merge with GSEC/NB
-# avg_pval_species_climate = merge(avg_pval_species_climate,unique(gsec_picmin_NB_merge[,.(climate_var,species,dataset,GSEC,relative_breadth)]),
-#                                  by = c("species","climate_var"))
-# 
-# # Plot each...
-# ggplot(avg_pval_species_climate,aes(GSEC,avg_pval)) +
-#   # facet_wrap(~species,scales = "free") + 
-#   geom_point() +
-#   geom_smooth(method = "lm") 
-# 
-# # # Plot each...
-# # ggplot(avg_pval_species_climate,aes(relative_breadth,avg_pval)) +
-# #   facet_wrap(~species,scales = "free") +
-# #   geom_point() +
-# #   geom_smooth(method = "lm") 
-
-
-

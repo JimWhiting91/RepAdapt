@@ -1,4 +1,4 @@
-# Test script for exploring STRINGdb analyses...
+# Script explores associations between RAO and Protein-Protein Network Connectivity
 lib <- c("ggdendro","GOSemSim","dplyr","simplifyEnrichment","igraph","ggridges","ggrepel","cowplot","ggplot2","data.table","tidyr","pbmcapply","ggtree","ape","viridis","STRINGdb","qvalue","dplyr","biomaRt")
 sapply(lib,library,character.only=T)
 source("R/repadapt_functions.R")

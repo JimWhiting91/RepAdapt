@@ -105,39 +105,6 @@ for(species_tmp in names(species_counts[species_counts > 1])){
   ngenes_per_species[species == species_tmp,Ngenes := Ngenes/(species_counts[species])]
 }
 
-
-# # Compare Stouffers and PicMin --------------------------------------------
-# # Numbers of OG
-# fdr_threshs = seq(0.1,0.5,0.1)
-# for(fdr_thresh in fdr_threshs){
-#   print(paste0('>>> FDR = ',fdr_thresh))
-#   print(length(unique(picmin_fdr[picmin_fdr < fdr_thresh, Orthogroup])))
-#   print(length(unique(picmin_fdr[stouffer_fdr < fdr_thresh, Orthogroup])))
-#   print(length(unique(picmin_fdr[stouffer_fdr < fdr_thresh | picmin_fdr < fdr_thresh, Orthogroup])))
-# }
-# 
-# # Compare the intersections through venn
-# library(ggVennDiagram)
-# 
-# # List of items
-# fdr_venns = lapply(fdr_threshs,function(fdr_thresh){
-#   x <- list(PicMin = apply(picmin_fdr[picmin_fdr < fdr_thresh, .(Orthogroup,climate_var)],1,paste,collapse = ":"), 
-#             Stouffers = apply(picmin_fdr[stouffer_fdr < fdr_thresh, .(Orthogroup,climate_var)],1,paste,collapse = ":"))
-#   
-#   # 2D Venn diagram
-#   ggvenn(x,auto_scale = F,show_percentage = F,set_name_size = 4,text_size = 8) +
-#     # ggtitle(paste0("FDR = ",fdr_thresh)) +
-#     # theme(title = element_text(size = 18))+
-#     labs(caption=paste0("FDR = ",fdr_thresh)) +
-#     theme(plot.caption = element_text(hjust=0.5, size=20))
-#   
-# 
-#   
-# })
-# pdf("figs/FigureSX_picmin_vs_stouffers_venns.pdf",width=15,height = 3)
-# cowplot::plot_grid(plotlist = fdr_venns,nrow = 1)
-# dev.off()
-
 # Significance bars -------------------------------------------------------
 # Plot stacked bars for convergence N...
 picmin_fdr$fdr_level = ">0.5"
@@ -251,10 +218,8 @@ dev.off()
 picmin_fdr_signif = picmin_fdr[picmin_fdr < 0.5,]
 # Fetch all the datasets associated with each signif OG i.e. a pvalue < 0.1
 picmin_fdr_signif_dataset <- rbindlist(lapply(1:nrow(picmin_fdr_signif),function(x){
-  # tmp_gea <-  OG_pvals[climate_var == picmin_fdr_signif$climate_var[x] &
-  #                        Orthogroup == picmin_fdr_signif$Orthogroup[x] &
-  #                        epval_final < 0.1,][order(epval_final),]
-  # 
+  
+  # Find the original pvals and take 1:config.est
   tmp_gea <-  OG_pvals[climate_var == picmin_fdr_signif$climate_var[x] &
                          Orthogroup == picmin_fdr_signif$Orthogroup[x],][order(epval_final),][1:picmin_fdr_signif$config_est[x]]
   # If the cutoff pvalues is >0.1, only take those with pval <0.1
@@ -285,7 +250,7 @@ dataset_clim_counts$clim_F <- factor(stringr::str_to_title(gsub("_"," ",dataset_
 # Merge these...
 dataset_clim_counts = merge(dataset_clim_counts,dataset_clim_tested)
 
-# pdf("figs/FigureSX_dataset_climate_OG_heatmap.pdf",width=10,height=10)
+# Plot climate vs species heatmap
 climate_species_heat = ggplot(dataset_clim_counts,aes(y=species_F,x=clim_F,fill=Freq/testedN))+
   geom_tile()+
   scale_fill_viridis(option="A")+
@@ -297,7 +262,6 @@ climate_species_heat = ggplot(dataset_clim_counts,aes(y=species_F,x=clim_F,fill=
   labs(fill = expression(N/N[Tested])) +
   ggtitle("Contribution to RAOs (FDR < 0.5)\nby dataset and climate")
 climate_species_heat
-# dev.off()
 
 data.table(dataset_clim_counts)[,.(all_contributions = mean(.SD$Freq/.SD$testedN)),by = species][order(-all_contributions),]
 
@@ -338,7 +302,6 @@ OG_species_heat = ggplot(dataset_OG_counts[Orthogroup %in% OG_to_plot,],aes(x=da
   labs(fill = "N Climate\nVars") +
   geom_vline(xintercept = 5.5,size = 2, colour = 'green3',linetype = 'solid')
 OG_species_heat
-# ggtitle("Contribution (p < 0.1) to repeated OG (FDR < 0.2)\nby dataset and OG")
 
 # Also produce a bar graph showing the number of times an Orthgroup pops up and the total number of orthogroups
 OG_count_bar_data = dataset_OG_counts[,.(`Species N` = nrow(.SD),
@@ -427,23 +390,8 @@ to_plot <- melt(species_species_mat)
 to_plot$Var1_F <- factor(to_plot$Var1,levels=species_meta_ordered$species)
 to_plot$Var2_F <- factor(to_plot$Var2,levels=species_meta_ordered$species)
 
-# species_tested_N = rbindlist(pbmclapply(1:ncol(combn(colnames(species_species_mat),2)),function(x){
-#   s1 = combn(colnames(species_species_mat),2)[1,x]
-#   s2 = combn(colnames(species_species_mat),2)[2,x]
-#   
-#   # How many OG were each of these tested in...
-#   clim_OG_tested = OG_pvals[species %in% c(s1,s2),
-#                                    .(tested = nrow(.SD)),
-#                                    by = .(Orthogroup,climate_var)]
-#   
-#   
-#   # Return the number of tests done...
-#   out = data.table(Var1 = c(s1,s2),
-#                    Var2 = c(s2,s1),
-#                    testedN = rep(nrow(clim_OG_tested[tested == 2,]),2))
-# },mc.cores = n_cores))
 
-# pdf("figs/FigureSX_dataset_dataset_sameOG_sameClimate_heatmap_phylo_ordered.pdf",width = 10,height=8)
+# Plot the dataset vs dataset matrix
 to_plot_merge = data.table(merge(to_plot,species_tested_overlap_melt,all.x = T))
 to_plot_merge[Var1 == Var2, testedN := 1]
 dataset_dataset_heatmap = ggplot(to_plot_merge,aes(x=Var2_F,y=Var1_F,fill=value/testedN))+
@@ -457,8 +405,6 @@ dataset_dataset_heatmap = ggplot(to_plot_merge,aes(x=Var2_F,y=Var1_F,fill=value/
   labs(fill=expression(N/N[Tested]))
 dataset_dataset_heatmap
 species_tested_overlap_melt
-# dev.off()
-
 
 # Combine all convergence result plots... ---------------------------------
 pdf("figs/Figure2_convergence_OG_results.pdf",width = 22,height = 11)
@@ -500,10 +446,6 @@ fdr05_OG_summary <- rbindlist(lapply(signif_OG_summary$Orthogroup,function(OG){
   clim_tmp = paste(stringr::str_to_title(gsub("_"," ",picmin_fdr[Orthogroup == OG & picmin_fdr < 0.5,climate_var])),collapse = "/")
   true_gene_tmp = OG_map_Athal[Orthogroup == OG,true_gene]
   TAIR_gene_tmp = OG_map_Athal[Orthogroup == OG,TAIR_gene]
-  
-  
-  # # And get the GO terms and stitch
-  # go_tmp = paste(athal_universe_OG[Orthogroup == OG & go_name != "",go_name],collapse = '/')
   
   out = data.table(Orthogroup = OG,
                    `Climate Variable` = clim_tmp,
@@ -556,16 +498,6 @@ climchange_OG = unique(picmin_fdr[picmin_fdr < fdr_cutoff &
                                     climate_var %in% c("tmax_clim_change","prec_clim_change"),.(Orthogroup,climate_var,picmin_fdr)])
 climchange_OG = climchange_OG[order(picmin_fdr),]
 
-# # Set up TAIR info here
-# ## Assign TAIR keys
-# AnnotationDbi::columns(org.At.tair.db)
-# TAIR_tmp = keys(org.At.tair.db, keytype="TAIR")
-# # Pull the gene name column which has the description of what genes do...
-# my_col <- c('GENENAME','SYMBOL')
-# my_col <- AnnotationDbi::columns(org.At.tair.db)
-# # Extract to a data table
-# TAIR_gene_info <- data.table(AnnotationDbi::select(org.At.tair.db, keys=test_TAIR, columns=my_col[1], keytype="TAIR"))
-
 # And make table...
 climchange_OG_summary <- rbindlist(lapply(climchange_OG$Orthogroup,function(OG){
   clim_tmp = paste(stringr::str_to_title(gsub("_"," ",picmin_fdr[Orthogroup == OG & 
@@ -588,7 +520,6 @@ climchange_OG_summary <- rbindlist(lapply(climchange_OG$Orthogroup,function(OG){
   }
   out
 }))
-
 
 # Prettify
 write.csv(climchange_OG_summary,"tables/TableSX_climchange_annotated_genes.csv",row.names = F)

@@ -4,8 +4,8 @@ sapply(lib,library,character.only=T)
 n_cores = 6
 
 # What run?
-run_name = "220927"
-output_name = "COMBINED25species_updatedOF_221213"
+run_name = "230321"
+output_name = "25species_fixedAlyrataPabiesPobovata_OFcodes"
 
 # Fetch the OG map Athal
 OG_map_Athal = readRDS(paste0("data/OG_map_Athal_",run_name,".rds"))

@@ -12,13 +12,11 @@ Step 9 is run as a single job.
 ## Metadata and Genome preparation
 Each dataset requires a metadata file that must be in the following format. It must be stored as `02_info_files/datatable.txt`
 
-```
 | #SRA       |   |   | ploidy | R1_file                | R2_file                |   |   |   | RG                           |   | instrument |   | individual        | r1_ftp                                                                   | r2_ftp                                                                   | r1_md5                           | r2_md5                           |
 |------------|---|---|--------|------------------------|------------------------|---|---|---|------------------------------|---|------------|---|-------------------|--------------------------------------------------------------------------|--------------------------------------------------------------------------|----------------------------------|----------------------------------|
 | SRR2744682 |   |   | 2      | SRR2744682_R1.fastq.gz | SRR2744682_R2.fastq.gz |   |   |   | Ptremula_SwAsp001_SRR2744682 |   | ILLUMINA   |   | Ptremula_SwAsp001 | ftp.sra.ebi.ac.uk/vol1/fastq/SRR274/002/SRR2744682/SRR2744682_1.fastq.gz | ftp.sra.ebi.ac.uk/vol1/fastq/SRR274/002/SRR2744682/SRR2744682_2.fastq.gz | a329816ed2d49ca6d05bf3efc5801024 | f074544db22d60f0ca8ea573f6ac7bdf |
 | SRR4301375 |   |   | 2      | SRR4301375_R1.fastq.gz | SRR4301375_R2.fastq.gz |   |   |   | Ptremula_SwAsp003_SRR4301375 |   | ILLUMINA   |   | Ptremula_SwAsp003 | ftp.sra.ebi.ac.uk/vol1/fastq/SRR430/005/SRR4301375/SRR4301375_1.fastq.gz | ftp.sra.ebi.ac.uk/vol1/fastq/SRR430/005/SRR4301375/SRR4301375_2.fastq.gz | eb2a9b1b1e2a88542342dd3b6f3445a3 | 2d18328dea665ab74d2a77e77799372d |
 | SRR4301376 |   |   | 2      | SRR4301376_R1.fastq.gz | SRR4301376_R2.fastq.gz |   |   |   | Ptremula_SwAsp004_SRR4301376 |   | ILLUMINA   |   | Ptremula_SwAsp004 | ftp.sra.ebi.ac.uk/vol1/fastq/SRR430/006/SRR4301376/SRR4301376_1.fastq.gz | ftp.sra.ebi.ac.uk/vol1/fastq/SRR430/006/SRR4301376/SRR4301376_2.fastq.gz | 567a4448a76217102fdecc1b78020aec | 20f3166ac143267c9ea987f71b6c811c |
-```
 
 The reference genome must also be pre-processed by indexing with bwa and samtools and preparing the dictionary files for gatk.
 This can be done using the command: `sh prepare_genome.sh $ref_genome`

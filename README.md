@@ -3,6 +3,7 @@
 
 ### Author Contact Information
 james.whiting@ucalgary.ca
+
 sam.yeaman@ucalgary.ca
 
 ### Usage and license information
@@ -14,15 +15,15 @@ Whiting et al. (20XX) *in prep* [doi_link]()
 ![Global Mean Temp](./figs/repadapt_repo_fig.png?raw=true "Global Mean Temp")
 # RepAdapt
 
-The population genomics of convergent adaptation to climate across plant species. The aims of this project are to explore the repeatability of genes associated with various facets of climate adaptation, and assess the contingencies and sources of variation driving differences in repeatabilty among diverse species.
+The population genomics of repeated local adaptation to climate across plant species. The aims of this project are to explore the repeatability of genes associated with various facets of climate adaptation, and assess the contingencies and sources of variation driving differences in repeatabilty among diverse species.
 
 ---
 
 # Environment setup
 
-The scripts in this repository were written for a SLURM-based HPC and a local 48-CPU server. The `bin/repadapt_env.yaml` file can be used to setup the environment.
+The scripts in this repository were written for a SLURM-based HPC and a local 48-CPU server.
 
-Each dataset is comprised of a single VCF, these are available at FigShare (doi.XXX) and should be placed into the `data/VCFs` subdirectory.
+Each dataset is comprised of a single VCF or SNPTabke, these are available at FigShare (doi.XXX) and should be placed into the `data/VCFs` subdirectory.
 
 Similarly, links to reference genomes used are available in `metadata/fastq_accessions_and_doi.csv`. Each reference genome should have its own subdirectory within `data/reference_genomes`, that includes the relevant annotation in `.gff` format.
 
@@ -47,9 +48,10 @@ A number of additional metadata files are described here:
  * `vcf_paths.txt` - List of relative paths to VCF files that can be provided to loop over for GEA analyses
  * `vcf_genome_gff_map.txt` - Table matching VCFs to genomes and annotations, for e.g.
 
-| #VCF | GENOME | GFF | IS_POOL | GENOME_SPECIES | READY | RUN_OUTPUT | OUTPUT_DIR |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| data/VCFs/02_Alyrata_Willi_pool/Alyr_full_concatened.filtered_NoMiss0.25_maf0.05.SNPTable.txt | data/reference_genomes/A.lyrata_reference/Alyr_v.1.0_genomic.fasta | data/reference_genomes/A.lyrata_reference/Alyr_v.1.0_genomic.gff | TRUE | Alyrata | YES | YES | Arabidopsis_lyrata_Willi_PoolSeq |
+| #VCF                                                                                          | GENOME                                                             | GFF                                                              | IS_POOL | GENOME_SPECIES | READY | RUN _OUTPUT | OUTPUT_DIR                               |
+|-----------------------------------------------------------------------------------------------|--------------------------------------------------------------------|------------------------------------------------------------------|---------|----------------|-------|-------------|------------------------------------------|
+| data/VCFs/02_Alyrata_Willi_pool/Alyr_full_concatened.filtered_NoMiss0.25_maf0.05.SNPTable.txt | data/reference_genomes/A.lyrata_reference/Alyr_v.1.0_genomic.fasta | data/reference_genomes/A.lyrata_reference/Alyr_v.1.0_genomic.gff | TRUE    | Alyrata        | YES   | YES         | Arabidopsis_lyrata_Willi_PoolSeq         |
+| data/VCFs/03_Alyrata_Savolainen_wgs/savolainen_Alyrata_full_concatened_ScandScot_maf05.vcf.gz | data/reference_genomes/A.lyrata_reference/Alyr_v.1.0_genomic.fasta | data/reference_genomes/A.lyrata_reference/Alyr_v.1.0_genomic.gff | FALSE   | Alyrata        | YES   | YES         | Arabidopsis_lyrata_Savolainen_Individual |
 
 ---
 

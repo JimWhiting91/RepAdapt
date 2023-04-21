@@ -1,0 +1,7 @@
+Taxon_name,Pop_ID,Sample_name,Country,Pool_Size,Lat,Long,Alt,Author,Data_type
+Arabis alpina,Aal,Aal05,Switzerland,40,47.09909,9.05408,554,Rellstab,PoolSeq
+Arabis alpina,Aal,Aal18,Switzerland,40,47.16862,9.14544,1534,Rellstab,PoolSeq
+Arabis alpina,Aal,Aal27,Switzerland,40,46.97581,9.40496,2295,Rellstab,PoolSeq
+Arabis alpina,Aal,Aal31,Switzerland,40,47.04009,9.39734,712,Rellstab,PoolSeq
+Arabis alpina,Aal,Aal34,Switzerland,40,47.06786,9.02061,1954,Rellstab,PoolSeq
+Arabis alpina,Aal,Aal36,Switzerland,40,47.15436,9.30674,2300,Rellstab,PoolSeq

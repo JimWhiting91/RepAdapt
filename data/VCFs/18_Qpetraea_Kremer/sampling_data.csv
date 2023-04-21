@@ -1,0 +1,19 @@
+Taxon_name,Pop_ID,Sample_name,Country,Pool_Size,Lat,Long,Alt,Author,Data_type
+Quercus petraea,L12,sample_BHW_38865_L1DNA_GE,France,20,42.78,0.02,1235,Kremer,PoolSeq
+Quercus petraea,L16,sample_BHW_38865_L1DNA_P,France,18,42.87,-0.12,1630,Kremer,PoolSeq
+Quercus petraea,O12,sample_BHW_38865_L1DNA_GA,France,20,42.88,-0.42,1194,Kremer,PoolSeq
+Quercus petraea,O16,sample_BHW_38865_L1DNA_A,France,10,42.88,-0.4,1614,Kremer,PoolSeq
+Quercus petraea,O8,sample_BHW_38865_L1DNA_LH,France,20,42.9,-0.43,841,Kremer,PoolSeq
+Quercus petraea,L8,sample_BHW_38865_L1DNA_PR,France,20,42.92,-0.03,803,Kremer,PoolSeq
+Quercus petraea,O1,sample_BHW_38865_L1DNA_J,France,20,43.22,-0.73,259,Kremer,PoolSeq
+Quercus petraea,L1,sample_BHW_38865_L1DNA_L,France,20,43.75,-0.22,131,Kremer,PoolSeq
+Quercus petraea,233,sample_BNP_38865_pop_233,France,25,43.98,5.63,650,Kremer,PoolSeq
+Quercus petraea,97,sample_BNP_38865_pop_97,France,25,44.04,1.75,310,Kremer,PoolSeq
+Quercus petraea,9,sample_BNP_38865_pop_9,France,25,46.38,0.12,155,Kremer,PoolSeq
+Quercus petraea,219,sample_BNP_38865_pop_219,France,25,46.68,2.83,245,Kremer,PoolSeq
+Quercus petraea,218,sample_BNP_38865_pop_218,France,22,47.26,5.31,235,Kremer,PoolSeq
+Quercus petraea,217,sample_BNP_38865_pop_217,France,25,47.81,0.39,165,Kremer,PoolSeq
+Quercus petraea,204,sample_BNP_38865_pop_204,France,25,48.76,6.49,275,Kremer,PoolSeq
+Quercus petraea,124,sample_BNP_38865_pop_124,France,25,52.01,-9.5,50,Kremer,PoolSeq
+Quercus petraea,256,sample_BNP_38865_pop_256,France,25,52.26,10.99,180,Kremer,PoolSeq
+Quercus petraea,253,sample_BNP_38865_pop_253,France,25,53.1,10.86,85,Kremer,PoolSeq

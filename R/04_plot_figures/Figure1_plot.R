@@ -6,7 +6,7 @@ source("R/repadapt_functions.R")
 # General info
 run_name = 230321
 output_name = "25species_fixedAlyrataPabiesPobovata_OFcodes"
-OG_dir = "outputs/orthology/Results_221213_18_genomes_Ptaeda_isoforms_removed/"
+OG_dir = "outputs/orthology/Results_221213_18_genomes_Ptaeda_isoforms_removed//"
 
 # Fetch the OG_map
 OG_map = data.table(readRDS(paste0("data/OF_OG_gea_gene_map_",output_name,".rds")))
@@ -15,30 +15,52 @@ OG_map = data.table(readRDS(paste0("data/OF_OG_gea_gene_map_",output_name,".rds"
 OG_tree = read.tree(paste0(OG_dir,"/Species_Tree/SpeciesTree_rooted.txt"))
 
 # Fetch phylopic images...
-genome_species_labs = c("Pseudotsuga menziesii",
-                        "Picea abies\n(Picea obovata)\n(Picea glauca-engelmannii)",
-                        "Pinus taeda\n(Pinus sylvestris)\n(Pinus contorta)",
-                        "Panicum hallii",
-                        "Amaranthus tuberculatus",
-                        "Helianthus annuus\n(Helianthus argophyllus)\n(Helianthus petiolaris)",
-                        "Medicago truncatula",
-                        "Eucalyptus grandii*\n(Eucalyptus albens)\n(Eucalyptus sideroxylon)\n(Eucalyptus magnificata)",
-                        "Quercus robur*\n(Quercus petraea)",
-                        "Populus deltoides",
-                        "Populus trichocarpa",
-                        "Populus tremula",
-                        "Arabis alpina",
-                        "Capsella rubella",
-                        "Boechera stricta",
-                        "Arabidopsis thaliana",
-                        "Arabidopsis halleri\n(Cardamine resedifolia)",
-                        "Arabidopsis lyrata")
-OG_tree$tip.label = genome_species_labs
+genome_species_labs = c(Pmenziesii = "Pseudotsuga menziesii",
+                        Pabies = "Picea abies\n(Picea obovata)\n(Picea glauca-engelmannii)",
+                        Ptaeda = "Pinus taeda\n(Pinus sylvestris)\n(Pinus contorta)",
+                        Phallii = "Panicum hallii",
+                        Atubercatus = "Amaranthus tuberculatus",
+                        Hannuus = "Helianthus annuus\n(Helianthus argophyllus)\n(Helianthus petiolaris)",
+                        Mtruncatula = "Medicago truncatula",
+                        Egrandis = "Eucalyptus grandis*\n(Eucalyptus albens)\n(Eucalyptus sideroxylon)\n(Eucalyptus magnificata)",
+                        Qpetraea = "Quercus robur*\n(Quercus petraea)",
+                        Pdeltoides = "Populus deltoides",
+                        Ptrichocarpa = "Populus trichocarpa",
+                        Ptremula = "Populus tremula",
+                        Aalpina = "Arabis alpina",
+                        Crubella = "Capsella rubella",
+                        Bstricta = "Boechera stricta",
+                        Athaliana = "Arabidopsis thaliana",
+                        Ahalleri = "Arabidopsis halleri\n(Cardamine resedifolia)",
+                        Alyrata = "Arabidopsis lyrata")
+for(i in 1:length(OG_tree$tip.label)){
+  OG_tree$tip.label[i] = genome_species_labs[OG_tree$tip.label[i]]
+}
 
 # Remove conifer
 OG_tree = drop.tip(OG_tree,tip = "Pseudotsuga menziesii")
-simple_OG_tree = ggtree(OG_tree) + geom_tiplab(size=12,geom="text",as_ylab = T)
 
+# Add some node labels
+OG_tree$node.label = ''
+OG_tree$node.label[1] = '330.3\nmya'
+OG_tree$node.label[2] = '130.2 mya'
+OG_tree$node.label[3] = '159.6 mya'
+OG_tree$node.label[4] = '118 mya'
+OG_tree$node.label[15] = '15.97 mya'
+OG_tree$node.label[7] = '25.97 mya'
+
+
+simple_OG_tree = ggtree(OG_tree) + 
+  geom_nodepoint() +
+  geom_label2(aes(subset = node == 18,label = '330.3\nMYA'),fill = 'orange3',alpha = 0.5,nudge_x = 0.05) +
+  geom_label2(aes(subset = node == 19,label = '130.2\nMYA'),fill = 'orange3',alpha = 0.5) +
+  geom_label2(aes(subset = node == 20,label = '159.6\nMYA'),fill = 'orange3',alpha = 0.5) +
+  geom_label2(aes(subset = node == 32,label = '15.97\nMYA'),fill = 'orange3',alpha = 0.5) +
+  geom_label2(aes(subset = node == 24,label = '25.97\nMYA'),fill = 'orange3',alpha = 0.5) +
+  geom_tiplab(size=12,geom="text",as_ylab = T)
+
+
+simple_OG_tree
 
 # Map elements ------------------------------------------------------------
 # Fetch all of the sampling locations
@@ -219,10 +241,10 @@ clim_change_effect_example =ggplot(prec_effectsize,aes(y = pop_F,x = effsize)) +
 # Combine all of the climate change demo figs...
 library(patchwork)
 stacked_raster_patch = plot_1960s | plot_2010s
-climchange_demo = plot_grid(stacked_raster_patch,
-                            clim_change_example,
-                            clim_change_effect_example,
-                            align = 'h',axis = 'tblr',rel_widths = c(2,1,1),ncol = 3)
+climchange_demo = cowplot::plot_grid(stacked_raster_patch,
+                                     clim_change_example,
+                                     clim_change_effect_example,
+                                     align = 'h',axis = 'tblr',rel_widths = c(2,1,1),ncol = 3)
 
 # Orthogroup Summary Figs -------------------------------------------------
 
@@ -286,18 +308,18 @@ OG_genomeN_bars = ggplot(total_OG_genome_counts,aes(y = genome_F,x = N,fill = ge
 
 # Put everything together -------------------------------------------------
 
-pdf("figs/Figure1_study_OG_stats.pdf",width = 24,height = 11)
+pdf("figs/Figure1_study_OG_stats.pdf",width = 18,height = 22)
 cowplot::plot_grid(
   cowplot::plot_grid(cowplot::plot_grid(global_temp_plot,bioclim_combined,ncol = 2,rel_widths = c(3,1),labels = c("A","B"),label_size = 32,label_x = c(0,-0.2)),
                      # bioclim_combined,
                      climchange_demo,
-                     nrow = 2,rel_heights = c(1.5,1),
+                     nrow = 2,rel_heights = c(2,1),
                      labels = c("","C"),label_size = 32,label_y = c(0,1.1)),
-  simple_OG_tree,
-  OG_paralogN_bars,
-  OG_genomeN_bars,
-  ncol = 4,align = "h",axis = 'tblr',labels = c("","D","E","F"),label_size = 32,label_x = c(0,0,-0.1,-0.1),
-  rel_widths = c(2.4,0.8,0.8,0.8)
+  cowplot::plot_grid(simple_OG_tree,
+                     OG_paralogN_bars,
+                     OG_genomeN_bars,
+                     ncol = 3,align = "h",axis = 'tblr',labels = c("D","E","F"),label_size = 32,label_x = c(0,-0.1,-0.1)),
+  nrow = 2,rel_heights = c(1.2,1)
 )
 dev.off()
 

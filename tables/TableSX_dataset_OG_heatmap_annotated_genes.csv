@@ -1,109 +1,109 @@
-"Orthogroup","Total Convergent N (FDR < 0.5)","Species Convergent N (FDR < 0.5)","Climate Variables","Athaliana Genes"
-"OG0002257",52,14,"Mean Temp/Min Temp Coldest Month/Mean Temp Warm Quarter/Mean Temp Cold Quarter/Annual Precip/Precip Cold Quarter","UBQ7/AT1G11970/RUB3/RUB1"
-"OG0001291",29,14,"Max Temp Warmest Month/Mean Temp Warm Quarter/Mean Temp Cold Quarter","AHBP-1B/OBF5/TGA6/PAN"
-"OG0006144",22,13,"Annual Precip/Precip Wet Month/Precip Wet Quarter","AT5G16870/AT3G03010"
-"OG0007577",18,13,"Min Temp Coldest Month/Precip Wet Month","AT4G28450"
-"OG0003045",46,12,"Mean Temp/Isothermality/Temp Seasonality/Min Temp Coldest Month/Temp Range/Mean Temp Wet Quarter/Mean Temp Dry Quarter/Mean Temp Warm Quarter/Mean Temp Cold Quarter/Precip Cold Quarter","PRR7/PRR3"
-"OG0002242",17,12,"Isothermality/Mean Temp Dry Quarter","""ATB BETA""/""B ALPHA"""
-"OG0000840",21,11,"Mean Temp/Mean Temp Cold Quarter","AT5G46150/ALIS1/AT1G16360/AT1G54320/ALIS5"
-"OG0004914",18,10,"Mean Temp/Mean Temp Warm Quarter","SAE1A/SAE1B/SAE1B"
-"OG0002029",11,10,"Annual Precip/Precip Seasonality","AT2G18330/AT4G36580/AT5G16930/AT3G03060"
-"OG0001882",10,10,"Isothermality","AT4G15545/AT1G16520/AT1G56080"
-"OG0003130",10,10,"Mean Temp Dry Quarter","AT2G23820/AT1G26160"
-"OG0004873",10,10,"Mean Temp Warm Quarter","AT4G02660/SPI"
-"OG0005859",10,10,"Max Temp Warmest Month","GPS1"
-"OG0006452",10,10,"Mean Temp Wet Quarter","ELF9"
-"OG0011642",10,10,"Precip Cold Quarter","AT2G47830"
-"OG0007741",22,9,"Mean Temp/Min Temp Coldest Month/Mean Temp Warm Quarter","AT1G04200"
-"OG0002080",14,9,"Mean Temp Wet Quarter/Precip Wet Month/Precip Cold Quarter","SOS1/NHX8"
-"OG0004234",14,9,"Precip Dry Month/Precip Cold Quarter","PCN/AT1G27470"
-"OG0002527",9,9,"Mean Temp Wet Quarter","AT5G02950/AT3G09670"
-"OG0004254",9,9,"Min Temp Coldest Month","AT5G38050/AT1G71080"
-"OG0005626",9,9,"Isothermality","AT3G42050"
-"OG0005666",9,9,"Precip Seasonality","WAV2"
-"OG0005820",9,9,"Mean Temp Wet Quarter","PDIL1-6/PDIL1-5"
-"OG0008026",9,9,"Precip Dry Month","RKP"
-"OG0010208",9,9,"Temp Seasonality","AT1G70620"
-"OG0010411",9,9,"Isothermality","AT2G03780"
-"OG0004963",13,8,"Min Temp Coldest Month/Mean Temp Cold Quarter/Precip Seasonality","AT3G17920/AT1G48540"
-"OG0002326",8,8,"Precip Cold Quarter","RVE1/RVE2/AT3G10113/EPR1"
-"OG0002361",8,8,"Mean Temp","CPN60A/Cpn60alpha2"
-"OG0005424",8,8,"Max Temp Warmest Month","KAO2/CYP88A3"
-"OG0008863",8,8,"Min Temp Coldest Month","GI"
-"OG0012205",8,8,"Precip Wet Month","AT3G61360"
-"OG0010250",9,7,"Mean Temp/Max Temp Warmest Month","ALDH22A1"
-"OG0001434",7,7,"Precip Dry Month","ABCG33/ABCG41/ABCG30/ABCG42/ABCG43/ABCG37"
-"OG0003057",7,7,"Isothermality","MTP11"
-"OG0003923",7,7,"Temp Seasonality","AT2G28490"
-"OG0004305",7,7,"Precip Seasonality","AT2G41160/AT3G56740"
-"OG0004457",7,7,"Precip Warm Quarter","AT5G49680/SAB"
-"OG0005443",7,7,"Precip Wet Month","AT1G15810/AT1G80620"
-"OG0007608",7,7,"Mean Temp Dry Quarter","AT5G11560"
-"OG0008130",7,7,"Precip Seasonality","HCF106"
-"OG0009494",7,7,"Temp Range","AT1G27461"
-"OG0011265",7,7,"Precip Wet Month","AT4G19390"
-"OG0001175",6,6,"Mean Temp Dry Quarter","TOM3/TOM1/THH1"
-"OG0001572",6,6,"Annual Precip","AT2G36500/AT5G50530/AT5G50640/AT5G63490/AT3G52950"
-"OG0001939",6,6,"Annual Precip","AT5G55860/AT1G12150"
-"OG0002848",6,6,"Precip Cold Quarter","ATSAC1B/RHD4/SAC8"
-"OG0002903",6,6,"Isothermality","AT1G20670/AT1G76380"
-"OG0003196",6,6,"Max Temp Warmest Month","NRPB8B/NRPB8A"
-"OG0003322",6,6,"Precip Seasonality","AT4G04790/AT4G21880"
-"OG0003769",6,6,"Mean Temp Dry Quarter","AT5G09580/AT1G53345"
-"OG0004033",6,6,"Precip Seasonality","AT1G17940/AT1G73390"
-"OG0004535",6,6,"Max Temp Warmest Month","AT5G67385/AT3G49970"
-"OG0005785",6,6,"Mean Temp Wet Quarter","AT5G38600/AT1G67210"
-"OG0005844",6,6,"Precip Seasonality","CLASP"
-"OG0006305",6,6,"Temp Seasonality","AT4G34310"
-"OG0008071",6,6,"Max Temp Warmest Month","EX2"
-"OG0008142",6,6,"Temp Seasonality","AT5G58100"
-"OG0008524",10,5,"Min Temp Coldest Month/Mean Temp Cold Quarter","AT2G26270/AT3G43930"
-"OG0001185",5,5,"Mean Temp Dry Quarter","AT2G42320/AT5G06930/AT5G43230/AT3G01810/AT3G57780"
-"OG0001213",5,5,"Mean Temp Wet Quarter","CCT1/CCT2"
-"OG0001271",5,5,"Mean Temp Wet Quarter","AT4G04260/EBS/SHL1"
-"OG0004507",5,5,"Temp Seasonality","GPRI1/GLK2"
-"OG0005722",5,5,"Mean Temp Dry Quarter","VAD1"
-"OG0005827",5,5,"Mean Temp Wet Quarter","DWF1"
-"OG0006065",5,5,"Temp Seasonality","ATNTH1/NTH2"
-"OG0006560",5,5,"Mean Temp Dry Quarter","AT2G17540/AT4G35510"
-"OG0007143",5,5,"Precip Seasonality","AT5G09670/AT5G64550"
-"OG0007543",5,5,"Precip Seasonality","CUL4"
-"OG0007812",5,5,"Mean Temp Dry Quarter","AT3G06530"
-"OG0009181",5,5,"Max Temp Warmest Month","HSF4"
-"OG0009340",5,5,"Precip Cold Quarter","ZWI"
-"OG0013067",5,5,"Precip Warm Quarter","LARP6a"
-"OG0001951",4,4,"Precip Wet Month","BIM1/BIM2"
-"OG0004082",4,4,"Isothermality","RPN8A/MEE34"
-"OG0004902",4,4,"Min Temp Coldest Month","AT1G20110"
-"OG0005195",4,4,"Max Temp Warmest Month","AT1G16825/AT1G78895"
-"OG0005896",4,4,"Temp Range","RID3"
-"OG0005961",4,4,"Max Temp Warmest Month","AT4G17810"
-"OG0007061",4,4,"Mean Temp Warm Quarter","SPP1"
-"OG0007662",4,4,"Mean Temp Wet Quarter","FIP37"
-"OG0008285",4,4,"Temp Seasonality","FAP1"
-"OG0009139",4,4,"Temp Seasonality","AT4G02725"
-"OG0010215",4,4,"Isothermality","TSK"
-"OG0010909",4,4,"Mean Temp Warm Quarter","GalAK"
-"OG0012631",4,4,"Mean Temp","RAD51B"
-"OG0000331",3,3,"Precip Cold Quarter","GH3.1/GH3.3/GH3.9/WES1/BRU6/DFL1/GH3.17/GH3.4"
-"OG0000412",3,3,"Precip Cold Quarter","ATC/TSF/TFL1/BFT/FT"
-"OG0000950",3,3,"Mean Temp Warm Quarter","HRD/AT5G52020/AT1G12630"
-"OG0001668",3,3,"Tmax Clim Change","AT5G53480/AT3G08943/AT3G08947"
-"OG0002746",3,3,"Mean Temp Wet Quarter","AT2G41790/AT3G57470"
-"OG0003730",3,3,"Mean Temp Dry Quarter","AT5G07710/AT5G61390/AT1G74390"
-"OG0003921",3,3,"Mean Temp Dry Quarter","PMP22/AT4G14305"
-"OG0006902",3,3,"Mean Temp Cold Quarter","AT1G67120"
-"OG0007959",3,3,"Precip Cold Quarter","AT2G44525/AT3G60150"
-"OG0008137",3,3,"Precip Wet Month","PEX5"
-"OG0008170",3,3,"Precip Cold Quarter","ATH13"
-"OG0008497",3,3,"Temp Range","AT2G43770"
-"OG0010195",3,3,"Mean Temp Dry Quarter","POD1"
-"OG0012174",3,3,"Temp Range","COX10"
-"OG0004502",4,2,"Annual Precip/Precip Wet Month","AT4G15165/PAC1"
-"OG0000202",2,2,"Temp Range","AT4G25300/AT4G25310/AT1G17010/SRG1/AT1G78550"
-"OG0000401",2,2,"Precip Wet Month","CIPK3/CIPK8/CIPK26/SOS2/CIPK9/CIPK23"
-"OG0003782",2,2,"Precip Warm Quarter","ANL2/HDG1"
-"OG0004583",2,2,"Mean Temp","AT5G13250/AT1G28080"
-"OG0007641",2,2,"Precip Dry Month","IAA33"
-"OG0012544",2,2,"Precip Cold Quarter","AT1G13630"
-"OG0002367",1,1,"Precip Seasonality","AT5G14285/AT3G25950/AT3G27270"
+"Orthogroup","Total Convergent N (FDR < 0.5)","Species Convergent N (FDR < 0.5)","Climate Variables","Athaliana Genes","Lowest FDR"
+"OG0002257",52,14,"Mean Temp/Min Temp Coldest Month/Mean Temp Warm Quarter/Mean Temp Cold Quarter/Annual Precip/Precip Cold Quarter","UBQ7/AT1G11970/RUB3/RUB1",0.051
+"OG0001291",29,14,"Max Temp Warmest Month/Mean Temp Warm Quarter/Mean Temp Cold Quarter","AHBP-1B/OBF5/TGA6/PAN",0.163
+"OG0006144",22,13,"Annual Precip/Precip Wet Month/Precip Wet Quarter","AT5G16870/AT3G03010",0.042
+"OG0007577",18,13,"Min Temp Coldest Month/Precip Wet Month","AT4G28450",0.352
+"OG0003045",46,12,"Mean Temp/Isothermality/Temp Seasonality/Min Temp Coldest Month/Temp Range/Mean Temp Wet Quarter/Mean Temp Dry Quarter/Mean Temp Warm Quarter/Mean Temp Cold Quarter/Precip Cold Quarter","PRR7/PRR3",0.102
+"OG0002242",17,12,"Isothermality/Mean Temp Dry Quarter","""ATB BETA""/""B ALPHA""",0.362
+"OG0000840",21,11,"Mean Temp/Mean Temp Cold Quarter","AT5G46150/ALIS1/AT1G16360/AT1G54320/ALIS5",0.278
+"OG0004914",18,10,"Mean Temp/Mean Temp Warm Quarter","SAE1A/SAE1B/SAE1B",0.278
+"OG0002029",11,10,"Annual Precip/Precip Seasonality","AT2G18330/AT4G36580/AT5G16930/AT3G03060",0.256
+"OG0001882",10,10,"Isothermality","AT4G15545/AT1G16520/AT1G56080",0.362
+"OG0003130",10,10,"Mean Temp Dry Quarter","AT2G23820/AT1G26160",0.391
+"OG0004873",10,10,"Mean Temp Warm Quarter","AT4G02660/SPI",0.174
+"OG0005859",10,10,"Max Temp Warmest Month","GPS1",0.163
+"OG0006452",10,10,"Mean Temp Wet Quarter","ELF9",0.33
+"OG0011642",10,10,"Precip Cold Quarter","AT2G47830",0.349
+"OG0007741",22,9,"Mean Temp/Min Temp Coldest Month/Mean Temp Warm Quarter","AT1G04200",0.27
+"OG0002080",14,9,"Mean Temp Wet Quarter/Precip Wet Month/Precip Cold Quarter","SOS1/NHX8",0.33
+"OG0004234",14,9,"Precip Dry Month/Precip Cold Quarter","PCN/AT1G27470",0.302
+"OG0002527",9,9,"Mean Temp Wet Quarter","AT5G02950/AT3G09670",0.351
+"OG0004254",9,9,"Min Temp Coldest Month","AT5G38050/AT1G71080",0.394
+"OG0005626",9,9,"Isothermality","AT3G42050",0.362
+"OG0005666",9,9,"Precip Seasonality","WAV2",0.256
+"OG0005820",9,9,"Mean Temp Wet Quarter","PDIL1-6/PDIL1-5",0.49
+"OG0008026",9,9,"Precip Dry Month","RKP",0.302
+"OG0010208",9,9,"Temp Seasonality","AT1G70620",0.44
+"OG0010411",9,9,"Isothermality","AT2G03780",0.362
+"OG0004963",13,8,"Min Temp Coldest Month/Mean Temp Cold Quarter/Precip Seasonality","AT3G17920/AT1G48540",0.256
+"OG0002326",8,8,"Precip Cold Quarter","RVE1/RVE2/AT3G10113/EPR1",0.349
+"OG0002361",8,8,"Mean Temp","CPN60A/Cpn60alpha2",0.344
+"OG0005424",8,8,"Max Temp Warmest Month","KAO2/CYP88A3",0.358
+"OG0008863",8,8,"Min Temp Coldest Month","GI",0.394
+"OG0012205",8,8,"Precip Wet Month","AT3G61360",0.447
+"OG0010250",9,7,"Mean Temp/Max Temp Warmest Month","ALDH22A1",0.42
+"OG0001434",7,7,"Precip Dry Month","ABCG33/ABCG41/ABCG30/ABCG42/ABCG43/ABCG37",0.302
+"OG0003057",7,7,"Isothermality","MTP11",0.362
+"OG0003923",7,7,"Temp Seasonality","AT2G28490",0.402
+"OG0004305",7,7,"Precip Seasonality","AT2G41160/AT3G56740",0.487
+"OG0004457",7,7,"Precip Warm Quarter","AT5G49680/SAB",0.429
+"OG0005443",7,7,"Precip Wet Month","AT1G15810/AT1G80620",0.418
+"OG0007608",7,7,"Mean Temp Dry Quarter","AT5G11560",0.277
+"OG0008130",7,7,"Precip Seasonality","HCF106",0.361
+"OG0009494",7,7,"Temp Range","AT1G27461",0.307
+"OG0011265",7,7,"Precip Wet Month","AT4G19390",0.352
+"OG0001175",6,6,"Mean Temp Dry Quarter","TOM3/TOM1/THH1",0.357
+"OG0001572",6,6,"Annual Precip","AT2G36500/AT5G50530/AT5G50640/AT5G63490/AT3G52950",0.411
+"OG0001939",6,6,"Annual Precip","AT5G55860/AT1G12150",0.426
+"OG0002848",6,6,"Precip Cold Quarter","ATSAC1B/RHD4/SAC8",0.349
+"OG0002903",6,6,"Isothermality","AT1G20670/AT1G76380",0.362
+"OG0003196",6,6,"Max Temp Warmest Month","NRPB8B/NRPB8A",0.238
+"OG0003322",6,6,"Precip Seasonality","AT4G04790/AT4G21880",0.256
+"OG0003769",6,6,"Mean Temp Dry Quarter","AT5G09580/AT1G53345",0.261
+"OG0004033",6,6,"Precip Seasonality","AT1G17940/AT1G73390",0.487
+"OG0004535",6,6,"Max Temp Warmest Month","AT5G67385/AT3G49970",0.119
+"OG0005785",6,6,"Mean Temp Wet Quarter","AT5G38600/AT1G67210",0.49
+"OG0005844",6,6,"Precip Seasonality","CLASP",0.361
+"OG0006305",6,6,"Temp Seasonality","AT4G34310",0.402
+"OG0008071",6,6,"Max Temp Warmest Month","EX2",0.42
+"OG0008142",6,6,"Temp Seasonality","AT5G58100",0.44
+"OG0008524",10,5,"Min Temp Coldest Month/Mean Temp Cold Quarter","AT2G26270/AT3G43930",0.383
+"OG0001185",5,5,"Mean Temp Dry Quarter","AT2G42320/AT5G06930/AT5G43230/AT3G01810/AT3G57780",0.47
+"OG0001213",5,5,"Mean Temp Wet Quarter","CCT1/CCT2",0.447
+"OG0001271",5,5,"Mean Temp Wet Quarter","AT4G04260/EBS/SHL1",0.33
+"OG0004507",5,5,"Temp Seasonality","GPRI1/GLK2",0.305
+"OG0005722",5,5,"Mean Temp Dry Quarter","VAD1",0.201
+"OG0005827",5,5,"Mean Temp Wet Quarter","DWF1",0.33
+"OG0006065",5,5,"Temp Seasonality","ATNTH1/NTH2",0.402
+"OG0006560",5,5,"Mean Temp Dry Quarter","AT2G17540/AT4G35510",0.47
+"OG0007143",5,5,"Precip Seasonality","AT5G09670/AT5G64550",0.256
+"OG0007543",5,5,"Precip Seasonality","CUL4",0.487
+"OG0007812",5,5,"Mean Temp Dry Quarter","AT3G06530",0.47
+"OG0009181",5,5,"Max Temp Warmest Month","HSF4",0.124
+"OG0009340",5,5,"Precip Cold Quarter","ZWI",0.349
+"OG0013067",5,5,"Precip Warm Quarter","LARP6a",0.429
+"OG0001951",4,4,"Precip Wet Month","BIM1/BIM2",0.352
+"OG0004082",4,4,"Isothermality","RPN8A/MEE34",0.362
+"OG0004902",4,4,"Min Temp Coldest Month","AT1G20110",0.417
+"OG0005195",4,4,"Max Temp Warmest Month","AT1G16825/AT1G78895",0.119
+"OG0005896",4,4,"Temp Range","RID3",0.309
+"OG0005961",4,4,"Max Temp Warmest Month","AT4G17810",0.238
+"OG0007061",4,4,"Mean Temp Warm Quarter","SPP1",0.27
+"OG0007662",4,4,"Mean Temp Wet Quarter","FIP37",0.33
+"OG0008285",4,4,"Temp Seasonality","FAP1",0.305
+"OG0009139",4,4,"Temp Seasonality","AT4G02725",0.402
+"OG0010215",4,4,"Isothermality","TSK",0.362
+"OG0010909",4,4,"Mean Temp Warm Quarter","GalAK",0.397
+"OG0012631",4,4,"Mean Temp","RAD51B",0.278
+"OG0000331",3,3,"Precip Cold Quarter","GH3.1/GH3.3/GH3.9/WES1/BRU6/DFL1/GH3.17/GH3.4",0.347
+"OG0000412",3,3,"Precip Cold Quarter","ATC/TSF/TFL1/BFT/FT",0.347
+"OG0000950",3,3,"Mean Temp Warm Quarter","HRD/AT5G52020/AT1G12630",0.174
+"OG0001668",3,3,"Tmax Clim Change","AT5G53480/AT3G08943/AT3G08947",0.466
+"OG0002746",3,3,"Mean Temp Wet Quarter","AT2G41790/AT3G57470",0.49
+"OG0003730",3,3,"Mean Temp Dry Quarter","AT5G07710/AT5G61390/AT1G74390",0.102
+"OG0003921",3,3,"Mean Temp Dry Quarter","PMP22/AT4G14305",0.47
+"OG0006902",3,3,"Mean Temp Cold Quarter","AT1G67120",0.294
+"OG0007959",3,3,"Precip Cold Quarter","AT2G44525/AT3G60150",0.349
+"OG0008137",3,3,"Precip Wet Month","PEX5",0.418
+"OG0008170",3,3,"Precip Cold Quarter","ATH13",0.352
+"OG0008497",3,3,"Temp Range","AT2G43770",0.307
+"OG0010195",3,3,"Mean Temp Dry Quarter","POD1",0.201
+"OG0012174",3,3,"Temp Range","COX10",0.309
+"OG0004502",4,2,"Annual Precip/Precip Wet Month","AT4G15165/PAC1",0.352
+"OG0000202",2,2,"Temp Range","AT4G25300/AT4G25310/AT1G17010/SRG1/AT1G78550",0.307
+"OG0000401",2,2,"Precip Wet Month","CIPK3/CIPK8/CIPK26/SOS2/CIPK9/CIPK23",0.186
+"OG0003782",2,2,"Precip Warm Quarter","ANL2/HDG1",0.381
+"OG0004583",2,2,"Mean Temp","AT5G13250/AT1G28080",0.441
+"OG0007641",2,2,"Precip Dry Month","IAA33",0.379
+"OG0012544",2,2,"Precip Cold Quarter","AT1G13630",0.428
+"OG0002367",1,1,"Precip Seasonality","AT5G14285/AT3G25950/AT3G27270",0.361

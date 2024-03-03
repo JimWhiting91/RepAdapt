@@ -136,7 +136,7 @@ tissue_expression_tau = tissue_expression_sum[,.(tau_mean = calcLogTau(tpm_mean)
                                                  max_tpm = max(tpm_mean)),
                                               by = Gene_ID]
 
-# Fix stupid 1s...
+# Fix 1s...
 tissue_expression_tau[tau_mean > 1,tau_mean := 1]
 tissue_expression_tau[tau_max > 1,tau_max := 1]
 
@@ -164,7 +164,11 @@ mean(OG_tau1[Orthogroup %in% convergent_OG,tau_Z])
 # Merge with picmin deciles and estimate stouffers across
 OG_tau1 = merge(OG_tau1,picmin_deciles)
 picmin_decile_Zscores = OG_tau1[,.(stouffersZ = stoufferZ(tau_Z)),by = picmin_decile][order(picmin_decile),]
-picmin_decile_Zscores$variable = 'Tau (Specificity)'
+picmin_decile_Zscores$variable = 'Tissue\nExpression Breadth'
+
+# Make a summary table of the tissue expression breadth results...
+tissue_breadth_summary = pergene_tau_merge[,.(tau_min = min(tau_nolog)),by = Orthogroup]
+tissue_breadth_summary = merge(x = tissue_breadth_summary,y = OG_tau1[,.(Orthogroup,tau_Z)],by = 'Orthogroup')
 
 # We can also look at how specificity varies for repeatability of specific climate variables --------
 # Run over climate vars
@@ -211,7 +215,7 @@ tau_decile_plot = melt(tau_deciles[,.(decile,obs.N,convergent.N)]) |>
   labs(y = "Proportion",x = "Decile",fill = "Repeated?") +
   scale_fill_discrete(breaks = c("obs.N","convergent.N"),
                       labels = c("Expected","Repeated")) +
-  ggtitle("Tissue specificity - Tau")
+  ggtitle("Expression Breadth - (Inverse Tau)")
 tau_decile_plot
 
 # Plot examples of increasing specificity ---------------------------------
@@ -316,14 +320,14 @@ nodedegree_climate_stouffers$stouffer = nodedegree_climate_stouffers$nodedegree_
 tau_climate_stouffers$stouffer = tau_climate_stouffers$tau_stouffer
 plot_climate_Z = rbind(nodedegree_climate_stouffers[,.(climate_var,stouffer)],
                        tau_climate_stouffers[,.(climate_var,stouffer)])
-plot_climate_Z$variable = rep(c("At Node Degree","Tau (Specificity)"),each = nrow(plot_climate_Z)/2)
+plot_climate_Z$variable = rep(c("At Node Degree","Expression Breadth"),each = nrow(plot_climate_Z)/2)
 plot_climate_Z$climate_F = factor(stringr::str_to_title(gsub("_"," ",plot_climate_Z$climate_var)),
                                   levels = stringr::str_to_title(gsub("_"," ",tau_climate_stouffers[order(stouffer),climate_var])))
 
 climate_specific_Z = ggplot(plot_climate_Z,aes(y = climate_F,x = stouffer,fill = variable)) +
   geom_bar(stat = 'identity',position = 'dodge') +
   geom_vline(xintercept = qnorm(0.025,lower.tail = F),linetype = 'dashed') +
-  scale_fill_manual(values = c("Tau (Specificity)" = "#E69A8DFF",
+  scale_fill_manual(values = c("Expression Breadth" = "#E69A8DFF",
                                "At Node Degree" = "#5F4B8BFF")) +
   theme_minimal() +
   theme(panel.grid.minor.y = element_blank(),
@@ -471,7 +475,7 @@ pleiotropy_results_fig = ggplot(picmin_decile_Zscores,aes(y = picmin_decile,x = 
         strip.background = element_blank())
 
 # Combine with other figs...
-source("R/plot_network_centrality_demo.R")
+source("R/04_plot_figures/plot_network_centrality_demo.R")
 
 # Big export for plotting elsewhere...
 saveRDS(list(OG_pleiotropy_Z = OG_pleiotropy_Z,
@@ -480,3 +484,34 @@ saveRDS(list(OG_pleiotropy_Z = OG_pleiotropy_Z,
              pleiotropy_results_fig = pleiotropy_results_fig,
              climate_specific_Z = climate_specific_Z),
         paste0('outputs/',output_name,'_all_pleiotropy_figs_and_OG_Zscores.rds'))
+
+
+# Make a final summary supp table of all pleiotropy inputs... -------------
+
+# This produces an orthogroup-level summary table of all the metrics considered here and their associated Z-scores...
+# Athaliana
+athal_centrality_summary = athal_node_stats[,.(`At Node Betweenness Max` = max(node_betweenness),
+                                               `At Node Strength Max` = max(node_strength),
+                                               `At Node Degree Max` = max(node_degree),
+                                               `At Node Closeness Max` = max(node_closeness)),by = Orthogroup]
+colnames(OG_arabidopsis_coexpress_Z) = stringr::str_to_title(gsub('_',' ',colnames(OG_arabidopsis_coexpress_Z)))
+athal_centrality_summary = merge(athal_centrality_summary,
+                                 OG_arabidopsis_coexpress_Z,
+                                 by = 'Orthogroup')
+
+# Merge this with tissue expression summary
+tissue_breadth_summary = rename(tissue_breadth_summary,)
+colnames(tissue_breadth_summary) = stringr::str_to_title(gsub('_',' ',colnames(tissue_breadth_summary)))
+
+# Merge all together
+pleiotropy_summary = merge(tissue_breadth_summary,athal_centrality_summary,
+                           by = 'Orthogroup',all.x = T,all.y = T)
+
+# Add in Athal genes...
+OG_Athal_genes = OG_map_Athal[,.(`At Genes` = paste(true_gene,collapse = '/')),by = Orthogroup]
+pleiotropy_summary = merge(OG_Athal_genes,pleiotropy_summary,by = 'Orthogroup')
+
+# Write
+write.csv(pleiotropy_summary,
+          'tables/TableSX_Orthogroup_Pleiotropy_stats_for_Athal.csv',
+          row.names = F,quote = F)

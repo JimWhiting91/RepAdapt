@@ -42,6 +42,6 @@ centrality_examples = lapply(1:4,function(x){
     ggtitle(colnames(centrality_stats[x]))
   
 })
-centrality_combined = cowplot::plot_grid(plotlist = centrality_examples,ncol = 2)
+centrality_combined = cowplot::plot_grid(plotlist = centrality_examples,ncol = 4)
 centrality_combined
 

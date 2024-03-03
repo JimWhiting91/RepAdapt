@@ -157,7 +157,7 @@ saveRDS(all_picmin_res,
 
 
 # Repeat PicMin, but randomise pvals prior to paralog DS ------------------
-randomN = 100
+randomN = 1000
 
 # Shuffle all the orthogroups randomN times
 # Filter Orthogroups for those we're testing...
@@ -166,7 +166,6 @@ OG_counts = table(unique(OG_pvals_all[,.(species,Orthogroup)])$Orthogroup)
 to_test = names(OG_counts)[OG_counts >= orthogroup_cutoff]
 
 all_random_picmin_res = rbindlist(lapply(1:randomN,function(x){
-  print(x)
   set.seed(x)
   
   # Take empirical pval
@@ -207,4 +206,72 @@ all_random_picmin_res = rbindlist(lapply(1:randomN,function(x){
 # Also save these...
 saveRDS(all_random_picmin_res,
         paste0("outputs/",output_name,"_randomised_pvals_picmin_res.rds"))
+
+# all_random_picmin_res = readRDS(
+#   paste0("outputs/",output_name,"_randomised_pvals_picmin_res.rds")
+# )
+
+# How many RAO with FDR < 0.5 under random --------------------------------
+# Fetch back the results
+all_random_picmin_res = readRDS(
+  paste0("outputs/",output_name,"_randomised_pvals_picmin_res.rds")
+)
+
+# Split by variable
+# FDR-adjust within each iteration and within each clim var...
+clim_specific_random = lapply(names(OG_pergene_pvals),function(clim_var){
+  print(paste0('>>> Starting ',clim_var))
+  
+  clim_tmp = all_random_picmin_res[grepl(clim_var,test_group),] |>
+    subset(!grepl(paste0(clim_var,'_'),test_group)) |>
+    tidyr::separate(test_group,sep = ':',into = c('Orthogroup','climate_var')) |>
+    as.data.table()
+  
+  # Filter duplicate temp names
+  clim_tmp = clim_tmp[climate_var == clim_var,]
+  print(paste0('Number of rows: ',nrow(clim_tmp)))
+  
+  # Calc FDR in climate vars and iterations
+  random_FDR = clim_tmp[,.(picmin_fdr = p.adjust(.SD$picmin_p_adj,method = 'fdr'),
+                           Orthogroup),
+                        by = .(iteration)]
+  # How many with FDR < 0.5 to be expected
+  exp_fdr = random_FDR[,.(exp_05 = sum(picmin_fdr < 0.5),
+                          exp_04 = sum(picmin_fdr < 0.4),
+                          exp_03 = sum(picmin_fdr < 0.3),
+                          exp_02 = sum(picmin_fdr < 0.2),
+                          exp_01 = sum(picmin_fdr < 0.1)),by = iteration]
+  # We also need to make a list per iteration of all significant orthogroups for OG collapsing...
+  signif_OG = random_FDR[picmin_fdr < 0.5,]
+  exp_fdr$climate_var = clim_var
+  signif_OG$climater_var = clim_var
+  return(list(exp_fdr,signif_OG))
+})
+
+# Save these
+saveRDS(clim_specific_random,
+        paste0("outputs/",output_name,"_randomised_pvals_picmin_res_final_FDRs.rds"))
+
+# # Split out into raw numbers and OG
+# random_FDR_counts = lapply(clim_specific_random,'[[',1) |>
+#   rbindlist()
+# all_iterations = random_FDR_counts[,.(sum_fdr_05 = sum(exp_05),
+#                                       sum_fdr_04 = sum(exp_04),
+#                                       sum_fdr_03 = sum(exp_03),
+#                                       sum_fdr_02 = sum(exp_02),
+#                                       sum_fdr_01 = sum(exp_01)),by = iteration]
+# 
+# 
+# hist(all_iterations$sum_fdr_05)
+# hist(all_iterations$sum_fdr_04)
+# hist(all_iterations$sum_fdr_03)
+# hist(all_iterations$sum_fdr_02)
+# hist(all_iterations$sum_fdr_01)
+# 
+# 
+# mean(all_iterations$sum_fdr_05)
+# mean(all_iterations$sum_fdr_04)
+# mean(all_iterations$sum_fdr_03)
+# mean(all_iterations$sum_fdr_02)
+# mean(all_iterations$sum_fdr_01)
 

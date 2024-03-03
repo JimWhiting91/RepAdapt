@@ -36,6 +36,43 @@ species_genome_map = data.table(species = c("Pseudotsuga menziesii",
                                            "Ahalleri","Ahalleri",
                                            "Alyrata"))
 
+# All species NEWICK Tree
+all_species_nwk = '((((Picea abies,Picea obovata),Picea glaucaxengelmannii),
+(Pinus sylvestris,Pinus contorta)),
+((Panicum hallii),
+((Amaranthus tuberculatus),
+(((Helianthus annuus,Helianthus argophyllus),Helianthus petiolaris),
+(((Arabis alpina),
+((Cardamine resedifolia),
+(((Boechera stricta),
+(Capsella rubella)),
+((Arabidopsis thaliana),
+((Arabidopsis halleri),
+(Arabidopsis lyrata)))))),
+((Medicago truncatula),
+((Eucalyptus albens,Eucalyptus sideroxylon,Eucalyptus magnificata),
+((Quercus petraea),
+((Populus tremula),(Populus deltoides,Populus trichocarpa))))))))));'
+
+# All species NEWICK with BL
+# Note these branch lengths come from orthofinder, and tips are expanded and labels changed where species are mapped to same genome
+# We assume the min branch length already in the tree to make branches between species mapped to the same genome
+# i.e. min(OF_tree2$edge.length)
+all_species_nwk_BL = "((((Picea abies:0.00711681,Picea obovata:0.00711681):0.00711681,Picea glaucaxengelmannii:0.01423362):0.148549,
+(Pinus sylvestris:0.00711681,Pinus contorta:0.00711681):0.14583)0.386768:0.267584,
+(Panicum hallii:0.340033,
+(Amaranthus tuberculatus:0.297876,
+(((Helianthus annuus:0.00711681,Helianthus argophyllus:0.00711681):0.00711681,Helianthus petiolaris:0.01423362):0.235981,
+((Arabis alpina:0.0758512,
+((Cardamine resedifolia:0.06873439):0.00711681,
+((Boechera stricta:0.0402583,Capsella rubella:0.0362871)0.521887:0.0119358,
+(Arabidopsis thaliana:0.0295731,
+(Arabidopsis halleri:0.0179434,Arabidopsis lyrata:0.0117068)0.75055:0.013783)0.745553:0.0157271)0.84969:0.0333892):0.00711681)0.973016:0.181285,
+(Medicago truncatula:0.212362,
+((Eucalyptus albens:0.00711681,Eucalyptus sideroxylon:0.00711681,Eucalyptus magnificata:0.00711681):0.191119,
+(Quercus petraea:0.256345,
+(Populus tremula:0.0554784,
+(Populus trichocarpa:0.00711681,Populus deltoides:0.0111272)0.519888:0.0165125)0.956626:0.148138)0.274435:0.0314716)0.194283:0.0218125)0.209474:0.0243782)0.168099:0.0212294)0.1663:0.0284069)0.523486:0.0507048)0.888267:0.154771);"
 
 #### RepAdapt Function Library
 
@@ -229,11 +266,11 @@ plot_stacked_climate_rasters = function(long_lat,
     geom_sf(data = clim_tilt,aes(fill = climate,
                                  colour = climate)) +
     scale_fill_gradientn(colors = temp_colors(5),
-                           #limits = c(-7, 32),
-                           na.value = "white") + 
-    scale_colour_gradientn(colors = temp_colors(5),
                          #limits = c(-7, 32),
-                         na.value = "white")
+                         na.value = "white") + 
+    scale_colour_gradientn(colors = temp_colors(5),
+                           #limits = c(-7, 32),
+                           na.value = "white")
   # Now add each of these in reverse order so they stack...
   for(i in length(other_rasters):1){
     tmp_tilt = other_rasters[[i]]
@@ -253,7 +290,7 @@ plot_stacked_climate_rasters = function(long_lat,
   long_lat_sf$geometry = long_lat_sf$geometry * sm
   st_crs(long_lat_sf) <- st_crs(st_as_sf(clim_tilt))
   
-
+  
   # Add on original points and do all remaining formatting
   p1 + theme_minimal() +
     # theme_minimal() +
@@ -265,7 +302,7 @@ plot_stacked_climate_rasters = function(long_lat,
           plot.margin=grid::unit(c(0,0,0,0), "mm")) +
     geom_sf(data = long_lat_sf,colour = 'black',size = 3) +
     geom_sf(data = long_lat_sf,colour = 'white',size = 2)
-
+  
 }
 
 

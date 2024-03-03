@@ -1,0 +1,142 @@
+Orthogroup,A thaliana genes,Climate Var,Species with GEA p-val <0.1,Number of species with GEA p-val <0.1,Number of species in Orthogroup,PicMin Config Estimate,PicMin p-val,PicMin FDR
+OG0006144,AT5G16870/AT3G03010,Precip Wet Quarter,Arabidopsis lyrata - Arabidopsis thaliana - Eucalyptus albens - Eucalyptus magnificata - Eucalyptus sideroxylon - Helianthus annuus - Helianthus argophyllus - Helianthus petiolaris - Populus tremula,9,22,13,4.00E-06,0.0424
+OG0002257,UBQ7/AT1G11970/RUB3/RUB1,Mean Temp,Arabidopsis halleri - Arabidopsis thaliana - Eucalyptus sideroxylon - Helianthus annuus - Helianthus argophyllus - Panicum hallii - Picea glaucaxengelmannii - Picea obovata - Pinus contorta - Populus trichocarpa,10,23,10,8.00E-06,0.0508
+OG0002257,UBQ7/AT1G11970/RUB3/RUB1,Min Temp Coldest Month,Arabidopsis halleri - Arabidopsis thaliana - Eucalyptus albens - Eucalyptus sideroxylon - Helianthus annuus - Helianthus argophyllus - Panicum hallii - Picea glaucaxengelmannii - Picea obovata - Pinus contorta - Populus trichocarpa,11,23,12,1.40E-05,0.0932
+OG0003045,PRR7/PRR3,Mean Temp Dry Quarter,Arabidopsis halleri - Eucalyptus albens - Picea glaucaxengelmannii - Pinus contorta,4,24,4,1.30E-05,0.1016
+OG0003730,AT5G07710/AT5G61390/AT1G74390,Mean Temp Dry Quarter,Arabidopsis lyrata - Panicum hallii - Populus deltoides,3,23,21,3.00E-05,0.1016
+OG0004535,AT5G67385/AT3G49970,Max Temp Warmest Month,Eucalyptus sideroxylon - Helianthus petiolaris - Medicago truncatula - Picea glaucaxengelmannii - Pinus contorta - Pinus sylvestris,6,24,6,1.40E-05,0.1186
+OG0005195,AT1G16825/AT1G78895,Max Temp Warmest Month,Helianthus argophyllus - Panicum hallii - Picea glaucaxengelmannii - Pinus contorta,4,22,4,2.50E-05,0.1186
+OG0009181,HSF4,Max Temp Warmest Month,Arabidopsis halleri - Helianthus annuus - Helianthus petiolaris - Picea glaucaxengelmannii - Pinus contorta,5,20,20,5.90E-05,0.1242
+OG0001291,AHBP-1B/OBF5/TGA6/PAN,Max Temp Warmest Month,Arabidopsis halleri - Arabidopsis lyrata - Eucalyptus albens - Eucalyptus magnificata - Helianthus petiolaris - Medicago truncatula - Panicum hallii - Picea obovata - Pinus contorta - Populus deltoides - Populus trichocarpa,11,25,11,0.000103,0.1626
+OG0005859,GPS1,Max Temp Warmest Month,Amaranthus tuberculatus - Arabidopsis halleri - Capsella rubella - Eucalyptus albens - Eucalyptus magnificata - Eucalyptus sideroxylon - Helianthus argophyllus - Medicago truncatula - Picea glaucaxengelmannii - Quercus petraea,10,22,10,9.30E-05,0.1626
+OG0000950,HRD/AT5G52020/AT1G12630,Mean Temp Warm Quarter,Arabidopsis thaliana - Picea abies - Populus trichocarpa,3,24,22,3.30E-05,0.1736
+OG0004873,AT4G02660/SPI,Mean Temp Warm Quarter,Arabidopsis thaliana - Eucalyptus albens - Eucalyptus sideroxylon - Helianthus annuus - Medicago truncatula - Panicum hallii - Picea glaucaxengelmannii - Populus deltoides - Populus tremula - Populus trichocarpa,10,25,10,3.50E-05,0.1736
+OG0000401,CIPK3/CIPK8/CIPK26/SOS2/CIPK9/CIPK23,Precip Wet Month,Eucalyptus sideroxylon - Helianthus argophyllus,2,25,24,2.40E-05,0.1863
+OG0005722,VAD1,Mean Temp Dry Quarter,Arabidopsis halleri - Arabidopsis lyrata - Arabidopsis thaliana - Picea obovata - Pinus contorta,5,24,19,8.00E-05,0.2012
+OG0010195,POD1,Mean Temp Dry Quarter,Arabis alpina - Capsella rubella - Eucalyptus magnificata,3,23,22,8.50E-05,0.2012
+OG0003196,NRPB8B/NRPB8A,Max Temp Warmest Month,Arabidopsis halleri - Arabidopsis thaliana - Arabis alpina - Boechera stricta - Picea abies - Quercus petraea,6,23,12,0.00024,0.2384
+OG0005961,AT4G17810,Max Temp Warmest Month,Picea abies - Picea glaucaxengelmannii - Picea obovata - Populus tremula,4,23,18,0.000254,0.2384
+OG0003045,PRR7/PRR3,Mean Temp Warm Quarter,Arabidopsis halleri - Picea glaucaxengelmannii - Pinus contorta,3,24,3,7.70E-05,0.2513
+OG0002029,AT2G18330/AT4G36580/AT5G16930/AT3G03060,Precip Seasonality,Amaranthus tuberculatus - Boechera stricta - Helianthus argophyllus - Pinus contorta,4,25,18,0.000165,0.2558
+OG0003322,AT4G04790/AT4G21880,Precip Seasonality,Arabidopsis halleri - Capsella rubella - Cardamine resedifolia - Eucalyptus albens - Pinus contorta - Populus tremula,6,23,17,0.00015,0.2558
+OG0004963,AT3G17920/AT1G48540,Precip Seasonality,Eucalyptus sideroxylon - Helianthus annuus - Picea abies,3,25,22,0.000156,0.2558
+OG0005666,WAV2,Precip Seasonality,Arabidopsis halleri - Eucalyptus albens - Helianthus annuus - Helianthus argophyllus - Picea abies - Picea obovata - Populus deltoides - Populus tremula - Quercus petraea,9,25,13,3.90E-05,0.2558
+OG0007143,AT5G09670/AT5G64550,Precip Seasonality,Amaranthus tuberculatus - Cardamine resedifolia - Picea glaucaxengelmannii - Pinus contorta - Populus trichocarpa,5,20,17,0.000203,0.2558
+OG0003769,AT5G09580/AT1G53345,Mean Temp Dry Quarter,Capsella rubella - Eucalyptus albens - Helianthus argophyllus - Picea obovata - Populus deltoides - Populus trichocarpa,6,22,6,0.000159,0.2609
+OG0001291,AHBP-1B/OBF5/TGA6/PAN,Mean Temp Warm Quarter,Arabidopsis halleri - Arabidopsis lyrata - Eucalyptus albens - Eucalyptus magnificata - Eucalyptus sideroxylon - Helianthus petiolaris - Pinus contorta - Populus deltoides - Populus trichocarpa,9,25,9,0.000173,0.2698
+OG0002257,UBQ7/AT1G11970/RUB3/RUB1,Mean Temp Warm Quarter,Arabidopsis halleri - Arabidopsis thaliana - Helianthus argophyllus - Helianthus petiolaris - Panicum hallii - Pinus contorta - Populus deltoides,7,23,7,0.000219,0.2698
+OG0007061,SPP1,Mean Temp Warm Quarter,Amaranthus tuberculatus - Arabidopsis halleri - Arabis alpina - Eucalyptus magnificata,4,24,21,0.000212,0.2698
+OG0007741,AT1G04200,Mean Temp Warm Quarter,Arabidopsis halleri - Arabis alpina - Capsella rubella - Helianthus argophyllus - Picea glaucaxengelmannii - Populus tremula,6,22,22,2.00E-04,0.2698
+OG0007608,AT5G11560,Mean Temp Dry Quarter,Arabidopsis thaliana - Boechera stricta - Eucalyptus albens - Helianthus petiolaris - Medicago truncatula - Picea obovata - Populus deltoides,7,25,17,0.000213,0.2767
+OG0000840,AT5G46150/ALIS1/AT1G16360/AT1G54320/ALIS5,Mean Temp,Arabidopsis lyrata - Arabidopsis thaliana - Arabis alpina - Boechera stricta - Capsella rubella - Eucalyptus albens - Eucalyptus sideroxylon - Picea glaucaxengelmannii - Picea obovata - Populus tremula - Populus trichocarpa,11,25,11,0.000184,0.2778
+OG0003045,PRR7/PRR3,Mean Temp,Arabidopsis halleri - Picea glaucaxengelmannii - Pinus contorta,3,24,3,7.70E-05,0.2778
+OG0004914,SAE1A/SAE1B/SAE1B,Mean Temp,Arabidopsis lyrata - Boechera stricta - Capsella rubella - Eucalyptus albens - Eucalyptus magnificata - Helianthus argophyllus - Panicum hallii - Populus tremula - Quercus petraea,9,22,12,0.000117,0.2778
+OG0012631,RAD51B,Mean Temp,Arabidopsis thaliana - Boechera stricta - Medicago truncatula - Panicum hallii,4,21,16,0.000177,0.2778
+OG0007741,AT1G04200,Mean Temp,Arabidopsis halleri - Arabis alpina - Capsella rubella - Helianthus argophyllus - Medicago truncatula - Picea glaucaxengelmannii - Picea obovata - Populus deltoides - Populus tremula,9,22,22,0.000207,0.288
+OG0000840,AT5G46150/ALIS1/AT1G16360/AT1G54320/ALIS5,Mean Temp Cold Quarter,Arabidopsis thaliana - Arabis alpina - Boechera stricta - Capsella rubella - Eucalyptus albens - Eucalyptus sideroxylon - Picea glaucaxengelmannii - Picea obovata - Populus tremula - Populus trichocarpa,10,25,10,7.80E-05,0.2943
+OG0002257,UBQ7/AT1G11970/RUB3/RUB1,Mean Temp Cold Quarter,Arabidopsis halleri - Arabidopsis thaliana - Eucalyptus sideroxylon - Helianthus annuus - Helianthus argophyllus - Panicum hallii - Picea glaucaxengelmannii - Picea obovata - Pinus contorta - Populus trichocarpa,10,23,12,8.90E-05,0.2943
+OG0004963,AT3G17920/AT1G48540,Mean Temp Cold Quarter,Boechera stricta - Picea abies - Populus deltoides - Populus trichocarpa,4,25,23,0.000153,0.2943
+OG0006902,AT1G67120,Mean Temp Cold Quarter,Arabidopsis lyrata - Arabis alpina - Panicum hallii,3,23,17,0.000135,0.2943
+OG0001434,ABCG33/ABCG41/ABCG30/ABCG42/ABCG43/ABCG37,Precip Dry Month,Arabidopsis thaliana - Boechera stricta - Capsella rubella - Cardamine resedifolia - Helianthus annuus - Helianthus petiolaris - Panicum hallii,7,20,7,8.80E-05,0.3021
+OG0004234,PCN/AT1G27470,Precip Dry Month,Arabidopsis lyrata - Arabidopsis thaliana - Arabis alpina - Capsella rubella - Eucalyptus sideroxylon - Helianthus petiolaris - Populus tremula,7,23,17,0.000125,0.3021
+OG0008026,RKP,Precip Dry Month,Cardamine resedifolia - Eucalyptus albens - Eucalyptus sideroxylon - Helianthus argophyllus - Helianthus petiolaris - Picea obovata - Populus tremula - Populus trichocarpa - Quercus petraea,9,24,15,6.80E-05,0.3021
+OG0004507,GPRI1/GLK2,Temp Seasonality,Helianthus argophyllus - Helianthus petiolaris - Picea abies - Picea glaucaxengelmannii - Populus trichocarpa,5,24,17,6.60E-05,0.3049
+OG0008285,FAP1,Temp Seasonality,Arabidopsis halleri - Eucalyptus albens - Panicum hallii - Quercus petraea,4,22,18,5.70E-05,0.3049
+OG0000202,AT4G25300/AT4G25310/AT1G17010/SRG1/AT1G78550,Temp Range,Arabidopsis thaliana - Panicum hallii,2,20,2,0.000191,0.307
+OG0003045,PRR7/PRR3,Temp Range,Amaranthus tuberculatus - Arabidopsis halleri - Arabis alpina - Capsella rubella - Eucalyptus albens - Eucalyptus magnificata - Picea glaucaxengelmannii - Pinus contorta - Populus trichocarpa - Quercus petraea,10,24,14,8.30E-05,0.307
+OG0008497,AT2G43770,Temp Range,Arabis alpina - Boechera stricta - Pinus contorta,3,20,18,0.000107,0.307
+OG0009494,AT1G27461,Temp Range,Arabidopsis lyrata - Arabidopsis thaliana - Eucalyptus sideroxylon - Helianthus annuus - Panicum hallii - Picea abies - Picea glaucaxengelmannii,7,22,18,0.000147,0.307
+OG0005896,RID3,Temp Range,Eucalyptus albens - Eucalyptus magnificata - Helianthus petiolaris - Picea abies,4,25,4,0.000237,0.3092
+OG0012174,COX10,Temp Range,Eucalyptus sideroxylon - Picea obovata - Pinus contorta,3,23,3,0.000283,0.3092
+OG0001271,AT4G04260/EBS/SHL1,Mean Temp Wet Quarter,Amaranthus tuberculatus - Capsella rubella - Helianthus annuus - Medicago truncatula - Quercus petraea,5,24,16,0.000225,0.3303
+OG0002080,SOS1/NHX8,Mean Temp Wet Quarter,Eucalyptus sideroxylon - Panicum hallii - Picea obovata - Populus deltoides,4,25,4,0.000129,0.3303
+OG0003045,PRR7/PRR3,Mean Temp Wet Quarter,Arabidopsis halleri - Eucalyptus albens - Picea glaucaxengelmannii,3,24,3,0.000125,0.3303
+OG0005827,DWF1,Mean Temp Wet Quarter,Arabidopsis thaliana - Helianthus annuus - Helianthus argophyllus - Helianthus petiolaris - Pinus sylvestris,5,22,22,0.000179,0.3303
+OG0006452,ELF9,Mean Temp Wet Quarter,Arabidopsis halleri - Arabidopsis lyrata - Arabidopsis thaliana - Helianthus argophyllus - Medicago truncatula - Panicum hallii - Pinus contorta - Populus deltoides - Populus tremula - Quercus petraea,10,24,15,6.50E-05,0.3303
+OG0007662,FIP37,Mean Temp Wet Quarter,Cardamine resedifolia - Eucalyptus sideroxylon - Helianthus argophyllus - Populus tremula,4,23,23,0.000275,0.3303
+OG0004914,SAE1A/SAE1B/SAE1B,Mean Temp Warm Quarter,Arabidopsis lyrata - Boechera stricta - Eucalyptus albens - Eucalyptus magnificata - Helianthus argophyllus - Panicum hallii - Picea obovata - Populus tremula - Quercus petraea,9,22,10,0.000332,0.343
+OG0002361,CPN60A/Cpn60alpha2,Mean Temp,Arabidopsis lyrata - Eucalyptus sideroxylon - Helianthus argophyllus - Helianthus petiolaris - Medicago truncatula - Picea abies - Picea obovata - Pinus sylvestris,8,25,22,0.000292,0.3436
+OG0000331,GH3.1/GH3.3/GH3.9/WES1/BRU6/DFL1/GH3.17/GH3.4,Precip Cold Quarter,Capsella rubella - Pinus contorta - Quercus petraea,3,22,18,0.000185,0.3473
+OG0000412,ATC/TSF/TFL1/BFT/FT,Precip Cold Quarter,Arabis alpina - Helianthus petiolaris - Populus tremula,3,24,22,5.60E-05,0.3473
+OG0002080,SOS1/NHX8,Precip Cold Quarter,Eucalyptus sideroxylon - Populus deltoides - Populus tremula,3,25,3,0.000216,0.3473
+OG0002257,UBQ7/AT1G11970/RUB3/RUB1,Precip Cold Quarter,Arabidopsis thaliana - Capsella rubella - Eucalyptus sideroxylon - Helianthus annuus - Helianthus argophyllus - Panicum hallii - Picea glaucaxengelmannii - Populus trichocarpa,8,23,8,0.00024,0.3473
+OG0003045,PRR7/PRR3,Precip Cold Quarter,Eucalyptus albens - Picea glaucaxengelmannii - Pinus contorta - Populus trichocarpa,4,24,4,0.000171,0.3473
+OG0002326,RVE1/RVE2/AT3G10113/EPR1,Precip Cold Quarter,Arabidopsis halleri - Arabidopsis thaliana - Cardamine resedifolia - Panicum hallii - Picea glaucaxengelmannii - Picea obovata - Pinus contorta - Pinus sylvestris,8,23,8,0.000485,0.349
+OG0002848,ATSAC1B/RHD4/SAC8,Precip Cold Quarter,Arabis alpina - Eucalyptus albens - Medicago truncatula - Panicum hallii - Pinus sylvestris - Quercus petraea,6,25,6,0.00034,0.349
+OG0007959,AT2G44525/AT3G60150,Precip Cold Quarter,Capsella rubella - Eucalyptus magnificata - Populus tremula,3,25,3,0.000441,0.349
+OG0009340,ZWI,Precip Cold Quarter,Amaranthus tuberculatus - Eucalyptus sideroxylon - Helianthus petiolaris - Medicago truncatula - Populus tremula,5,23,21,0.000339,0.349
+OG0011642,AT2G47830,Precip Cold Quarter,Amaranthus tuberculatus - Arabidopsis lyrata - Arabidopsis thaliana - Eucalyptus albens - Eucalyptus sideroxylon - Medicago truncatula - Panicum hallii - Picea obovata - Pinus sylvestris - Quercus petraea,10,24,10,0.000363,0.349
+OG0002527,AT5G02950/AT3G09670,Mean Temp Wet Quarter,Arabis alpina - Capsella rubella - Eucalyptus sideroxylon - Helianthus argophyllus - Panicum hallii - Picea glaucaxengelmannii - Picea obovata - Populus trichocarpa - Quercus petraea,9,24,11,0.000282,0.3509
+OG0001951,BIM1/BIM2,Precip Wet Month,Arabidopsis lyrata - Picea abies - Pinus contorta - Pinus sylvestris,4,24,24,0.000215,0.3515
+OG0002029,AT2G18330/AT4G36580/AT5G16930/AT3G03060,Annual Precip,Arabidopsis halleri - Eucalyptus magnificata - Eucalyptus sideroxylon - Helianthus petiolaris - Medicago truncatula - Pinus contorta - Pinus sylvestris,7,25,7,7.60E-05,0.3515
+OG0002080,SOS1/NHX8,Precip Wet Month,Arabidopsis thaliana - Picea glaucaxengelmannii - Picea obovata - Pinus contorta - Populus deltoides - Populus tremula - Quercus petraea,7,25,14,0.000232,0.3515
+OG0004502,AT4G15165/PAC1,Precip Wet Month,Arabis alpina - Populus trichocarpa,2,20,2,0.000191,0.3515
+OG0006144,AT5G16870/AT3G03010,Annual Precip,Arabidopsis lyrata - Eucalyptus magnificata - Helianthus petiolaris - Picea abies - Populus tremula - Populus trichocarpa,6,22,17,7.70E-05,0.3515
+OG0007577,AT4G28450,Precip Wet Month,Amaranthus tuberculatus - Arabis alpina - Eucalyptus sideroxylon - Helianthus argophyllus - Helianthus petiolaris - Picea abies - Picea glaucaxengelmannii - Picea obovata - Populus deltoides - Quercus petraea,10,23,11,0.000309,0.3515
+OG0011265,AT4G19390,Precip Wet Month,Eucalyptus albens - Eucalyptus magnificata - Eucalyptus sideroxylon - Helianthus argophyllus - Helianthus petiolaris - Picea glaucaxengelmannii - Populus deltoides,7,22,7,0.000213,0.3515
+OG0004234,PCN/AT1G27470,Precip Cold Quarter,Arabidopsis lyrata - Arabis alpina - Boechera stricta - Eucalyptus sideroxylon - Helianthus petiolaris - Populus tremula - Populus trichocarpa,7,23,13,0.000594,0.3522
+OG0008170,ATH13,Precip Cold Quarter,Eucalyptus albens - Eucalyptus magnificata - Quercus petraea,3,22,3,0.000448,0.3522
+OG0001175,TOM3/TOM1/THH1,Mean Temp Dry Quarter,Arabidopsis lyrata - Cardamine resedifolia - Eucalyptus magnificata - Picea obovata - Populus deltoides - Populus trichocarpa,6,25,6,0.000308,0.357
+OG0005424,KAO2/CYP88A3,Max Temp Warmest Month,Arabidopsis lyrata - Arabidopsis thaliana - Eucalyptus sideroxylon - Helianthus annuus - Helianthus petiolaris - Medicago truncatula - Panicum hallii - Picea glaucaxengelmannii,8,23,8,0.00039,0.3579
+OG0002367,AT5G14285/AT3G25950/AT3G27270,Precip Seasonality,Medicago truncatula,1,20,20,0.000361,0.361
+OG0005844,CLASP,Precip Seasonality,Amaranthus tuberculatus - Cardamine resedifolia - Eucalyptus albens - Eucalyptus magnificata - Picea glaucaxengelmannii - Populus deltoides,6,25,6,0.000351,0.361
+OG0008130,HCF106,Precip Seasonality,Cardamine resedifolia - Eucalyptus sideroxylon - Panicum hallii - Picea obovata - Pinus sylvestris - Populus deltoides - Populus trichocarpa,7,24,16,0.000302,0.361
+OG0001882,AT4G15545/AT1G16520/AT1G56080,Isothermality,Amaranthus tuberculatus - Arabidopsis lyrata - Arabis alpina - Cardamine resedifolia - Helianthus argophyllus - Helianthus petiolaris - Medicago truncatula - Picea abies - Pinus contorta - Populus deltoides,10,23,10,0.000266,0.3623
+OG0002242,"ATB BETA/""B ALPHA""",Isothermality,Cardamine resedifolia - Eucalyptus albens - Helianthus argophyllus - Picea abies - Picea glaucaxengelmannii - Picea obovata - Pinus contorta - Populus deltoides,8,23,11,0.00032,0.3623
+OG0002903,AT1G20670/AT1G76380,Isothermality,Arabidopsis lyrata - Eucalyptus sideroxylon - Helianthus annuus - Picea abies - Pinus sylvestris - Populus tremula,6,23,18,0.000427,0.3623
+OG0003045,PRR7/PRR3,Isothermality,Arabidopsis halleri - Arabis alpina - Eucalyptus albens - Picea glaucaxengelmannii - Picea obovata - Populus deltoides,6,23,6,0.000441,0.3623
+OG0003057,MTP11,Isothermality,Amaranthus tuberculatus - Eucalyptus sideroxylon - Picea abies - Picea obovata - Pinus contorta - Populus deltoides - Populus tremula,7,24,15,0.000267,0.3623
+OG0004082,RPN8A/MEE34,Isothermality,Arabidopsis halleri - Arabidopsis lyrata - Helianthus argophyllus - Medicago truncatula,4,21,15,0.000268,0.3623
+OG0005626,AT3G42050,Isothermality,Boechera stricta - Capsella rubella - Eucalyptus sideroxylon - Helianthus argophyllus - Panicum hallii - Picea abies - Pinus contorta - Pinus sylvestris - Populus deltoides,9,24,9,0.000364,0.3623
+OG0010215,TSK,Isothermality,Arabidopsis halleri - Cardamine resedifolia - Helianthus petiolaris - Pinus contorta,4,22,20,6.70E-05,0.3623
+OG0010411,AT2G03780,Isothermality,Capsella rubella - Cardamine resedifolia - Eucalyptus albens - Panicum hallii - Pinus contorta - Pinus sylvestris - Populus deltoides - Populus tremula - Quercus petraea,9,23,9,0.00043,0.3623
+OG0007641,IAA33,Precip Dry Month,Helianthus petiolaris - Medicago truncatula,2,22,22,0.000183,0.379
+OG0003782,ANL2/HDG1,Precip Warm Quarter,Medicago truncatula - Picea obovata,2,24,22,3.80E-05,0.3812
+OG0003045,PRR7/PRR3,Mean Temp Cold Quarter,Arabidopsis halleri - Picea glaucaxengelmannii - Pinus contorta,3,24,3,0.000259,0.3826
+OG0008524,AT2G26270/AT3G43930,Mean Temp Cold Quarter,Arabidopsis halleri - Eucalyptus albens - Helianthus annuus - Helianthus argophyllus - Helianthus petiolaris,5,22,5,0.000223,0.3826
+OG0003130,AT2G23820/AT1G26160,Mean Temp Dry Quarter,Amaranthus tuberculatus - Arabidopsis lyrata - Capsella rubella - Eucalyptus sideroxylon - Helianthus argophyllus - Helianthus petiolaris - Picea abies - Pinus sylvestris - Populus deltoides - Quercus petraea,10,25,10,0.000397,0.3907
+OG0003045,PRR7/PRR3,Min Temp Coldest Month,Arabidopsis halleri - Picea glaucaxengelmannii - Pinus contorta,3,24,3,0.000309,0.3939
+OG0004254,AT5G38050/AT1G71080,Min Temp Coldest Month,Arabidopsis halleri - Arabis alpina - Capsella rubella - Cardamine resedifolia - Helianthus annuus - Helianthus petiolaris - Panicum hallii - Picea obovata - Populus trichocarpa,9,24,9,0.000303,0.3939
+OG0004963,AT3G17920/AT1G48540,Min Temp Coldest Month,Boechera stricta - Helianthus annuus - Helianthus argophyllus - Picea abies - Populus trichocarpa - Quercus petraea,6,25,21,0.000339,0.3939
+OG0007577,AT4G28450,Min Temp Coldest Month,Amaranthus tuberculatus - Arabis alpina - Eucalyptus albens - Eucalyptus magnificata - Helianthus annuus - Helianthus argophyllus - Helianthus petiolaris - Picea obovata,8,23,8,0.000208,0.3939
+OG0007741,AT1G04200,Min Temp Coldest Month,Arabidopsis halleri - Arabis alpina - Capsella rubella - Medicago truncatula - Picea glaucaxengelmannii - Picea obovata - Populus tremula,7,22,19,0.000282,0.3939
+OG0008524,AT2G26270/AT3G43930,Min Temp Coldest Month,Arabidopsis halleri - Eucalyptus albens - Helianthus annuus - Helianthus argophyllus - Helianthus petiolaris,5,22,5,0.000192,0.3939
+OG0008863,GI,Min Temp Coldest Month,Amaranthus tuberculatus - Arabidopsis lyrata - Capsella rubella - Eucalyptus albens - Eucalyptus magnificata - Helianthus petiolaris - Medicago truncatula - Populus deltoides,8,20,8,0.000414,0.3939
+OG0010909,GalAK,Mean Temp Warm Quarter,Arabidopsis lyrata - Eucalyptus magnificata - Eucalyptus sideroxylon - Populus deltoides,4,20,4,0.000485,0.3971
+OG0004502,AT4G15165/PAC1,Annual Precip,Arabis alpina - Populus trichocarpa,2,20,2,0.000191,0.4009
+OG0003045,PRR7/PRR3,Temp Seasonality,Arabidopsis halleri - Arabis alpina - Capsella rubella - Picea glaucaxengelmannii - Pinus contorta - Populus deltoides - Populus trichocarpa,7,24,21,0.000272,0.4017
+OG0003923,AT2G28490,Temp Seasonality,Amaranthus tuberculatus - Arabidopsis halleri - Capsella rubella - Eucalyptus sideroxylon - Helianthus annuus - Picea obovata - Populus deltoides,7,23,7,0.000202,0.4017
+OG0006065,ATNTH1/NTH2,Temp Seasonality,Arabidopsis halleri - Eucalyptus albens - Eucalyptus sideroxylon - Helianthus argophyllus - Medicago truncatula,5,24,5,0.000256,0.4017
+OG0006305,AT4G34310,Temp Seasonality,Amaranthus tuberculatus - Arabidopsis lyrata - Arabis alpina - Eucalyptus sideroxylon - Helianthus argophyllus - Populus tremula,6,22,6,0.000335,0.4017
+OG0009139,AT4G02725,Temp Seasonality,Arabidopsis lyrata - Arabidopsis thaliana - Eucalyptus albens - Picea abies,4,23,23,0.00036,0.4017
+OG0001572,AT2G36500/AT5G50530/AT5G50640/AT5G63490/AT3G52950,Annual Precip,Amaranthus tuberculatus - Arabidopsis halleri - Arabidopsis thaliana - Helianthus petiolaris - Picea abies - Picea obovata,6,23,14,0.000252,0.4108
+OG0004902,AT1G20110,Min Temp Coldest Month,Arabidopsis thaliana - Helianthus annuus - Panicum hallii - Populus deltoides,4,25,4,0.000486,0.4169
+OG0005443,AT1G15810/AT1G80620,Precip Wet Month,Amaranthus tuberculatus - Arabidopsis lyrata - Helianthus argophyllus - Helianthus petiolaris - Panicum hallii - Populus deltoides - Populus tremula,7,20,17,0.000464,0.4179
+OG0006144,AT5G16870/AT3G03010,Precip Wet Month,Arabidopsis lyrata - Eucalyptus albens - Eucalyptus magnificata - Helianthus petiolaris - Picea obovata - Populus deltoides - Populus trichocarpa,7,22,11,0.000435,0.4179
+OG0008137,PEX5,Precip Wet Month,Populus deltoides - Populus tremula - Populus trichocarpa,3,23,21,0.000425,0.4179
+OG0008071,EX2,Max Temp Warmest Month,Amaranthus tuberculatus - Arabidopsis lyrata - Eucalyptus magnificata - Eucalyptus sideroxylon - Helianthus annuus - Panicum hallii,6,22,15,0.000488,0.4201
+OG0010250,ALDH22A1,Max Temp Warmest Month,Arabidopsis lyrata - Arabidopsis thaliana - Helianthus annuus - Medicago truncatula - Panicum hallii - Picea glaucaxengelmannii - Picea obovata,7,22,14,0.000475,0.4201
+OG0001939,AT5G55860/AT1G12150,Annual Precip,Arabidopsis thaliana - Capsella rubella - Cardamine resedifolia - Helianthus petiolaris - Picea glaucaxengelmannii - Populus tremula,6,25,25,0.000292,0.4263
+OG0002257,UBQ7/AT1G11970/RUB3/RUB1,Annual Precip,Capsella rubella - Eucalyptus sideroxylon - Helianthus argophyllus - Panicum hallii - Picea glaucaxengelmannii - Populus trichocarpa,6,23,6,0.000364,0.4263
+OG0012544,AT1G13630,Precip Cold Quarter,Arabis alpina - Eucalyptus magnificata,2,21,19,0.000747,0.4281
+OG0004457,AT5G49680/SAB,Precip Warm Quarter,Amaranthus tuberculatus - Capsella rubella - Picea obovata - Pinus sylvestris - Populus deltoides - Populus trichocarpa - Quercus petraea,7,25,22,0.000171,0.4291
+OG0013067,LARP6a,Precip Warm Quarter,Arabidopsis halleri - Arabis alpina - Capsella rubella - Eucalyptus sideroxylon - Helianthus petiolaris,5,20,17,0.000203,0.4291
+OG0002242,"ATB BETA/""B ALPHA""",Mean Temp Dry Quarter,Cardamine resedifolia - Eucalyptus albens - Helianthus argophyllus - Helianthus petiolaris - Medicago truncatula - Panicum hallii - Picea glaucaxengelmannii - Populus deltoides - Quercus petraea,9,24,11,0.000505,0.4395
+OG0008142,AT5G58100,Temp Seasonality,Arabidopsis lyrata - Boechera stricta - Capsella rubella - Eucalyptus albens - Medicago truncatula - Populus trichocarpa,6,20,6,0.000521,0.4404
+OG0010208,AT1G70620,Temp Seasonality,Amaranthus tuberculatus - Arabidopsis halleri - Arabidopsis thaliana - Panicum hallii - Picea glaucaxengelmannii - Picea obovata - Pinus contorta - Populus deltoides - Populus trichocarpa,9,22,10,0.000458,0.4404
+OG0004583,AT5G13250/AT1G28080,Mean Temp,Eucalyptus albens - Picea obovata,2,22,18,0.000462,0.4414
+OG0010250,ALDH22A1,Mean Temp,Arabidopsis thaliana - Medicago truncatula,2,22,2,0.000448,0.4414
+OG0001213,CCT1/CCT2,Mean Temp Wet Quarter,Amaranthus tuberculatus - Eucalyptus albens - Helianthus argophyllus - Panicum hallii - Picea glaucaxengelmannii,5,25,16,0.000458,0.4468
+OG0012205,AT3G61360,Precip Wet Month,Arabidopsis thaliana - Capsella rubella - Eucalyptus albens - Helianthus argophyllus - Panicum hallii - Picea glaucaxengelmannii - Picea obovata - Populus tremula,8,22,8,0.000525,0.4472
+OG0001291,AHBP-1B/OBF5/TGA6/PAN,Mean Temp Cold Quarter,Arabidopsis halleri - Arabidopsis lyrata - Cardamine resedifolia - Eucalyptus albens - Eucalyptus magnificata - Eucalyptus sideroxylon - Helianthus petiolaris - Picea abies - Pinus contorta,9,25,13,0.000406,0.4598
+OG0001668,AT5G53480/AT3G08943/AT3G08947,Tmax Clim Change,Helianthus argophyllus - Panicum hallii - Pinus sylvestris,3,23,17,6.90E-05,0.4659
+OG0001185,AT2G42320/AT5G06930/AT5G43230/AT3G01810/AT3G57780,Mean Temp Dry Quarter,Arabis alpina - Eucalyptus albens - Helianthus argophyllus - Picea obovata - Pinus contorta,5,24,24,0.00079,0.4704
+OG0003921,PMP22/AT4G14305,Mean Temp Dry Quarter,Arabidopsis halleri - Picea abies - Quercus petraea,3,24,3,0.000741,0.4704
+OG0006560,AT2G17540/AT4G35510,Mean Temp Dry Quarter,Arabidopsis lyrata - Arabidopsis thaliana - Boechera stricta - Helianthus petiolaris - Quercus petraea,5,20,19,0.000705,0.4704
+OG0007812,AT3G06530,Mean Temp Dry Quarter,Arabidopsis thaliana - Boechera stricta - Eucalyptus albens - Eucalyptus magnificata - Eucalyptus sideroxylon,5,24,5,0.00081,0.4704
+OG0004033,AT1G17940/AT1G73390,Precip Seasonality,Arabidopsis lyrata - Picea obovata - Pinus sylvestris - Populus deltoides - Populus tremula - Quercus petraea,6,23,21,0.000606,0.4866
+OG0004305,AT2G41160/AT3G56740,Precip Seasonality,Arabidopsis lyrata - Eucalyptus sideroxylon - Helianthus petiolaris - Medicago truncatula - Picea abies - Populus deltoides - Populus trichocarpa,7,24,14,0.000714,0.4866
+OG0007543,CUL4,Precip Seasonality,Arabidopsis lyrata - Arabis alpina - Capsella rubella - Panicum hallii - Populus tremula,5,24,5,0.000667,0.4866
+OG0002746,AT2G41790/AT3G57470,Mean Temp Wet Quarter,Boechera stricta - Helianthus petiolaris - Populus deltoides,3,25,3,0.000643,0.4897
+OG0005785,AT5G38600/AT1G67210,Mean Temp Wet Quarter,Amaranthus tuberculatus - Boechera stricta - Helianthus annuus - Helianthus argophyllus - Medicago truncatula - Panicum hallii,6,24,14,0.000695,0.4897
+OG0005820,PDIL1-6/PDIL1-5,Mean Temp Wet Quarter,Arabidopsis lyrata - Arabidopsis thaliana - Boechera stricta - Eucalyptus albens - Medicago truncatula - Panicum hallii - Picea obovata - Populus trichocarpa - Quercus petraea,9,23,10,0.000708,0.4897

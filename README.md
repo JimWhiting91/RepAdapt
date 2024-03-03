@@ -134,6 +134,7 @@ There are two files with general functions that are used in various scripts:
 
 # Notes and updates
 ```
+ * 24/03/03 - Repo updated with additional scripts and edits following NEE revisions
  * 23/04/21 - Repository updated with scripts up to final draft of manuscript
 ```
 

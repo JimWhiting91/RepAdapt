@@ -2,17 +2,18 @@
 <a href="https://github.com/yeamanlab/template/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="License Badge"></a>
 
 ### Author Contact Information
-james.whiting@ucalgary.ca
 
-sam.yeaman@ucalgary.ca
+ * Jim Whiting - See the manuscript
+ * Sam Yeaman - sam.yeaman@ucalgary.ca
 
 ### Usage and license information
-If you use or are inspired by code in this repository please cite the following work or contact me about how to cite. Please also see [license information](LICENSE).
+If you use or are inspired by code in this repository please cite the following work. Please also see the repository license.
 
-Whiting et al. (20XX) *in prep* [doi_link]()
+Whiting et al. (2024) *Final Manuscript* [doi]()
+Whiting et al. (2023) *Preprint* [doi](https://doi.org/10.21203/rs.3.rs-3434061/v1)
 
 ---
-![Global Mean Temp](./figs/repadapt_repo_fig.png?raw=true "Global Mean Temp")
+![Study Design](./figs/repadapt_repo_fig.png?raw=true "Study Design")
 # RepAdapt
 
 The population genomics of repeated local adaptation to climate across plant species. The aims of this project are to explore the repeatability of genes associated with various facets of climate adaptation, and assess the contingencies and sources of variation driving differences in repeatabilty among diverse species.
@@ -23,7 +24,7 @@ The population genomics of repeated local adaptation to climate across plant spe
 
 The scripts in this repository were written for a SLURM-based HPC and a local 48-CPU server.
 
-Each dataset is comprised of a single VCF or SNPTabke, these are available at FigShare (doi.XXX) and should be placed into the `data/VCFs` subdirectory.
+Each dataset is comprised of a single VCF (WGS and Capture) or SNPTable (Pool), these are available at FigShare (doi.XXX) and should be placed into the `data/VCFs` subdirectory.
 
 Similarly, links to reference genomes used are available in `metadata/fastq_accessions_and_doi.csv`. Each reference genome should have its own subdirectory within `data/reference_genomes`, that includes the relevant annotation in `.gff` format.
 
@@ -107,6 +108,9 @@ These scripts are found in `R/02_repeatability_calculating`
  * Process the per-gene WZA scores to per-orthogroup pvals (`process_GEA_WZA_to_corrected_OG_pvals_withOFcodes.R`)
  * Calculate orthogroup-level repeatability with PicMin (`calculate_orthogroup_GEA_repeatability_picmin.R`)
  * Also summarise the orthogroups and those tested (`Orthogroup_summary_stats.R`)
+ * Cross-validation of individual species effects on repeatability (`CrossVal_SpeciesEffects_calculate_orthogroup_GEA_repeatability_picmin.R`)
+ * Repeat of PicMin analyses using only Brassicaceae (`brassica_ONLY_calculate_orthogroup_GEA_repeatability_picmin`)
+ * Demo of expected p-value/FDR results (`pval_fdr_demo.R`)
 
 ### Analysis of PicMin results
 Following PicMin runs, outputs can be analysed using the scripts in: `R/03_picmin_results_analysis/`
@@ -117,6 +121,9 @@ Following PicMin runs, outputs can be analysed using the scripts in: `R/03_picmi
  * Analysis of associations between gene duplication and RAO and Figure 4 (`analysis_of_duplications_and_picmin_res_fig4.R`)
  * Analysis of niche-breadth and RDA results with PicMin (`niche_breadth_and_RDA_analysis_of_picmin_variation.R`)
  * Comparison between recombination rate and WZA variance (`recombination_rate_and_wza_association.R`)
+ * Assessment of sampling bias based on cross-validation outputs (`analyse_potential_sampling_bias.R`)
+ * Approximating niche-breadth for each species based on global occurrence data (`evaluate_niche_breadth_based_on_global_climate.R`)
+ * Identify species-specific genes linked to repeatability (`identify_specific_genes_driving_repeatability.R`)
 
 ### General Plots
 Some assorted scripts for plots are also available in `R/04_plot_figures/`
@@ -133,7 +140,11 @@ There are two files with general functions that are used in various scripts:
 [LICENSE](LICENSE) - our license information
 
 # Notes and updates
+
+General logbook of changes to the repository in YY/MM/DD format.
+
 ```
+ * 24/07/06 - Repo updated with accepted scripts for NEE revisions
  * 24/03/03 - Repo updated with additional scripts and edits following NEE revisions
  * 23/04/21 - Repository updated with scripts up to final draft of manuscript
 ```

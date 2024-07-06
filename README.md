@@ -7,7 +7,7 @@
  * Sam Yeaman - sam.yeaman@ucalgary.ca
 
 ### Usage and license information
-If you use or are inspired by code in this repository please cite the following work. Please also see the repository license.
+If you use or are inspired by code in this repository please cite the following work. Please also see the repository [LICENSE](LICENSE).
 
 Whiting et al. (2024) *Final Manuscript* [doi]()
 Whiting et al. (2023) *Preprint* [doi](https://doi.org/10.21203/rs.3.rs-3434061/v1)

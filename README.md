@@ -37,9 +37,9 @@ This must be formatted and included in the same directory as the VCF/SNPTable as
 
 | Taxon_name    | Pop_ID    | Sample_name   | Country   | Pool_Size | Lat   | Long  | Alt   | Author    | Data_type |
 | :---:         | :---:     | :---:         | :---:     | :---:     | :---: | :---: | :---: | :---:     | :---:     |
-| Arabidopsis lyrata | Grovudalen | Alyr_Norway_Grovudalen_T3-6 | Norway | 62.44 | 8.9 | 900 | Savolainen | WGS |
-| Arabidopsis lyrata | Grovudalen | Alyr_Norway_Grovudalen_T3-5 | Norway | 62.44 | 8.9 | 900 | Savolainen | WGS |
-| Arabidopsis lyrata | Grovudalen | Alyr_Norway_Grovudalen_T3-3	| Norway | 62.44 | 8.9 | 900 | Savolainen | WGS |
+| Arabidopsis lyrata | Grovudalen | Alyr_Norway_Grovudalen_T3-6 | Norway | | 62.44 | 8.9 | 900 | Savolainen | WGS |
+| Arabidopsis lyrata | Grovudalen | Alyr_Norway_Grovudalen_T3-5 | Norway | | 62.44 | 8.9 | 900 | Savolainen | WGS |
+| Arabidopsis lyrata | Grovudalen | Alyr_Norway_Grovudalen_T3-3	| Norway | | 62.44 | 8.9 | 900 | Savolainen | WGS |
 
 This metadata file contains the per-dataset information to build dataset names as `Taxon_name_Author_Data_type`.
 The `Lat` `Long` columns are used to group individuals into populations to calculate site-level allele frequencies.

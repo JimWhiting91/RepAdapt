@@ -160,6 +160,10 @@ random_to_plot = rbindlist(random_bootstrap_connect)
 random_to_plot$climate_var = climate_var_title(random_to_plot$climate_var)
 means_to_plot$climate_var = climate_var_title(means_to_plot$climate_var)
 
+# Show expecteds and obs
+means_to_plot
+random_to_plot[,mean(interactionN),by = climate_var]
+
 random_to_plot$climate_var_F = factor(random_to_plot$climate_var,levels =  climate_var_title(climate_interactions_epvals$climate_var))
 means_to_plot$climate_var_F = factor(means_to_plot$climate_var,levels = climate_var_title(climate_interactions_epvals$climate_var))
 

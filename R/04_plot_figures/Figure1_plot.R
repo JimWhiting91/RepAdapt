@@ -93,12 +93,15 @@ global_temp_plot <- ggplot() +
   scale_x_discrete(expand = c(0, 0)) +
   scale_y_discrete(expand = c(0, 0)) +
   theme_minimal() +
-  theme(legend.position = "top",
+  theme(legend.position = "bottom",
         panel.grid = element_blank(),
         axis.text = element_blank(),
         axis.title = element_blank(),
         axis.ticks = element_blank())+
-  geom_point(data=all_samplng_points_latlong,aes(x=Long,y=Lat),colour="black",size=1,alpha=0.8)
+  geom_point(data=all_samplng_points_latlong,
+             aes(x=Long,y=Lat),
+             colour="black",size=1,alpha=0.8) +
+  ggtitle('Geographic distribution of all samples')
 
 # Plot Japanese example of all of the clims...
 japan_cline = read.table(paste0("outputs/GEA_res/",grep("ubota",climate_clines,value = T)),header = T)
@@ -141,14 +144,15 @@ bioclim_plots = lapply(sort(sample(1:19,6)),function(x){
           axis.ticks = element_blank())+
     scale_x_continuous(limits = c(long_min,long_max))+
     scale_y_continuous(limits = c(lat_min,lat_max))+
-    ggtitle(paste0("BIOCLIM-",x)) + 
+    labs(caption = paste0("BIOCLIM-",x)) + 
     geom_point(data=japan_cline,aes(x=Long,y=Lat),colour="black",size=2,alpha=1)
+  
   
   return(climate_plot_tmp)
 })
 
 bioclim_combined = cowplot::plot_grid(plotlist = bioclim_plots,
-                                      nrow = 3)
+                                      nrow = 3) 
 # Combine bioclim and globe
 cowplot::plot_grid(global_temp_plot,
                    bioclim_combined,

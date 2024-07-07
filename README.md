@@ -9,9 +9,9 @@
 ### Usage and license information
 If you use or are inspired by code in this repository please cite the following work. Please also see the repository [LICENSE](LICENSE).
 
- * Whiting et al. (2024) *Final Manuscript* [DOI to tbc]()
+ * Whiting et al. (2024) [Published manuscript tbc]()
 
- * Whiting et al. (2023) *Preprint* [DOI](https://doi.org/10.21203/rs.3.rs-3434061/v1)
+ * Whiting et al. (2023) [Preprint](https://doi.org/10.21203/rs.3.rs-3434061/v1)
 
 ---
 ![Study Design](./figs/repadapt_repo_fig.png?raw=true "Study Design")

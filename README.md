@@ -1,5 +1,6 @@
 <a href="https://yeamanlab.weebly.com"><img src="https://img.shields.io/badge/yeaman-lab-blue"></a>
 <a href="https://github.com/yeamanlab/template/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="License Badge"></a>
+[![DOI](https://zenodo.org/badge/360660589.svg)](https://zenodo.org/doi/10.5281/zenodo.12680121)
 
 ### Author Contact Information
 

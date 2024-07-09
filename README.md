@@ -16,6 +16,7 @@ If you use or are inspired by code in this repository please cite the following 
 
 ---
 ![Study Design](./figs/repadapt_repo_fig.png?raw=true "Study Design")
+# The genetic architecture of repeated local adaptation to climate in distantly related plants
 # RepAdapt
 
 The population genomics of repeated local adaptation to climate across plant species. The aims of this project are to explore the repeatability of genes associated with various facets of climate adaptation, and assess the contingencies and sources of variation driving differences in repeatabilty among diverse species.

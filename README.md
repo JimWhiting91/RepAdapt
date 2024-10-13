@@ -10,9 +10,7 @@
 ### Usage and license information
 If you use or are inspired by code in this repository please cite the following work. Please also see the repository [LICENSE](LICENSE).
 
- * Whiting et al. (2024) [Published manuscript tbc]()
-
- * Whiting et al. (2023) [Preprint](https://doi.org/10.21203/rs.3.rs-3434061/v1)
+ * Whiting et al. (2024) [Published manuscript](https://www.nature.com/articles/s41559-024-02514-5)
 
 ---
 # The genetic architecture of repeated local adaptation to climate in distantly related plants
